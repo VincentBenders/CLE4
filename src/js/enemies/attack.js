@@ -4,19 +4,19 @@ class Attack {
 
     //Properties
     damage;
-    hits;
-    stunnedHits;
+    affectedAreas;
+    counterHits;
     duration;
     windupDuration;
     animation;
 
 
 
-    constructor(damage, hits, stunnedHits, duration, windupDuration, animation) {
+    constructor(damage, affectedAreas, counterHits, duration, windupDuration, animation) {
 
         this.damage = damage;
-        this.hits = hits;
-        this.stunnedHits = stunnedHits;
+        this.affectedAreas = affectedAreas;
+        this.counterHits = counterHits;
         this.duration = duration;
         this.windupDuration = windupDuration;
         this.animation = animation;

@@ -1,7 +1,7 @@
 import {Actor, Timer} from "excalibur";
 
 
-//General boss class, used as a base for all other enemies.
+
 class Boss extends Actor {
 
 
@@ -12,12 +12,13 @@ class Boss extends Actor {
     timesDowned;
     timesDownedMax;
     timesDownedCurrentRound;
-    vulnerabilityDuration;
     moves;
     pattern;
-    stunnedHits;
-    stunnedMaxDuration;
-    idleAnimation;
+    counterHits;
+    stunnedDuration;
+    animations;
+    nextAttackDelay;
+    nextAttackDelayTimer;
 
 
     //States
@@ -31,22 +32,33 @@ class Boss extends Actor {
 
 
 
-    constructor(health, maxDowned) {
+    constructor(health, maxDowned, animations) {
         super();
 
         this.healthMax = health;
         this.healthCurrent = health;
-        this.healthRecover = health * 0.75;
+        this.healthRecover = health;
 
         this.timesDownedMax = maxDowned;
         this.timesDowned = 0;
         this.timesDownedCurrentRound = 0;
 
-        this.moves = {};
-        this.stunnedHits = 0;
-        this.stunnedMaxDuration = 0;
+        this.counterHits = 0;
+        this.stunnedDuration = 0;
 
+        this.nextAttackDelayTimer = new Timer({
+            fcn: () => {this.performMove(this.pattern.shift())},
+            repeats: false,
+            interval: this.nextAttackDelay
+        })
+
+        //Place to store all the attacks, taunts and other funky moves
+        this.moves = {};
+        //The boss' current pattern. Another function will run through it and execute all the moves
         this.pattern = [];
+
+        this.animations = animations;
+        this.graphics.use(this.animations.idle);
 
 
     }
@@ -62,10 +74,13 @@ class Boss extends Actor {
         if (this.healthCurrent <= 0) {
 
             this.healthCurrent = 0;
-            this.isDown = true;
-            this.isInCenter = false;
+
+            this.goDown(this.scene.player.lastAttack);
 
             this.scene.enemyDowned(this);
+
+            //Don't do anything else if health is 0
+            return;
 
         }
 
@@ -77,9 +92,11 @@ class Boss extends Actor {
     //Custom methods
 
 
-    //A small function that sets, starts and automatically adds a timer to the scene
-    //Parameters: time = time in ms, endFunction = the function to run after the timer ends
-    //Returns: nothing
+    /**
+     * A fast way to create and set a timer you won't need again
+     * @param time - Number in ms
+     * @param endFunction - Function to run after the timer ends
+     */
     setTimer(time, endFunction) {
 
         let timer = new Timer({
@@ -93,6 +110,71 @@ class Boss extends Actor {
 
     }
 
+    /**
+     * Makes the boss perform a move
+     * @param move {Object} - Contains all the information about a specific move
+     */
+    performMove(move) {
+
+        //Double check to make sure move parameter is an object
+        if (!(move instanceof Object)) {
+            return;
+        }
+
+        //Apply the move's animation
+        this.graphics.use(move.animation);
+
+
+
+    }
+
+
+    /**
+     * Makes the boss go down
+     * @param lastPunch {String} - The last punch that hit the boss
+     */
+    goDown(lastPunch) {
+
+        this.isDown = true;
+        this.isInCenter = false;
+
+        //Use correct animation based on the last punch
+        let goingDownAnimation;
+
+        switch (lastPunch) {
+            case 'upLeft': goingDownAnimation = this.animations.goingDownUpLeft; break;
+            case 'upRight': goingDownAnimation = this.animations.goingDownUpRight; break;
+            case 'downLeft': goingDownAnimation = this.animations.goingDownDownLeft; break;
+            case 'downRight': goingDownAnimation = this.animations.goingDownDownRight;
+        }
+
+        this.graphics.use(goingDownAnimation);
+
+
+    }
+
+    getUp() {
+
+        this.isDown = false;
+
+        this.graphics.use(this.animations.getUp);
+
+        this.animations.getUp.events.on('end', () => {this.isInCenter = true})
+
+
+    }
+
+    resumeIdle() {
+
+        this.graphics.use(this.animations.idle);
+
+    }
+
+    tauntDownedPlayer() {
+
+        this.graphics.use(this.animations.tauntDownedPlayer);
+
+    }
 
 
 
