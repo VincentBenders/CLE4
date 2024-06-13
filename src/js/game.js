@@ -5,6 +5,7 @@ import { StartScreen } from "./scenes/startscreen.js";
 import { FightScreen } from "./scenes/fightscreen.js";
 
 export class Game extends Engine {
+    mygamepad
 
     constructor() {
         super({ 
@@ -21,6 +22,11 @@ export class Game extends Engine {
     this.add('startscreen', new StartScreen())
     this.add('fightscreen', new FightScreen())
     this.goToScene('startscreen')
+    this.input.gamepads.enabled = true
+        this.input.gamepads.on('connect', (connectevent) => {
+            console.log("gamepad detected: ", connectevent.gamepad)
+            this.mygamepad = connectevent.gamepad
+        })
     }
 }
 
