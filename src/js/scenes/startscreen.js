@@ -49,7 +49,7 @@ export class StartScreen extends Scene {
 
     onPostUpdate(engine){
         if (engine.input.keyboard.wasPressed(Keys.Space)) {
-            this.engine.goToScene('fightscreen')
+            this.engine.goToScene('fightscreen', {sceneActivationData: {boss: 'sil'}});
          }
     }
 
