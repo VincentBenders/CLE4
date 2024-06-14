@@ -10,11 +10,14 @@ export class Game extends Engine {
 
     constructor() {
         super({ 
-            width: 1280,
-            height: 720,
+            width: 1440,
+            height: 900,
             maxFps: 60,
-            displayMode: DisplayMode.FitScreen
-         })
+            displayMode: DisplayMode.FitScreen,
+            fixedUpdateFps: 60,
+            canvasElementId: 'game',
+            pixelArt: true
+        })
         this.start(ResourceLoader).then(() => this.startGame())
     }
 

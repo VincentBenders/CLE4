@@ -1,6 +1,6 @@
 
 
-class Attack {
+export class Attack {
 
     //Properties
     damage;
