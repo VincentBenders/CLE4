@@ -2,6 +2,8 @@ import {Actor, Keys, Scene, Timer, Vector} from "excalibur";
 import {Label, FontUnit, Font} from "excalibur";
 import {Player} from "../player/player";
 import {StartScreen} from "./startscreen.js";
+import {Background, BoxingRing} from "../resources.js";
+import {SilBoss} from "../enemies/silboss.js";
 
 export class FightScreen extends Scene {
 
@@ -22,6 +24,9 @@ export class FightScreen extends Scene {
         //Create actors for the background and arena
         this.background = new Background();
         this.boxingRing = new BoxingRing();
+
+        this.add(this.background);
+        this.add(this.boxingRing);
 
         //Create the round timer
         this.roundTimer = new Timer({
@@ -91,6 +96,8 @@ export class FightScreen extends Scene {
         this.currentRound = 1;
         this.roundTimeRemaining = 180;
 
+        //Set the correct background image
+
 
         //Add the player to the scene
         this.player = new Player();
@@ -105,6 +112,9 @@ export class FightScreen extends Scene {
                 break;
         }
 
+        this.add(this.boss);
+
+        this.background.setBackgroundImageFor(this.boss.name)
     }
 
     createUI() {

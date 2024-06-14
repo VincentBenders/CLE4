@@ -1,4 +1,5 @@
-import {Actor, Timer} from "excalibur";
+import {Actor, Timer, Vector} from "excalibur";
+import {BossAnimations} from "../resources.js";
 
 
 
@@ -6,6 +7,7 @@ export class Boss extends Actor {
 
 
     //Properties
+    name;
     healthCurrent;
     healthMax;
     healthRecover;
@@ -19,6 +21,7 @@ export class Boss extends Actor {
     animations;
     nextAttackDelay;
     nextAttackDelayTimer;
+    lastHitBy;
 
 
     //States
@@ -32,14 +35,18 @@ export class Boss extends Actor {
 
 
 
-    constructor(health, maxDowned, animations) {
+    constructor(health, name) {
         super();
+
+        this.name = name;
+
+        this.animations = new BossAnimations(name);
 
         this.healthMax = health;
         this.healthCurrent = health;
         this.healthRecover = health;
 
-        this.timesDownedMax = maxDowned;
+        this.timesDownedMax = 4;
         this.timesDowned = 0;
         this.timesDownedCurrentRound = 0;
 
@@ -57,8 +64,9 @@ export class Boss extends Actor {
         //The boss' current pattern. Another function will run through it and execute all the moves
         this.pattern = [];
 
-        this.animations = animations;
         this.graphics.use(this.animations.idle);
+
+        this.pos = new Vector(720, 450);
 
 
     }
@@ -75,9 +83,10 @@ export class Boss extends Actor {
 
             this.healthCurrent = 0;
 
-            this.goDown(this.scene.player.lastAttack);
+            this.goDown(this.lastHitBy);
 
-            this.scene.enemyDowned(this);
+            //Not yet implemented
+            // this.scene.enemyDowned(this);
 
             //Don't do anything else if health is 0
             return;
