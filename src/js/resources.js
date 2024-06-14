@@ -1,10 +1,11 @@
-import {ImageSource, Sound, Resource, Loader, Actor, Vector} from 'excalibur'
+import {ImageSource, Sound, Resource, Loader, Actor, Vector, SpriteSheet, Animation} from 'excalibur'
 
 const Resources = {
     // Fish: new ImageSource('./images/fish.png'),
     Player: new ImageSource('./placeholders/mc-idle.png'),
     BoxingRing: new ImageSource('./images/BOX_RING_final.png'),
     Background1: new ImageSource('./images/BACKGROUND_01_final.png'),
+    SilSheet: new ImageSource('./placeholders/sil-special-attack-spritesheet.png')
 }
 
 const ResourceLoader = new Loader()
@@ -16,22 +17,25 @@ export { Resources, ResourceLoader }
 
 export class BossAnimations {
 
-    bossName;
     idle;
-    goingDownUpLeft;
-    goingDownUpRight;
-    goingDownDownLeft;
-    goingDownDownRight;
+    // goingDownUpLeft;
+    // goingDownUpRight;
+    // goingDownDownLeft;
+    // goingDownDownRight;
+    goingDown;
     tauntDownedPlayer;
     getUp;
+    // getHitUpLeft;
+    // getHitUpRight;
+    // getHitDownLeft;
+    // getHitDownRight;
+    getHit;
+    block;
+    dodgeLeft;
+    dodgeRight;
 
-    constructor(bossName) {
+    constructor(sheet) {
 
-        this.bossName = bossName;
-
-        switch (bossName) {
-            case 'sil': break;
-        }
 
 
     }
@@ -76,5 +80,19 @@ export class Background extends Actor {
         this.graphics.use(image);
 
     }
+
+
+}
+
+/**
+ * A quick way to create an animation from a sprite sheet
+ * @param duration {Number} - How long the animation should take in total in milliseconds
+ * @param sheet {SpriteSheet} - The sheet of sprites
+ * @param frames {Array} - An array containing the indexes of the frames you want to animate
+ * @returns {Animation}
+ */
+export function animate(duration, sheet, frames) {
+
+    return Animation.fromSpriteSheet(sheet, frames, (Math.floor(duration / frames.length)));
 
 }

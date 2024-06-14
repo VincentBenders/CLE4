@@ -1,5 +1,6 @@
-import {Actor, Timer, Vector} from "excalibur";
-import {BossAnimations} from "../resources.js";
+import {Actor, SpriteSheet, Timer, Vector} from "excalibur";
+import {BossAnimations, Resources} from "../resources.js";
+import {Move} from "./Move.js";
 
 
 
@@ -19,9 +20,11 @@ export class Boss extends Actor {
     counterHits;
     stunnedDuration;
     animations;
+    spriteSheet;
     nextAttackDelay;
     nextAttackDelayTimer;
     lastHitBy;
+    damageInfo;
 
 
     //States
@@ -40,7 +43,16 @@ export class Boss extends Actor {
 
         this.name = name;
 
-        this.animations = new BossAnimations(name);
+        this.spriteSheet = SpriteSheet.fromImageSource({
+            image: Resources.SilSheet,
+            grid: {
+                rows: 1,
+                columns: 8,
+                spriteHeight: 256,
+                spriteWidth: 256
+            }
+        });
+        this.animations = new BossAnimations(this.spriteSheet);
 
         this.healthMax = health;
         this.healthCurrent = health;
@@ -52,6 +64,15 @@ export class Boss extends Actor {
 
         this.counterHits = 0;
         this.stunnedDuration = 0;
+        this.damageInfo = {
+            upperLeft: 5,
+            upperRight: 5,
+            lowerLeft: 5,
+            lowerRight: 5,
+            super1: 15,
+            super2: 40,
+            super3: 75,
+        }
 
         this.nextAttackDelayTimer = new Timer({
             fcn: () => {this.performMove(this.pattern.shift())},
@@ -125,8 +146,8 @@ export class Boss extends Actor {
      */
     performMove(move) {
 
-        //Double check to make sure move parameter is an object
-        if (!(move instanceof Object)) {
+        //Double check to make sure move parameter is an instance of the move class
+        if (!(move instanceof Move)) {
             return;
         }
 
@@ -150,12 +171,14 @@ export class Boss extends Actor {
         //Use correct animation based on the last punch
         let goingDownAnimation;
 
-        switch (lastPunch) {
-            case 'upLeft': goingDownAnimation = this.animations.goingDownUpLeft; break;
-            case 'upRight': goingDownAnimation = this.animations.goingDownUpRight; break;
-            case 'downLeft': goingDownAnimation = this.animations.goingDownDownLeft; break;
-            case 'downRight': goingDownAnimation = this.animations.goingDownDownRight;
-        }
+        // switch (lastPunch) {
+        //     case 'upLeft': goingDownAnimation = this.animations.goingDownUpLeft; break;
+        //     case 'upRight': goingDownAnimation = this.animations.goingDownUpRight; break;
+        //     case 'downLeft': goingDownAnimation = this.animations.goingDownDownLeft; break;
+        //     case 'downRight': goingDownAnimation = this.animations.goingDownDownRight;
+        // }
+
+        goingDownAnimation = this.animations.goingDown;
 
         this.graphics.use(goingDownAnimation);
 
@@ -182,6 +205,28 @@ export class Boss extends Actor {
     tauntDownedPlayer() {
 
         this.graphics.use(this.animations.tauntDownedPlayer);
+
+    }
+
+    hitWith(punch) {
+
+        let damage;
+
+        switch (punch) {
+            case 'upper left': damage = this.damageInfo.upperLeft; break;
+            case 'upper right': damage = this.damageInfo.upperRight; break;
+            case 'lower right': damage = this.damageInfo.lowerLeft; break;
+            case 'lower left': damage = this.damageInfo.lowerRight; break;
+            case 'super 1': damage = this.damageInfo.super1; break;
+            case 'super 2': damage = this.damageInfo.super2; break;
+            case 'super 3': damage = this.damageInfo.super3; break;
+        }
+
+        this.healthCurrent -= damage;
+
+        this.lastHitBy = punch;
+
+
 
     }
 
