@@ -12,7 +12,7 @@ export class ResumeButton extends Actor {
         this.on(engine.mygamepad.wasButtonPressed.Face1, () => {
             engine.goToScene('fightscreen')
         });
-        this.pos = new Vector(600,300);
+        this.pos = new Vector(700,300);
         
     }
     onInitialize() {

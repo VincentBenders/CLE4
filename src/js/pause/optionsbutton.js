@@ -12,7 +12,7 @@ export class OptionsButton extends Actor {
         this.on('pointerdown', () => {
             engine.goToScene('fightscreen')
         });
-        this.pos = new Vector(600, 400);
+        this.pos = new Vector(700, 400);
 
     }
     onInitialize() {

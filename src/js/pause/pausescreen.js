@@ -24,7 +24,7 @@ export class PauseScreen extends Scene {
 
         this.pauseLabel = new Label({
             text: 'PAUSE',
-            pos: new Vector(500, 150),
+            pos: new Vector(600, 150),
             font: new Font({
                 family: 'Arial',
                 size: 60,

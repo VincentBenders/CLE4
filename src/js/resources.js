@@ -1,15 +1,10 @@
 import {ImageSource, Sound, Resource, Loader, Actor, Vector} from 'excalibur'
 
 const Resources = {
-<<<<<<< HEAD
-    Fish: new ImageSource('./images/fish.png'),
-    Player: new ImageSource('./placeholders/mc-idle.png')
-=======
     // Fish: new ImageSource('./images/fish.png'),
     Player: new ImageSource('./placeholders/mc-idle.png'),
     BoxingRing: new ImageSource('./images/BOX_RING_final.png'),
     Background1: new ImageSource('./images/BACKGROUND_01_final.png'),
->>>>>>> 80376b9238260f138c14e42cf5c19b03724f3334
 }
 
 const ResourceLoader = new Loader()
