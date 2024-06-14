@@ -3,6 +3,7 @@ import { Actor, Engine, Vector, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { StartScreen } from "./scenes/startscreen.js";
 import { FightScreen } from "./scenes/fightscreen.js";
+import { PauseScreen } from './pause/pausescreen.js';
 
 export class Game extends Engine {
     mygamepad
@@ -21,6 +22,7 @@ export class Game extends Engine {
         console.log("start de game!");
     this.add('startscreen', new StartScreen())
     this.add('fightscreen', new FightScreen())
+    this.add('pausescreen', new PauseScreen())
     this.goToScene('startscreen')
     this.input.gamepads.enabled = true
         this.input.gamepads.on('connect', (connectevent) => {

@@ -1,7 +1,7 @@
 import { ImageSource, Sound, Resource, Loader } from 'excalibur'
 
 const Resources = {
-    // Fish: new ImageSource('./images/fish.png'),
+    Fish: new ImageSource('./images/fish.png'),
     Player: new ImageSource('./placeholders/mc-idle.png')
 }
 
