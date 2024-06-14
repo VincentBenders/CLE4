@@ -25,10 +25,13 @@ export class Player extends Actor {
     this.isAttacking = false;
     this.isDodging = false;
     this.punch = "";
+    this.dodge = "";
     this.cooldown = new Timer({
       fcn: () => {
         this.isAttacking = false;
+        this.isDodging = false;
         console.log(this.punch);
+        console.log(this.dodge);
       },
       repeats: false,
       interval: 600,
@@ -50,7 +53,6 @@ export class Player extends Actor {
   }
 
   onPreUpdate(engine) {
-    // console.log(engine.mygamepad);
     if (engine.mygamepad === null) {
       console.log("er is geen gamepad");
       return;
@@ -59,57 +61,83 @@ export class Player extends Actor {
     // bewegen
     const xValue = engine.mygamepad.getAxes(Axes.LeftStickX);
     const yValue = engine.mygamepad.getAxes(Axes.LeftStickY);
-    // this.vel = new Vector(xValue * 100, yValue * 100)
-    // console.log("x: ", xValue, "y: ", yValue);
-    // schieten / springen
+
     // attacks
     if (engine.mygamepad.wasButtonPressed(Buttons.Face1) && yValue === 0) {
-      if (!this.isAttacking) {
-        // console.log("left!");
+      if (!this.isAttacking && !this.isDodging) {
         this.punch = "lower left";
-        //   if (!this.isAttacking) {
-        // console.log("left attack!");
         this.isAttacking = true;
         this.cooldown.start();
       }
-      //   }
     }
     if (engine.mygamepad.wasButtonPressed(Buttons.Face2) && yValue === 0) {
-      if (!this.isAttacking) {
-        // console.log("right!");
+      if (!this.isAttacking && !this.isDodging) {
         this.punch = "lower right";
-        //   if (!this.isAttacking) {
-        // console.log("left attack!");
         this.isAttacking = true;
         this.cooldown.start();
       }
     }
     // upper attacks
     if (engine.mygamepad.wasButtonPressed(Buttons.Face2) && yValue < 0) {
-      if (!this.isAttacking) {
-        // console.log("right!");
+      if (!this.isAttacking && !this.isDodging) {
         this.punch = "upper right";
-        //   if (!this.isAttacking) {
-        // console.log("left attack!");
         this.isAttacking = true;
         this.cooldown.start();
       }
     }
     if (engine.mygamepad.wasButtonPressed(Buttons.Face1) && yValue < 0) {
-      if (!this.isAttacking) {
-        // console.log("left!");
+      if (!this.isAttacking && !this.isDodging) {
         this.punch = "upper left";
-        //   if (!this.isAttacking) {
-        // console.log("left attack!");
         this.isAttacking = true;
         this.cooldown.start();
       }
     }
     if (engine.mygamepad.wasButtonPressed(Buttons.Face3) && yValue === 0) {
+      if (this.superEnergy >= 1 && !this.isAttacking && !this.isDodging) {
+        this.isAttacking = true;
+        if (this.superEnergy === 1) {
+          this.punch = "super 1";
+        }
+        if (this.superEnergy === 2) {
+          this.punch = "super 2";
+        }
+        if (this.superEnergy === 3) {
+          this.punch = "super 3";
+        }
+        this.cooldown.start();
+        this.superEnergy = 0;
+      }
       console.log("supa!");
-      //   this.isAttacking = true;
     }
 
+    // defence
+    if (xValue === -1) {
+      if (!this.isAttacking && !this.isDodging) {
+        this.isDodging = true;
+        this.dodge = "left";
+        this.cooldown.start();
+      }
+    }
+    if (xValue === 1) {
+      if (!this.isAttacking && !this.isDodging) {
+        this.isDodging = true;
+        this.dodge = "right";
+        this.cooldown.start();
+      }
+    }
+    if (xValue === 1) {
+      if (!this.isAttacking && !this.isDodging) {
+        this.isDodging = true;
+        this.dodge = "duck";
+        this.cooldown.start();
+      }
+    }
+    if (xValue === -1) {
+      if (!this.isAttacking && !this.isDodging) {
+        this.dodge = "block";
+        this.cooldown.start();
+      }
+    }
     if (this.stamina === 0) {
       this.exhuasted = true;
       //check on sucsesive hit then set exhuast to false
@@ -121,6 +149,5 @@ export class Player extends Actor {
         //game over
       }
     }
-    // if(){}
   }
 }
