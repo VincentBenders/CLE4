@@ -1,244 +1,239 @@
-import {Actor, Keys, Scene, Timer, Vector} from "excalibur";
-import {Label, FontUnit, Font} from "excalibur";
-import {Player} from "../player/player";
-import {StartScreen} from "./startscreen.js";
-import {Background, BoxingRing} from "../resources.js";
-import {SilBoss} from "../enemies/silboss.js";
+import { Actor, Keys, Scene, Timer, Vector } from "excalibur";
+import { Label, FontUnit, Font } from "excalibur";
+import { Player } from "../player/player";
+import { StartScreen } from "./startscreen.js";
+import { Background, BoxingRing } from "../resources.js";
+import { SilBoss } from "../enemies/silboss.js";
 
 export class FightScreen extends Scene {
+  //Properties
+  player;
+  boss;
+  background;
+  boxingRing;
+  currentRound;
+  roundTimeRemaining;
+  roundTimer;
+  ui;
 
-    //Properties
-    player;
-    boss;
-    background;
-    boxingRing;
-    currentRound;
-    roundTimeRemaining;
-    roundTimer;
-    ui;
+  // ispaused is er zodat de engine kan kijken of de game al gepauzeerd is
 
+  onInitialize(engine) {
+    this.add(new Player());
+    // this.add(new Placeholder());
 
-    //Excalibur methods
-    onInitialize() {
+    engine.input.keyboard.on("press", (evt) => {
+      if (evt.key === Keys.P) {
+        console.log("wako");
+        this.pauseGame();
+      }
+    });
 
-        //Create actors for the background and arena
-        this.background = new Background();
-        this.boxingRing = new BoxingRing();
+    //Create actors for the background and arena
+    this.background = new Background();
+    this.boxingRing = new BoxingRing();
 
-        this.add(this.background);
-        this.add(this.boxingRing);
+    this.add(this.background);
+    this.add(this.boxingRing);
 
-        //Create the round timer
-        this.roundTimer = new Timer({
-            fcn: () => this.roundTimeHandler,
-            repeats: true,
-            numberOfRepeats: 90,
-            interval: 500
-        });
+    //Create the round timer
+    this.roundTimer = new Timer({
+      fcn: () => this.roundTimeHandler,
+      repeats: true,
+      numberOfRepeats: 90,
+      interval: 500,
+    });
 
-        //Make sure this.ui is an object
-        this.ui = {};
+    //Make sure this.ui is an object
+    this.ui = {};
 
-        //Get the ui from the HTML
-        this.ui.element = document.getElementById('ui');
+    //Get the ui from the HTML
+    this.ui.element = document.getElementById("ui");
 
+    //Create UI elements
+    this.createUI();
+  }
 
-        //Create UI elements
-        this.createUI();
+  onActivate(context) {
+    console.log("fightscreen");
 
+    //Check where this scene got called from
+    // If it's from the roadmap, set everything up
+    if (context.previousScene instanceof StartScreen) {
+      this.resetFight(context);
+    } else {
+      // Else if it's from the timeout, do something else
+    }
+  }
+
+  onPreUpdate(engine, delta) {
+    super.onPreUpdate(engine, delta);
+
+    this.updateUI();
+  }
+
+  //Custom methods
+
+  resetFight(context) {
+    //Make sure there's a boss selected
+    if (context.data.boss === undefined) {
+      console.log("Error: No enemy given to scene context data");
+      //Go back to the start screen
+      this.engine.goToScene("startScreen");
     }
 
-    onActivate(context) {
-        console.log('fightscreen');
-
-        //Check where this scene got called from
-        // If it's from the roadmap, set everything up
-        if (context.previousScene instanceof StartScreen) {
-            this.resetFight(context)
-        } else {
-            // Else if it's from the timeout, do something else
-
-        }
-
-
+    //Delete the player and boss in case they were still there
+    if (this.boss instanceof Actor) {
+      this.boss.kill();
     }
 
-    onPreUpdate(engine, delta) {
-        super.onPreUpdate(engine, delta);
-
-        this.updateUI();
-
-
+    if (this.player instanceof Actor) {
+      this.player.kill();
     }
 
+    //Reset properties
+    this.currentRound = 1;
+    this.roundTimeRemaining = 180;
 
-    //Custom methods
+    //Set the correct background image
 
-    resetFight(context) {
+    //Add the player to the scene
+    this.player = new Player();
+    this.add(this.player);
 
-        //Make sure there's a boss selected
-        if (context.data.boss === undefined) {
-            console.log('Error: No enemy given to scene context data');
-            //Go back to the start screen
-            this.engine.goToScene('startScreen');
-        }
-
-        //Delete the player and boss in case they were still there
-        if (this.boss instanceof Actor) {
-            this.boss.kill();
-        }
-
-        if (this.player instanceof Actor) {
-            this.player.kill();
-        }
-
-        //Reset properties
-        this.currentRound = 1;
-        this.roundTimeRemaining = 180;
-
-        //Set the correct background image
-
-
-        //Add the player to the scene
-        this.player = new Player();
-        this.add(this.player);
-
-        //Add the correct enemy to the scene, and adjust the background
-        switch (context.data.boss) {
-
-            case 'sil':
-                this.boss = new SilBoss();
-                this.background.graphics.use();
-                break;
-        }
-
-        this.add(this.boss);
-
-        this.background.setBackgroundImageFor(this.boss.name)
+    //Add the correct enemy to the scene, and adjust the background
+    switch (context.data.boss) {
+      case "sil":
+        this.boss = new SilBoss();
+        this.background.graphics.use();
+        break;
     }
 
-    createUI() {
+    this.add(this.boss);
 
-        //Player information
-        let playerInfo = document.createElement('div');
-        playerInfo.id = 'playerInfo';
+    this.background.setBackgroundImageFor(this.boss.name);
+  }
 
-        //Player Health
-        let playerHealthContainer = document.createElement('div');
-        playerHealthContainer.id = 'playerHealthContainer';
+  createUI() {
+    //Player information
+    let playerInfo = document.createElement("div");
+    playerInfo.id = "playerInfo";
 
-        this.ui.playerHealthBar = document.createElement('div');
-        this.ui.playerHealthBar.id = 'playerHealthBar';
+    //Player Health
+    let playerHealthContainer = document.createElement("div");
+    playerHealthContainer.id = "playerHealthContainer";
 
-        playerHealthContainer.appendChild(this.ui.playerHealthBar);
+    this.ui.playerHealthBar = document.createElement("div");
+    this.ui.playerHealthBar.id = "playerHealthBar";
 
-        playerInfo.appendChild(playerHealthContainer);
+    playerHealthContainer.appendChild(this.ui.playerHealthBar);
 
-        //Stamina
+    playerInfo.appendChild(playerHealthContainer);
 
-        let playerStaminaContainer = document.createElement('div');
-        playerStaminaContainer.id = 'playerStaminaContainer';
+    //Stamina
 
-        let playerStaminaText = document.createElement('h2');
-        playerStaminaText.id = 'playerStaminaText';
+    let playerStaminaContainer = document.createElement("div");
+    playerStaminaContainer.id = "playerStaminaContainer";
 
-        playerStaminaContainer.appendChild(playerStaminaText);
+    let playerStaminaText = document.createElement("h2");
+    playerStaminaText.id = "playerStaminaText";
 
-        playerInfo.appendChild(playerStaminaContainer)
+    playerStaminaContainer.appendChild(playerStaminaText);
 
-        //Special meter
+    playerInfo.appendChild(playerStaminaContainer);
 
-        let specialMeterContainer = document.createElement('div');
-        specialMeterContainer.id = 'specialMeterContainer';
+    //Special meter
 
-        let specialMeter1 = document.createElement('div');
-        this.ui.specialMeter1 = specialMeter1;
-        specialMeter1.id = 'specialMeter1';
-        specialMeter1.classList.add('empty');
+    let specialMeterContainer = document.createElement("div");
+    specialMeterContainer.id = "specialMeterContainer";
 
-        let specialMeter2 = document.createElement('div');
-        this.ui.specialMeter2 = specialMeter2;
-        specialMeter2.id = 'specialMeter2';
-        specialMeter2.classList.add('empty');
+    let specialMeter1 = document.createElement("div");
+    this.ui.specialMeter1 = specialMeter1;
+    specialMeter1.id = "specialMeter1";
+    specialMeter1.classList.add("empty");
 
-        let specialMeter3 = document.createElement('div');
-        this.ui.specialMeter3 = specialMeter3;
-        specialMeter3.id = 'specialMeter3';
-        specialMeter3.classList.add('empty');
+    let specialMeter2 = document.createElement("div");
+    this.ui.specialMeter2 = specialMeter2;
+    specialMeter2.id = "specialMeter2";
+    specialMeter2.classList.add("empty");
 
-        specialMeterContainer.appendChild(specialMeter1);
-        specialMeterContainer.appendChild(specialMeter2);
-        specialMeterContainer.appendChild(specialMeter3);
+    let specialMeter3 = document.createElement("div");
+    this.ui.specialMeter3 = specialMeter3;
+    specialMeter3.id = "specialMeter3";
+    specialMeter3.classList.add("empty");
 
-        playerInfo.appendChild(specialMeterContainer);
+    specialMeterContainer.appendChild(specialMeter1);
+    specialMeterContainer.appendChild(specialMeter2);
+    specialMeterContainer.appendChild(specialMeter3);
 
+    playerInfo.appendChild(specialMeterContainer);
 
-        //Round clock
-        let clockContainer = document.createElement('div');
-        clockContainer.id = 'clockContainer';
+    //Round clock
+    let clockContainer = document.createElement("div");
+    clockContainer.id = "clockContainer";
 
-        let clock = document.createElement('h2');
-        this.ui.clock = clock;
-        clock.innerText = '3:00';
-        clockContainer.appendChild(clock);
+    let clock = document.createElement("h2");
+    this.ui.clock = clock;
+    clock.innerText = "3:00";
+    clockContainer.appendChild(clock);
 
+    //Boss info
+    let bossInfo = document.createElement("div");
+    bossInfo.id = "bossInfo";
 
-        //Boss info
-        let bossInfo = document.createElement('div');
-        bossInfo.id = 'bossInfo';
+    //Boss health
+    let bossHealthContainer = document.createElement("div");
+    bossHealthContainer.id = "bossHealthContainer";
 
-        //Boss health
-        let bossHealthContainer = document.createElement('div');
-        bossHealthContainer.id = 'bossHealthContainer';
+    this.ui.bossHealthBar = document.createElement("div");
+    this.ui.bossHealthBar.id = "bossHealthBar";
 
-        this.ui.bossHealthBar = document.createElement('div');
-        this.ui.bossHealthBar.id = 'bossHealthBar';
+    bossHealthContainer.appendChild(this.ui.bossHealthBar);
 
-        bossHealthContainer.appendChild(this.ui.bossHealthBar);
+    bossInfo.appendChild(bossHealthContainer);
 
-        bossInfo.appendChild(bossHealthContainer);
+    //Add them to the ui
+    this.ui.element.appendChild(playerInfo);
+    this.ui.element.appendChild(clock);
+    this.ui.element.appendChild(bossInfo);
+  }
 
+  updateUI() {
+    //Update the health bars
+    this.ui.bossHealthBar.width = `${Math.floor(
+      (this.boss.healthCurrent / this.boss.healthMax) * 100
+    )}%`;
+    this.ui.playerHealthBar.width = `${Math.floor(
+      (this.player.healthCurrent / this.player.healthMax) * 100
+    )}%`;
+  }
 
-        //Add them to the ui
-        this.ui.element.appendChild(playerInfo);
-        this.ui.element.appendChild(clock);
-        this.ui.element.appendChild(bossInfo);
+  roundTimeHandler() {
+    //Update the timer in the UI
+    this.roundTimeRemaining--;
 
+    let extraZero;
+
+    if (this.roundTimeRemaining % 60 < 10) {
+      extraZero = 0;
+    } else {
+      extraZero = "";
     }
 
-    updateUI() {
+    this.ui.clock.innerText = `${Math.floor(
+      this.roundTimeRemaining / 60
+    )}:${extraZero}${this.roundTimeRemaining % 60}`;
 
-        //Update the health bars
-        this.ui.bossHealthBar.width = `${Math.floor((this.boss.healthCurrent / this.boss.healthMax) * 100)}%`;
-        this.ui.playerHealthBar.width = `${Math.floor((this.player.healthCurrent / this.player.healthMax) * 100)}%`;
-
-
+    //Check if the time has reached 0
+    if (this.roundTimeRemaining <= 0) {
+      //If so, end the round immediately
+      this.engine.goToScene("timeOutScreen", {
+        sceneActivationData: { boss: this.boss, player: this.player },
+      });
     }
+  }
 
-    roundTimeHandler() {
-
-        //Update the timer in the UI
-        this.roundTimeRemaining--;
-
-        let extraZero;
-
-        if ((this.roundTimeRemaining % 60) < 10) {
-            extraZero = 0;
-        } else {
-            extraZero = '';
-        }
-
-
-        this.ui.clock.innerText = `${Math.floor(this.roundTimeRemaining / 60)}:${extraZero}${this.roundTimeRemaining % 60}`;
-
-        //Check if the time has reached 0
-        if (this.roundTimeRemaining <= 0) {
-            //If so, end the round immediately
-            this.engine.goToScene('timeOutScreen', {sceneActivationData: {boss: this.boss, player: this.player}})
-        }
-
-
-    }
-
-
+  pauseGame() {
+    this.engine.goToScene("pausescreen");
+  }
 }

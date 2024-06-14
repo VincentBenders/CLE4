@@ -6,6 +6,8 @@ export class Player extends Actor {
   stamina;
   health;
   superEnergy;
+  punch;
+  dodge;
   exhuasted;
   downed;
   isDown;
@@ -61,7 +63,7 @@ export class Player extends Actor {
     // bewegen
     const xValue = engine.mygamepad.getAxes(Axes.LeftStickX);
     const yValue = engine.mygamepad.getAxes(Axes.LeftStickY);
-
+    console.log("x: ", xValue, "y: ", yValue);
     // attacks
     if (engine.mygamepad.wasButtonPressed(Buttons.Face1) && yValue === 0) {
       if (!this.isAttacking && !this.isDodging) {
@@ -125,14 +127,14 @@ export class Player extends Actor {
         this.cooldown.start();
       }
     }
-    if (xValue === 1) {
+    if (yValue === 1) {
       if (!this.isAttacking && !this.isDodging) {
         this.isDodging = true;
         this.dodge = "duck";
         this.cooldown.start();
       }
     }
-    if (xValue === -1) {
+    if (yValue === -1) {
       if (!this.isAttacking && !this.isDodging) {
         this.dodge = "block";
         this.cooldown.start();

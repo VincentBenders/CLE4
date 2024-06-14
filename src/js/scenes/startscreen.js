@@ -22,7 +22,7 @@ export class StartScreen extends Scene {
 
         this.startButton = new Label({
             text: 'PRESS SPACE TO START',
-            pos: new Vector(425, 250),
+            pos: new Vector(500, 250),
             font: new Font({
                 family: 'Arial',
                 size: 30,
@@ -34,7 +34,7 @@ export class StartScreen extends Scene {
 
         this.creditsLabel = new Label({
             text: 'Made by Sander Lanmeter, Juno Craane, Sil van Gemeren, Vincent Benders, Chris Tang, Kasper de jong, Mathijs van der Meijde en Ginus van der Zee',
-            pos: new Vector(120, 650),
+            pos: new Vector(150, 800),
             font: new Font({
                 family: 'Arial',
                 size: 15,
