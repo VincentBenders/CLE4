@@ -2,7 +2,7 @@ import {Actor, Timer} from "excalibur";
 
 
 
-class Boss extends Actor {
+export class Boss extends Actor {
 
 
     //Properties
