@@ -1,8 +1,8 @@
 import { Actor, Color, Font, FontUnit, Keys, Label, Scene, Vector } from "excalibur";
 import { Resources } from "../resources";
-import { ResumeButton } from "./resumebutton";
-import { OptionsButton } from "./optionsbutton";
-import { ExitButton } from "./exitbutton";
+import { ResumeButton } from "../pause/resumebutton.js";
+import { OptionsButton } from "../pause/optionsbutton.js";
+import { ExitButton } from "../pause/exitbutton.js";
 
 export class PauseScreen extends Scene {
 

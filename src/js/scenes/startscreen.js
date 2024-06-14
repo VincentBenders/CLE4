@@ -50,7 +50,11 @@ export class StartScreen extends Scene {
     onPostUpdate(engine){
         if (engine.input.keyboard.wasPressed(Keys.Space)) {
             this.engine.goToScene('fightscreen', {sceneActivationData: {boss: 'sil'}});
-         }
+        }
+
+        if(engine.input.keyboard.wasPressed(Keys.Digit1)) {
+            this.engine.goToScene('timeoutscreen')
+        }
     }
 
 }
