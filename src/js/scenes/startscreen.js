@@ -33,7 +33,7 @@ export class StartScreen extends Scene {
         this.add(this.startButton)
 
         this.creditsLabel = new Label({
-            text: 'Made by Sander Lanmeter, Juno Craane, Sil van Gemeren, Vincent Benders, Chris Tang, Kasper de jong, Mathijs van der Meijde en Ginus van der Zee',
+            text: 'Made by Sander Landmeter, Juno Craane, Sil van Gemeren, Vincent Benders, Chris Tang, Kasper de Jong, Mathijs van der Meijde en Ginus van der Zee',
             pos: new Vector(150, 800),
             font: new Font({
                 family: 'Arial',
