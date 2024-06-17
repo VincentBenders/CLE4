@@ -1,4 +1,4 @@
-import { Actor, Color, Font, FontUnit, Label, Vector } from "excalibur";
+import { Actor, Buttons, Color, Font, FontUnit, Label, Vector } from "excalibur";
 
 export class ResumeButton extends Actor {
     constructor(engine) {
@@ -9,13 +9,15 @@ export class ResumeButton extends Actor {
             color: Color.Green
         });
    
-        this.on(engine.mygamepad.wasButtonPressed.Face1, () => {
+        
+        this.on('pointerdown', () => {
             engine.goToScene('fightscreen')
         });
         this.pos = new Vector(700,300);
         
     }
     onInitialize() {
+        
         this.resumeLabel = new Label({
             text: 'RESUME',
             pos: new Vector(-63, -18),

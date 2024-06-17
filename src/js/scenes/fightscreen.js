@@ -232,7 +232,7 @@ export class FightScreen extends Scene {
     //Check if the time has reached 0
     if (this.roundTimeRemaining <= 0) {
       //If so, end the round immediately
-      this.engine.goToScene("timeOutScreen", {
+      this.engine.goToScene("timeoutscreen", {
         sceneActivationData: { boss: this.boss, player: this.player },
       });
     }
