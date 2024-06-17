@@ -1,4 +1,4 @@
-import { Actor, Color, Font, FontUnit, Label, Vector } from "excalibur";
+import { Actor, Buttons, Color, Font, FontUnit, Label, Vector } from "excalibur";
 
 export class OptionsButton extends Actor {
     constructor(engine) {
@@ -15,7 +15,10 @@ export class OptionsButton extends Actor {
         this.pos = new Vector(700, 400);
 
     }
-    onInitialize() {
+    onInitialize(engine) {
+        if(engine.mygamepad.wasButtonPressed(Buttons.Face2)){
+            engine.goToScene('fightscreen');
+        }
         this.optionsLabel = new Label({
             text: 'OPTIONS',
             pos: new Vector(-63, -18),

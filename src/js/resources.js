@@ -11,14 +11,14 @@ import {
 import { Player } from "./player/player";
 
 const Resources = {
-  Fish: new ImageSource("./images/Blub.png"),
-  // Player: new ImageSource("./placeholders/mc-idle.png"),
-  BoxingRing: new ImageSource("./images/BOX_RING_final.png"),
-  Background1: new ImageSource("./images/BACKGROUND_01_final.png"),
-  PlayerSheet: new ImageSource("./animations/player/spritesheet.png"),
-  Square: new ImageSource("./public/placeholders/timeoutsquare.jpg"),
-  SilSheet: new ImageSource("./images/sprite_sheet_sil.png"),
-};
+    Fish: new ImageSource('./images/Blub.png'),
+    Player: new ImageSource('./placeholders/mc-idle.png'),
+    BoxingRing: new ImageSource('./images/BOX_RING_final.png'),
+    Background1: new ImageSource('./images/BACKGROUND_01_final.png'),
+    Square: new ImageSource('./public/placeholders/timeoutsquare.jpg'),
+    SilSheet: new ImageSource('./images/sprite_sheet_sil.png'),
+    PlayerSheet: new ImageSource("./animations/player/spritesheet.png"),
+}
 
 const ResourceLoader = new Loader();
 for (let res of Object.values(Resources)) {
@@ -45,12 +45,15 @@ export class BossAnimations {
   dodgeLeft;
   dodgeRight;
 
-  constructor(sheet) {
-    this.block = animate(200, sheet, [0, 1, 2, 3, 4]);
-    this.idle = animate(2000, sheet, [20, 21, 22, 23]);
-    this.getHit = animate(100, sheet, [10, 11, 12]);
+    constructor(sheet) {
+
+        this.block = animate(200, sheet, [0, 1, 2, 3, 4]);
+        this.idle = animate(2000, sheet, [20, 21, 22, 23]);
+        this.getHit = animate(100, sheet, [10, 11, 12]);
+
+
+    }
   }
-}
 
 export class PlayerAnimation {
   idle;
