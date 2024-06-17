@@ -19,7 +19,6 @@ export class FightScreen extends Scene {
   // ispaused is er zodat de engine kan kijken of de game al gepauzeerd is
 
   onInitialize(engine) {
-    this.add(new Player());
     // this.add(new Placeholder());
 
     engine.input.keyboard.on("press", (evt) => {
@@ -114,9 +113,9 @@ export class FightScreen extends Scene {
     }
 
     this.add(this.boss);
+    this.add(new Player());
 
     this.background.setBackgroundImageFor(this.boss.name);
-
   }
 
   createUI() {
@@ -236,10 +235,6 @@ export class FightScreen extends Scene {
         sceneActivationData: { boss: this.boss, player: this.player },
       });
     }
-
-
-
-
   }
 
   pauseGame() {

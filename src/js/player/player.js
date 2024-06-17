@@ -9,6 +9,7 @@ import {
   Timer,
   Vector,
   range,
+  AnimationStrategy,
 } from "excalibur";
 import { PlayerAnimation, Resources, animate } from "../resources";
 
@@ -29,7 +30,7 @@ export class Player extends Actor {
   onInitialize(Engine) {
     this.game = Engine;
     // this.graphics.use(Resources.Player.toSprite());
-    this.pos = new Vector(700, 700);
+    this.pos = new Vector(700, 650);
     this.stamina = 20;
     this.health = 100;
     this.superEnergy = 0;
@@ -46,6 +47,7 @@ export class Player extends Actor {
         this.isDodging = false;
         console.log(this.punch);
         console.log(this.dodge);
+        // this.graphics.use("downLeft");
         this.graphics.use("idle");
       },
       repeats: false,
@@ -55,54 +57,67 @@ export class Player extends Actor {
     const PlayerAnimations = SpriteSheet.fromImageSource({
       image: Resources.PlayerSheet,
       grid: {
-        rows: 7,
-        columns: 11,
-        spriteHeight: 265,
-        spriteWidth: 265,
+        rows: 13,
+        columns: 7,
+        spriteHeight: 256,
+        spriteWidth: 256,
       },
       spacing: {},
     });
 
-    const idleFrames = range(0, 5);
-    const idle = Animation.fromSpriteSheet(PlayerAnimations, idleFrames, 100);
+    const idleFrames = range(28, 29);
+    const idle = Animation.fromSpriteSheet(PlayerAnimations, idleFrames, 300);
+    // const idle = Animation.fromSpriteSheet(PlayerAnimations, idleFrames, 300);
+
     this.graphics.add("idle", idle);
     this.graphics.use("idle");
 
     //attacks
-    const attFrame = range(0, 5);
-    const donwLeft = Animation.fromSpriteSheet(PlayerAnimations, attFrame, 100);
+    const dLFrame = range(49, 55);
+    const donwLeft = Animation.fromSpriteSheet(PlayerAnimations, dLFrame, 150);
     this.graphics.add("donwLeft", donwLeft);
 
-    const donwRight = Animation.fromSpriteSheet(
-      PlayerAnimations,
-      attFrame,
-      100
-    );
+    const dRFrame = range(56, 62);
+    const donwRight = Animation.fromSpriteSheet(PlayerAnimations, dRFrame, 150);
     this.graphics.add("donwRight", donwRight);
 
-    const upLeft = Animation.fromSpriteSheet(PlayerAnimations, attFrame, 100);
-    this.graphics.add("upLeft", upLeft);
+    const uLFrame = range(42, 45);
+    const upperLeft = Animation.fromSpriteSheet(PlayerAnimations, uLFrame, 150);
+    this.graphics.add("upLeft", upperLeft);
 
-    const upRight = Animation.fromSpriteSheet(PlayerAnimations, attFrame, 100);
-    this.graphics.add("upRight", upRight);
+    const uRFrame = range(63, 66);
+    const upperRight = Animation.fromSpriteSheet(
+      PlayerAnimations,
+      uRFrame,
+      150
+    );
+    this.graphics.add("upRight", upperRight);
 
     //defence
+    const dLeftFrame = range(7, 11);
     const dodgeLeft = Animation.fromSpriteSheet(
       PlayerAnimations,
-      attFrame,
+      dLeftFrame,
       100
     );
     this.graphics.add("dodgeLeft", dodgeLeft);
 
+    const dRightFrame = range(14, 18);
     const dodgeRight = Animation.fromSpriteSheet(
       PlayerAnimations,
-      attFrame,
-      100
+      dRightFrame,
+      200
     );
     this.graphics.add("dodgeRight", dodgeRight);
 
-    const duck = Animation.fromSpriteSheet(PlayerAnimations, attFrame, 100);
+    const duckFrame = range(21, 25);
+    const duck = Animation.fromSpriteSheet(PlayerAnimations, duckFrame, 200);
     this.graphics.add("duck", duck);
+
+    const blockFrame = range(0, 2);
+    const block = Animation.fromSpriteSheet(PlayerAnimations, blockFrame, 200);
+    this.graphics.add("block", block);
+    block.strategy = AnimationStrategy.Freeze;
   }
 
   //create function to check if previous scene was switch round
@@ -191,6 +206,7 @@ export class Player extends Actor {
       if (!this.isAttacking && !this.isDodging) {
         this.isDodging = true;
         this.dodge = "left";
+        this.graphics.use("dodgeLeft");
         this.cooldown.start();
       }
     }
@@ -198,6 +214,7 @@ export class Player extends Actor {
       if (!this.isAttacking && !this.isDodging) {
         this.isDodging = true;
         this.dodge = "right";
+        this.graphics.use("dodgeRight");
         this.cooldown.start();
       }
     }
@@ -205,12 +222,14 @@ export class Player extends Actor {
       if (!this.isAttacking && !this.isDodging) {
         this.isDodging = true;
         this.dodge = "duck";
+        this.graphics.use("duck");
         this.cooldown.start();
       }
     }
     if (yValue === -1) {
       if (!this.isAttacking && !this.isDodging) {
         this.dodge = "block";
+        this.graphics.use("block");
         this.cooldown.start();
       }
     }
@@ -227,14 +246,12 @@ export class Player extends Actor {
     }
   }
 
-
   getDodge() {
     if (this.isDodging) {
-    return this.dodge
+      return this.dodge;
     } else {
-      return '';
+      return "";
     }
-
   }
 
   hitFor(damage) {
@@ -244,8 +261,5 @@ export class Player extends Actor {
     if (this.health < 0) {
       this.health = 0;
     }
-
   }
-
-
 }
