@@ -9,10 +9,10 @@ export class StartScreen extends Scene {
 
     onActivate() {
         this.startLabel = new Label({
-            text: 'WELKOM TO HEFPARK',
-            pos: new Vector(350, 150),
+            text: 'PUNCHPARK',
+            pos: new Vector(495, 150),
             font: new Font({
-                family: 'Arial',
+                family: 'Serif',
                 size: 60,
                 unit: FontUnit.Px,
                 color: Color.White
@@ -33,10 +33,10 @@ export class StartScreen extends Scene {
         this.add(this.startButton)
 
         this.creditsLabel = new Label({
-            text: 'Made by Sander Lanmeter, Juno Craane, Sil van Gemeren, Vincent Benders, Chris Tang, Kasper de jong, Mathijs van der Meijde en Ginus van der Zee',
-            pos: new Vector(150, 800),
+            text: 'Made by Sander Landmeter, Juno Craane, Sil van Gemeren, Vincent Benders, Chris Tang, Kasper de Jong, Mathijs van der Meijde en Ginus van der Zee',
+            pos: new Vector(200, 800),
             font: new Font({
-                family: 'Arial',
+                family: 'Serif',
                 size: 15,
                 unit: FontUnit.Px,
                 color: Color.White

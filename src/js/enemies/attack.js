@@ -8,15 +8,17 @@ export class Attack extends Move {
     affectedAreas;
     counterHits;
     windupDuration;
+    hitFrame;
 
 
 
-    constructor(damage, type, counterHits, duration, windupDuration, animation) {
+    constructor(damage, type, counterHits, duration, windupDuration, animation, hitFrame) {
         super(animation, duration);
 
         this.damage = damage;
         this.counterHits = counterHits;
         this.windupDuration = windupDuration;
+        this.hitFrame = hitFrame;
 
         let affectedAreas = {
             left: false,
