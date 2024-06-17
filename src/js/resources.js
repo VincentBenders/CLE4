@@ -5,7 +5,7 @@ const Resources = {
     Player: new ImageSource('./placeholders/mc-idle.png'),
     BoxingRing: new ImageSource('./images/BOX_RING_final.png'),
     Background1: new ImageSource('./images/BACKGROUND_01_final.png'),
-    Square: new ImageSource('./public/placeholders/timeoutsquare.jpg'),
+    Square: new ImageSource('../placeholders/timeoutsquare.jpg'),
     SilSheet: new ImageSource('./images/sprite_sheet_sil.png')
 }
 

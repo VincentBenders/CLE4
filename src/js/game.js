@@ -35,6 +35,7 @@ export class Game extends Engine {
         this.input.gamepads.on('connect', (connectevent) => {
             console.log("gamepad detected: ", connectevent.gamepad)
             this.mygamepad = connectevent.gamepad
+            console.log(this.mygamepad);
         })
     }
 }

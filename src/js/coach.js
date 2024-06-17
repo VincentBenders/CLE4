@@ -18,7 +18,7 @@ export class Coach extends Actor {
         this.tips = [
             'Let op je stamina! Als je niks geen stamina hebt kan je niet slaan.', 
             'Sil is een beetje sloom. Maak je geen zorgen om zijn block.',
-            'Sla je tegenstanders op pebaalde momenten voor een speciale aanval.',
+            'Sla je tegenstanders op bepaalde momenten voor een speciale aanval.',
             'Kijk goed naar de aanvallen. Sommige zijn moeilijker te ontwijken dan anderen'
         ]
     }
