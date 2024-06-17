@@ -1,4 +1,4 @@
-import {ImageSource, Sound, Resource, Loader, Actor, Vector, SpriteSheet, Animation} from 'excalibur'
+import {ImageSource, Sound, Resource, Loader, Actor, Vector, SpriteSheet, Animation, AnimationStrategy} from 'excalibur'
 
 const Resources = {
     Fish: new ImageSource('./images/Blub.png'),
@@ -37,8 +37,10 @@ export class BossAnimations {
     constructor(sheet) {
 
         this.block = animate(200, sheet, [0, 1, 2, 3, 4]);
+        this.block.strategy = AnimationStrategy.Freeze;
         this.idle = animate(2000, sheet, [20, 21, 22, 23]);
         this.getHit = animate(100, sheet, [10, 11, 12]);
+        this.getHit.strategy = AnimationStrategy.Freeze;
 
 
     }

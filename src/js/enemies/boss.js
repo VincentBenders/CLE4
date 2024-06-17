@@ -200,6 +200,7 @@ export class Boss extends Actor {
         }
 
         //Apply the move's animation
+        move.animation.reset();
         this.graphics.use(move.animation);
 
         //Don't do anything else if the move isn't an attack
@@ -238,6 +239,7 @@ export class Boss extends Actor {
 
         goingDownAnimation = this.animations.goingDown;
 
+        goingDownAnimation.reset();
         this.graphics.use(goingDownAnimation);
 
 
@@ -247,6 +249,7 @@ export class Boss extends Actor {
 
         this.isDown = false;
 
+        this.animations.getUp.reset();
         this.graphics.use(this.animations.getUp);
 
         this.animations.getUp.events.on('end', () => {
@@ -272,6 +275,7 @@ export class Boss extends Actor {
 
     block() {
 
+        this.animations.block.reset();
         this.graphics.use(this.animations.block);
 
         this.setTimer(200, (() => {
@@ -312,6 +316,7 @@ export class Boss extends Actor {
             return;
         }
 
+        this.animations.getHit.reset();
         this.graphics.use(this.animations.getHit);
 
         if (this.hasMissed) {
