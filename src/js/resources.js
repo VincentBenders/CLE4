@@ -5,7 +5,8 @@ const Resources = {
     Player: new ImageSource('./placeholders/mc-idle.png'),
     BoxingRing: new ImageSource('./images/BOX_RING_final.png'),
     Background1: new ImageSource('./images/BACKGROUND_01_final.png'),
-    SilSheet: new ImageSource('./placeholders/sil-special-attack-spritesheet.png')
+    SilSheet: new ImageSource('./placeholders/sil-special-attack-spritesheet.png'),
+    Square: new ImageSource('./public/placeholders/timeoutsquare.jpg')
 }
 
 const ResourceLoader = new Loader()

@@ -4,18 +4,22 @@ import { Resources } from "./resources";
 // Hij geeft je tips over controls, tactieken en de verschillende bosses
 
 export class Coach extends Actor {
-    tips = []
+
     constructor(pos) {
         super()
-        // Hierin komt de sprite/animatie.
-        // Hier komt de pos van de Coach
-        this.graphics.use(Resources.Fish.toSprite());
         this.pos = pos;
-
-    }
-
-
-    onInitialize() {
         
+    }
+    
+    tips = [];
+    onInitialize(pos) {
+        
+        this.graphics.use(Resources.Fish.toSprite());
+        this.tips = [
+            'Let op je stamina! Als je niks geen stamina hebt kan je niet slaan.', 
+            'Sil is een beetje sloom. Maak je geen zorgen om zijn block.',
+            'Sla je tegenstanders op pebaalde momenten voor een speciale aanval.',
+            'Kijk goed naar de aanvallen. Sommige zijn moeilijker te ontwijken dan anderen'
+        ]
     }
 }
