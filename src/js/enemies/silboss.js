@@ -25,16 +25,28 @@ export class SilBoss extends Boss {
     //Custom methods
     setMoves() {
 
-        let leftHookAnimation = animate(800, this.spriteSheet, [1]);
-        this.moves.leftHook = new Attack(15, 'jab', 5, 800, 400, leftHookAnimation);
+        let leftHookAnimation = animate(800, this.spriteSheet, [50, 51, 52, 53, 54]);
+        this.moves.leftHook = new Attack(15, 'jab', 5, 800, 400, leftHookAnimation, 54);
+        leftHookAnimation.events.on('end', () => {this.resumeIdle()});
 
-        let rightHookAnimation = animate(800, this.spriteSheet, [1]);
-        this.moves.rightHook = new Attack(15, 'jab', 5, 800, 400, rightHookAnimation);
+        let rightHookAnimation = animate(800, this.spriteSheet, [40, 41, 42, 43]);
+        this.moves.rightHook = new Attack(15, 'jab', 5, 800, 400, rightHookAnimation, 43);
+        rightHookAnimation.events.on('end', () => {this.resumeIdle()});
 
-        let uppercutAnimation = animate(800, this.spriteSheet, [1]);
-        this.moves.uppercut = new Attack(30, 'uppercut', 7, 600, 300, uppercutAnimation);
+        let uppercutAnimation = animate(800, this.spriteSheet, [70, 71, 72, 73]);
+        this.moves.uppercut = new Attack(30, 'uppercut', 7, 600, 300, uppercutAnimation, 73);
+        uppercutAnimation.events.on('end', () => {this.resumeIdle()});
 
-        this.moves.taunt = new Move();
+        // this.moves.taunt = new Move();
+
+    }
+
+    setNextPattern() {
+        super.setNextPattern();
+
+        this.pattern.push(this.moves.leftHook);
+        this.pattern.push(this.moves.rightHook);
+        this.pattern.push(this.moves.uppercut);
 
     }
 

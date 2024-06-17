@@ -44,6 +44,8 @@ export class FightScreen extends Scene {
       interval: 500,
     });
 
+    this.add(this.roundTimer);
+
     //Make sure this.ui is an object
     this.ui = {};
 
@@ -64,6 +66,8 @@ export class FightScreen extends Scene {
     } else {
       // Else if it's from the timeout, do something else
     }
+
+    this.roundTimer.start();
   }
 
   onPreUpdate(engine, delta) {
@@ -112,6 +116,7 @@ export class FightScreen extends Scene {
     this.add(this.boss);
 
     this.background.setBackgroundImageFor(this.boss.name);
+
   }
 
   createUI() {
@@ -231,6 +236,10 @@ export class FightScreen extends Scene {
         sceneActivationData: { boss: this.boss, player: this.player },
       });
     }
+
+
+
+
   }
 
   pauseGame() {

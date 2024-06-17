@@ -18,7 +18,8 @@ export class Game extends Engine {
             displayMode: DisplayMode.FitScreen,
             fixedUpdateFps: 60,
             canvasElementId: 'game',
-            pixelArt: true
+            pixelArt: true,
+            suppressPlayButton: true
         })
         this.start(ResourceLoader).then(() => this.startGame())
     }

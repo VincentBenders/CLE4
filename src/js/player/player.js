@@ -156,4 +156,26 @@ export class Player extends Actor {
       }
     }
   }
+
+
+  getDodge() {
+    if (this.isDodging) {
+    return this.dodge
+    } else {
+      return '';
+    }
+
+  }
+
+  hitFor(damage) {
+    this.health -= damage;
+
+    //Make sure the health doesn't go negative just in case
+    if (this.health < 0) {
+      this.health = 0;
+    }
+
+  }
+
+
 }
