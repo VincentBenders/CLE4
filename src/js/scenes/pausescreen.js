@@ -7,10 +7,27 @@ import { Player } from "../player/player.js";
 
 export class PauseScreen extends Scene {
 
+    onInitialize() {
+        this.pauseLabel = new Label({
+            text: 'PAUSE',
+            pos: new Vector(600, 150),
+            font: new Font({
+                family: 'Arial',
+                size: 60,
+                unit: FontUnit.Px,
+                color: Color.White
+            })
+        })
+        this.add(this.pauseLabel);
+
+        this.add(new ResumeButton(this.engine));
+        this.add(new OptionsButton(this.engine));
+        this.add(new ExitButton(this.engine));
+    }
+
 
     onPreUpdate(engine) {
-
-
+        
         if (this.engine.mygamepad.wasButtonPressed(Buttons.Face1)) {
             engine.goToScene('fightscreen');
         }
@@ -37,21 +54,7 @@ export class PauseScreen extends Scene {
 
         console.log('The game is paused')
 
-        this.pauseLabel = new Label({
-            text: 'PAUSE',
-            pos: new Vector(600, 150),
-            font: new Font({
-                family: 'Arial',
-                size: 60,
-                unit: FontUnit.Px,
-                color: Color.White
-            })
-        })
-        this.add(this.pauseLabel);
-
-        this.add(new ResumeButton(this.engine));
-        this.add(new OptionsButton(this.engine));
-        this.add(new ExitButton(this.engine));
+      
     }
 
 

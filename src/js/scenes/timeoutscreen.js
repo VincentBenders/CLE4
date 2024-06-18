@@ -1,33 +1,32 @@
-import { Color, Font, FontUnit, Keys, Label, Scene, Vector } from "excalibur";
+import { Actor, Buttons, Color, Font, FontUnit, Keys, Label, Scene, Vector } from "excalibur";
 import { Coach } from "../coach";
 import { TimeOutSquare } from "../player/placeholder/timeout-placeholder";
 
 export class TimeOutScreen extends Scene {
-   
 
+    coach
+    tipLabel
+    square1
+    square2
     healthBoost
     onInitialize() {
         this.healthBoost = 1;
-        let square1 = new TimeOutSquare(new Vector(400,350));
-        let square2 = new TimeOutSquare(new Vector(1000,350));
-        this.add(square1);
-        this.add(square2);
-        
+
+        this.coach = new Coach(new Vector(150, 600));
+        this.add(this.coach)
+
+
+
     }
-
     onActivate(engine, ctx) {
-
         console.log('tijd voor een pauze');
+        this.resetTimeOut();
         // console.log(`BOSS: ${ctx.data.boss},
         // PLAYER HEALTH: ${ctx.data.player.healthCurrent}`)
-        let coach = new Coach(new Vector(150, 600));
-        this.add(coach)
-        coach.onInitialize(engine);
-        let coachTip = coach.tips[Math.floor(Math.random() * coach.tips.length)];
-        // if (ctx.data.boss === 'sil') {
-        //     coach.tips[0];
-        // } 
-        let tipLabel = new Label({
+
+        this.coach.onInitialize(this.engine);
+        let coachTip = this.coach.tips[Math.floor(Math.random() * this.coach.tips.length)];
+        this.tipLabel = new Label({
             text: `${coachTip}`,
             pos: new Vector(250, 600),
             font: new Font({
@@ -37,19 +36,38 @@ export class TimeOutScreen extends Scene {
                 color: Color.White
             })
         })
-        this.add(tipLabel);
+
+        this.add(this.tipLabel);
+
+
+        this.square1 = new TimeOutSquare(new Vector(400, 350));
+        this.square2 = new TimeOutSquare(new Vector(1000, 350));
+        this.add(this.square1);
+        this.add(this.square2);
+        // if (ctx.data.boss === 'sil') {
+        //     coach.tips[0];
+        // } 
+
 
     }
 
 
     onPreUpdate(engine, ctx) {
-        if (engine.input.keyboard.wasPressed(Keys.Space)) {
-            this.engine.goToScene('fightscreen', { sceneActivationData: { player: ctx.player.health} });
+        
+        
+        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face1)) {
+            this.engine.goToScene('fightscreen', { sceneActivationData: { player: ctx.player.health } });
         }
 
-        if (engine.input.keyboard.wasPressed(Keys.Minus)) {
+        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face2)) {
             this.healthRestore();
         }
+
+
+        if (this.engine.input.keyboard.wasPressed(Keys.Esc)) {
+            this.engine.goToScene('startscreen');
+        }
+
     }
 
     healthRestore(ctx) {
@@ -61,6 +79,16 @@ export class TimeOutScreen extends Scene {
         } else if (this.healthBoost === 0) {
             // Zo niet sluit hij de functie
             close();
+        }
+    }
+
+    resetTimeOut() {
+        if (this.tipLabel instanceof Label) {
+            this.tipLabel.kill();
+        }
+
+        if (this.square2 instanceof Actor) {
+            this.square2.kill();
         }
     }
 }

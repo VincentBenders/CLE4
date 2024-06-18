@@ -4,10 +4,7 @@ import { Label, FontUnit, Font } from "excalibur";
 export class StartScreen extends Scene {
     onInitialize(engine) {
         console.log("start screen!")
-       
-    }
 
-    onActivate() {
         this.startLabel = new Label({
             text: 'PUNCHPARK',
             pos: new Vector(495, 150),
@@ -43,7 +40,7 @@ export class StartScreen extends Scene {
             })
         })
         this.add(this.creditsLabel)
-        
+       
     }
 
 
@@ -53,7 +50,11 @@ export class StartScreen extends Scene {
         }
 
         if(engine.input.keyboard.wasPressed(Keys.Digit1)) {
-            this.engine.goToScene('timeoutscreen')
+            this.engine.goToScene('timeoutscreen');
+        }
+
+        if(engine.input.keyboard.wasPressed(Keys.Digit2)) {
+            this.engine.goToScene('selectscreen');
         }
     }
 

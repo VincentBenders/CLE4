@@ -66,6 +66,7 @@ export class FightScreen extends Scene {
     super.onPreUpdate(engine, delta);
 
     this.updateUI();
+    
     if(this.engine.mygamepad.wasButtonPressed(Buttons.Face4)) {
       console.log("wako");
         this.pauseGame();

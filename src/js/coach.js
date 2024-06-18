@@ -15,6 +15,7 @@ export class Coach extends Actor {
     onInitialize(pos) {
         
         this.graphics.use(Resources.Fish.toSprite());
+        this.graphics.flipHorizontal = true
         this.tips = [
             'Let op je stamina! Als je niks geen stamina hebt kan je niet slaan.', 
             'Sil is een beetje sloom. Maak je geen zorgen om zijn block.',
