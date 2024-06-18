@@ -154,6 +154,7 @@ export class Player extends Actor {
         this.isAttacking = true;
         this.graphics.use("donwLeft");
         this.cooldown.start();
+        this.scene.boss.hitWith(this.punch);
       }
     }
     if (engine.mygamepad.wasButtonPressed(Buttons.Face2) && yValue === 0) {
@@ -164,6 +165,8 @@ export class Player extends Actor {
         this.graphics.use("donwRight");
 
         this.cooldown.start();
+        this.scene.boss.hitWith(this.punch);
+
       }
     }
     // upper attacks
@@ -173,6 +176,8 @@ export class Player extends Actor {
         this.isAttacking = true;
         this.graphics.use("upRight");
         this.cooldown.start();
+        this.scene.boss.hitWith(this.punch);
+
       }
     }
     if (engine.mygamepad.wasButtonPressed(Buttons.Face1) && yValue < 0) {
@@ -181,6 +186,8 @@ export class Player extends Actor {
         this.isAttacking = true;
         this.graphics.use("upLeft");
         this.cooldown.start();
+        this.scene.boss.hitWith(this.punch);
+
       }
     }
     if (engine.mygamepad.wasButtonPressed(Buttons.Face3) && yValue === 0) {
@@ -196,6 +203,7 @@ export class Player extends Actor {
           this.punch = "super 3";
         }
         this.cooldown.start();
+        this.scene.boss.hitWith(this.punch);
         this.superEnergy = 0;
       }
       console.log("supa!");
