@@ -51,7 +51,7 @@ export class Player extends Actor {
         this.graphics.use("idle");
       },
       repeats: false,
-      interval: 600,
+      interval: 100,
     });
     this.scene?.add(this.cooldown);
     const PlayerAnimations = SpriteSheet.fromImageSource({
@@ -74,8 +74,9 @@ export class Player extends Actor {
 
     //attacks
     const dLFrame = range(49, 55);
-    const donwLeft = Animation.fromSpriteSheet(PlayerAnimations, dLFrame, 150);
+    const donwLeft = Animation.fromSpriteSheet(PlayerAnimations, dLFrame, 50);
     this.graphics.add("donwLeft", donwLeft);
+    // donwLeft.strategy = AnimationStrategy.End;
 
     const dRFrame = range(56, 62);
     const donwRight = Animation.fromSpriteSheet(PlayerAnimations, dRFrame, 150);
@@ -113,6 +114,7 @@ export class Player extends Actor {
     const duckFrame = range(21, 25);
     const duck = Animation.fromSpriteSheet(PlayerAnimations, duckFrame, 200);
     this.graphics.add("duck", duck);
+
 
     const blockFrame = range(0, 2);
     const block = Animation.fromSpriteSheet(PlayerAnimations, blockFrame, 200);
