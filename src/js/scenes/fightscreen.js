@@ -1,4 +1,4 @@
-import { Actor, Keys, Scene, Timer, Vector } from "excalibur";
+import { Actor, Buttons, Keys, Scene, Timer, Vector } from "excalibur";
 import { Label, FontUnit, Font } from "excalibur";
 import { Player } from "../player/player";
 import { StartScreen } from "./startscreen.js";
@@ -20,13 +20,6 @@ export class FightScreen extends Scene {
 
   onInitialize(engine) {
     // this.add(new Placeholder());
-
-    engine.input.keyboard.on("press", (evt) => {
-      if (evt.key === Keys.P) {
-        console.log("wako");
-        this.pauseGame();
-      }
-    });
 
     //Create actors for the background and arena
     this.background = new Background();
@@ -73,6 +66,10 @@ export class FightScreen extends Scene {
     super.onPreUpdate(engine, delta);
 
     this.updateUI();
+    if(this.engine.mygamepad.wasButtonPressed(Buttons.Face4)) {
+      console.log("wako");
+        this.pauseGame();
+    }
   }
 
   //Custom methods
