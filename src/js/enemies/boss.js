@@ -172,8 +172,8 @@ export class Boss extends Actor {
 
     /**
      * A fast way to create and set a timer you won't need again
-     * @param time - Number in ms
-     * @param endFunction - Function to run after the timer ends
+     * @param time {Number} - Number in ms
+     * @param endFunction {Function} - Function to run after the timer ends
      */
     setTimer(time, endFunction) {
 

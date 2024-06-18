@@ -51,7 +51,7 @@ export class Player extends Actor {
         this.graphics.use("idle");
       },
       repeats: false,
-      interval: 600,
+      interval: 100,
     });
     this.scene?.add(this.cooldown);
     const PlayerAnimations = SpriteSheet.fromImageSource({
@@ -74,8 +74,9 @@ export class Player extends Actor {
 
     //attacks
     const dLFrame = range(49, 55);
-    const donwLeft = Animation.fromSpriteSheet(PlayerAnimations, dLFrame, 150);
+    const donwLeft = Animation.fromSpriteSheet(PlayerAnimations, dLFrame, 50);
     this.graphics.add("donwLeft", donwLeft);
+    // donwLeft.strategy = AnimationStrategy.End;
 
     const dRFrame = range(56, 62);
     const donwRight = Animation.fromSpriteSheet(PlayerAnimations, dRFrame, 150);
@@ -113,6 +114,7 @@ export class Player extends Actor {
     const duckFrame = range(21, 25);
     const duck = Animation.fromSpriteSheet(PlayerAnimations, duckFrame, 200);
     this.graphics.add("duck", duck);
+
 
     const blockFrame = range(0, 2);
     const block = Animation.fromSpriteSheet(PlayerAnimations, blockFrame, 200);
@@ -154,6 +156,7 @@ export class Player extends Actor {
         this.isAttacking = true;
         this.graphics.use("donwLeft");
         this.cooldown.start();
+        this.scene.boss.hitWith(this.punch);
       }
     }
     if (engine.mygamepad.wasButtonPressed(Buttons.Face2) && yValue === 0) {
@@ -164,6 +167,8 @@ export class Player extends Actor {
         this.graphics.use("donwRight");
 
         this.cooldown.start();
+        this.scene.boss.hitWith(this.punch);
+
       }
     }
     // upper attacks
@@ -173,6 +178,8 @@ export class Player extends Actor {
         this.isAttacking = true;
         this.graphics.use("upRight");
         this.cooldown.start();
+        this.scene.boss.hitWith(this.punch);
+
       }
     }
     if (engine.mygamepad.wasButtonPressed(Buttons.Face1) && yValue < 0) {
@@ -181,6 +188,8 @@ export class Player extends Actor {
         this.isAttacking = true;
         this.graphics.use("upLeft");
         this.cooldown.start();
+        this.scene.boss.hitWith(this.punch);
+
       }
     }
     if (engine.mygamepad.wasButtonPressed(Buttons.Face3) && yValue === 0) {
@@ -196,6 +205,7 @@ export class Player extends Actor {
           this.punch = "super 3";
         }
         this.cooldown.start();
+        this.scene.boss.hitWith(this.punch);
         this.superEnergy = 0;
       }
       console.log("supa!");
