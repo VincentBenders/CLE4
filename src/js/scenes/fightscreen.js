@@ -30,7 +30,7 @@ export class FightScreen extends Scene {
 
     //Create the round timer
     this.roundTimer = new Timer({
-      fcn: () => this.roundTimeHandler,
+      fcn: () => this.roundTimeHandler(),
       repeats: true,
       numberOfRepeats: 90,
       interval: 500,
