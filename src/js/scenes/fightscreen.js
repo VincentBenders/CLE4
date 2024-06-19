@@ -100,7 +100,6 @@ export class FightScreen extends Scene {
 
     //Add the player to the scene
     this.player = new Player();
-    this.add(this.player);
 
     //Add the correct enemy to the scene, and adjust the background
     switch (context.data.boss) {
@@ -111,7 +110,7 @@ export class FightScreen extends Scene {
     }
 
     this.add(this.boss);
-    this.add(new Player());
+    this.add(this.player);
 
     this.background.setBackgroundImageFor(this.boss.name);
   }

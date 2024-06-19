@@ -1,4 +1,4 @@
-import {Actor, SpriteSheet, Timer, Vector} from "excalibur";
+import {Actor, Random, SpriteSheet, Timer, Vector} from "excalibur";
 import {BossAnimations, Resources} from "../resources.js";
 import {Move} from "./Move.js";
 import {Attack} from "./attack.js";
@@ -55,9 +55,8 @@ export class Boss extends Actor {
             }
         });
 
-        this.animations = new BossAnimations(this.spriteSheet);
+        this.animations = new BossAnimations(this.spriteSheet, this);
 
-        this.animations.getHit.events.on('end', () => {this.resumeIdle()});
 
         this.healthMax = health;
         this.healthCurrent = health;
@@ -68,7 +67,7 @@ export class Boss extends Actor {
         this.timesDownedCurrentRound = 0;
 
         this.counterHits = 0;
-        this.stunnedDuration = 0;
+        this.stunnedDuration = 2000;
         this.damageInfo = {
             upperLeft: 5,
             upperRight: 5,
@@ -97,7 +96,9 @@ export class Boss extends Actor {
             fcn: () => {
                 this.hasMissed = false;
                 this.counterHits = 0;
-                this.resumeIdle()
+                this.isHittableHead = false;
+                this.isHittableBody = false;
+                this.resumeIdle();
             },
             repeats: false,
             interval: this.stunnedDuration
@@ -107,6 +108,8 @@ export class Boss extends Actor {
             fcn: () => {
                 this.isStunned = false;
                 this.counterHits = 0;
+                this.isHittableHead = false;
+                this.isHittableBody = false;
                 this.resumeIdle();
             },
             repeats: false,
@@ -121,7 +124,7 @@ export class Boss extends Actor {
         this.setNextPattern();
 
         this.resumeIdle();
-        this.pos = new Vector(720, 450);
+        this.pos = new Vector(720, 500);
 
 
     }
@@ -144,11 +147,6 @@ export class Boss extends Actor {
     onPreUpdate(engine, delta) {
         super.onPreUpdate(engine, delta);
 
-        if (this.graphics !== this.animations.idle) {
-
-        }
-
-
         //Check for health
         if (this.healthCurrent <= 0) {
 
@@ -159,9 +157,29 @@ export class Boss extends Actor {
             //Not yet implemented
             // this.scene.enemyDowned(this);
 
-            //Don't do anything else if health is 0
+            const random = new Random;
+
+            if (this.timesDowned > this.timesDownedMax) {
+
+                //Once the boss is knocked down more than their max, roll a d10
+                let randomNumber = random.integer(1, 10)
+
+                //If the roll is lower than the amount of times they went down, return early so they won't get up
+                if (randomNumber <= this.timesDowned) {
+                    return;
+                }
+
+            }
+
+            //Set a random time from 3-9 seconds before the boss gets up
+            this.setTimer(random.integer(3000, 9000), this.getUp);
+
             return;
 
+        }
+
+        if (this.graphics.current !== this.animations.idle) {
+            this.nextAttackDelayTimer.pause();
         }
 
 
@@ -194,6 +212,9 @@ export class Boss extends Actor {
      */
     performMove(move) {
 
+        console.log(move);
+
+
         //Double check to make sure move parameter is an instance of the move class
         if (!(move instanceof Move)) {
             return;
@@ -205,42 +226,34 @@ export class Boss extends Actor {
 
         //Don't do anything else if the move isn't an attack
         if (!(move instanceof Attack)) {
+            this.resumeIdle();
             return;
         }
 
-        move.animation.events.on('frame', (frame) => {
-            if (frame.frameIndex === move.hitFrame) {
+        move.animation.events.on('end', () => {
                 this.landAttack(move);
-            }
         })
 
+
+    }
+
+    setMoves() {
 
     }
 
 
     /**
      * Makes the boss go down
-     * @param lastPunch {String} - The last punch that hit the boss
      */
-    goDown(lastPunch) {
+    goDown() {
 
         this.isDown = true;
         this.isInCenter = false;
+        this.timesDowned++;
+        this.timesDownedCurrentRound++;
 
-        //Use correct animation based on the last punch
-        let goingDownAnimation;
-
-        // switch (lastPunch) {
-        //     case 'upLeft': goingDownAnimation = this.animations.goingDownUpLeft; break;
-        //     case 'upRight': goingDownAnimation = this.animations.goingDownUpRight; break;
-        //     case 'downLeft': goingDownAnimation = this.animations.goingDownDownLeft; break;
-        //     case 'downRight': goingDownAnimation = this.animations.goingDownDownRight;
-        // }
-
-        goingDownAnimation = this.animations.goingDown;
-
-        goingDownAnimation.reset();
-        this.graphics.use(goingDownAnimation);
+        this.animations.goingDown.reset();
+        this.graphics.use(this.animations.goingDown);
 
 
     }
@@ -252,9 +265,14 @@ export class Boss extends Actor {
         this.animations.getUp.reset();
         this.graphics.use(this.animations.getUp);
 
+        this.healthRecover = this.healthMax - (this.healthMax * (0.1 * this.timesDowned));
+
         this.animations.getUp.events.on('end', () => {
-            this.isInCenter = true
+            this.healthCurrent = this.healthRecover;
+            this.isInCenter = true;
         })
+
+        this.postGetUp();
 
 
     }
@@ -274,14 +292,9 @@ export class Boss extends Actor {
     }
 
     block() {
-
         this.animations.block.reset();
         this.graphics.use(this.animations.block);
-
-        this.setTimer(200, (() => {
-            this.resumeIdle();
-        }))
-
+        this.animations.block.events.on('end', () => {this.resumeIdle();})
     }
 
     hitWith(punch) {
@@ -321,6 +334,7 @@ export class Boss extends Actor {
 
         if (this.hasMissed) {
             this.isStunned = true;
+
             this.missTimer.stop();
             this.stunnedTimer.start();
         }
@@ -330,7 +344,7 @@ export class Boss extends Actor {
             this.stunnedTimer.stop();
             this.stunnedTimer.start();
 
-            this.counterHits--
+            this.counterHits--;
         }
 
         let damage;
@@ -363,6 +377,11 @@ export class Boss extends Actor {
 
         this.lastHitBy = punch;
 
+        if (this.counterHits === 0) {
+            this.isHittableBody = false;
+            this.isHittableHead = false;
+        }
+
     }
 
 
@@ -392,11 +411,15 @@ export class Boss extends Actor {
         if (hit) {
             this.scene.player.hitFor(move.damage);
             this.resumeIdle();
+            console.log("You've been hit!");
         } else {
             //Otherwise, set condition
             this.hasMissed = true;
             this.counterHits = move.counterHits;
+            this.isHittableBody = true;
+            this.isHittableHead = true;
             this.missTimer.start();
+            console.log("You've dodged an attack!")
         }
 
     }
@@ -404,6 +427,14 @@ export class Boss extends Actor {
     setNextPattern() {
 
         //Override this function when making a new instance
+
+    }
+
+    postGetUp() {
+
+    }
+
+    postOnPostUpdate() {
 
     }
 

@@ -1,3 +1,4 @@
+import {AnimationStrategy} from "excalibur";
 
 
 export class Move {
@@ -10,6 +11,7 @@ export class Move {
         this.animation = animation;
         this.duration = duration;
 
+        this.animation.strategy = AnimationStrategy.Freeze;
 
     }
 
