@@ -4,6 +4,7 @@ import { Player } from "../player/player";
 import { StartScreen } from "./startscreen.js";
 import { Background, BoxingRing } from "../resources.js";
 import { SilBoss } from "../enemies/silboss.js";
+import { SelectScreen } from "./selectscreen.js";
 
 export class FightScreen extends Scene {
   //Properties
@@ -52,7 +53,7 @@ export class FightScreen extends Scene {
 
     //Check where this scene got called from
     // If it's from the roadmap, set everything up
-    if (context.previousScene instanceof StartScreen) {
+    if (context.previousScene instanceof SelectScreen) {
       this.resetFight(context);
     } else {
       // Else if it's from the timeout, do something else

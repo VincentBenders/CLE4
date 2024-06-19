@@ -1,4 +1,4 @@
-import { Color, Keys, Scene, Vector } from "excalibur";
+import { Buttons, Color, Keys, Scene, Vector } from "excalibur";
 import { Label, FontUnit, Font } from "excalibur";
 
 export class StartScreen extends Scene {
@@ -46,7 +46,7 @@ export class StartScreen extends Scene {
 
     onPostUpdate(engine){
         if (engine.input.keyboard.wasPressed(Keys.Space)) {
-            this.engine.goToScene('fightscreen', {sceneActivationData: {boss: 'sil'}});
+            this.engine.goToScene('selectscreen');
         }
 
         if(engine.input.keyboard.wasPressed(Keys.Digit1)) {
