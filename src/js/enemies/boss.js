@@ -27,6 +27,7 @@ export class Boss extends Actor {
     damageInfo;
     missTimer;
     stunnedTimer;
+    totalReceivedHits;
 
 
     //States
@@ -375,6 +376,7 @@ export class Boss extends Actor {
 
         this.healthCurrent -= damage;
 
+        this.totalReceivedHits++;
         this.lastHitBy = punch;
 
         if (this.counterHits === 0) {

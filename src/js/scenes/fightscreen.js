@@ -53,7 +53,7 @@ export class FightScreen extends Scene {
 
     //Check where this scene got called from
     // If it's from the roadmap, set everything up
-    if (context.previousScene instanceof SelectScreen) {
+    if (context.previousScene instanceof SelectScreen || context.previousScene instanceof StartScreen) {
       this.resetFight(context);
     } else {
       // Else if it's from the timeout, do something else
