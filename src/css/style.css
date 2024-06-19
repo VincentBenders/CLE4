@@ -1,3 +1,8 @@
+:root {
+    --pixel-conversion: 1;
+}
+
+
 body {
     margin: 0;
     padding: 0;
@@ -6,3 +11,24 @@ body {
     justify-content: center;
 }
 
+
+#root {
+    position: relative;
+}
+
+#ui {
+    display: flex;
+    justify-content: space-evenly;
+    position: absolute;
+    width: calc(1800px * var(--pixel-conversion));
+}
+
+
+#selectbox {
+    display: flex;
+    flex-direction: column;
+}
+
+.select {
+    width: 100%;
+}

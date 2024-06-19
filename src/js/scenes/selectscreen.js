@@ -9,6 +9,7 @@ export class SelectScreen extends Scene {
     screen;
     selectedIndex = 0;
     selectedBoss;
+    selectBox;
 
     onActivate() {
         this.renderSelectScreen();
@@ -16,13 +17,18 @@ export class SelectScreen extends Scene {
 
     renderSelectScreen() {
         this.screen = document.getElementById('ui');
-        this.screen.innerHTML = ''
+        this.screen.innerHTML = '';
+        this.selectBox = document.createElement('div');
+        this.screen.appendChild(this.selectBox);
+        this.selectBox.setAttribute('id', 'selectbox')
 
         this.bosses.forEach((boss, index) => {
-            const div = document.createElement('div');
-            div.style.display = 'inline-block';
-            div.style.margin = '10px';
-            div.style.border = this.selectedIndex === index ? '2px solid red' : '2px solid transparent';
+            const select = document.createElement('div');
+            select.classList.add('select'); 
+            select.style.display = 'inline-block';
+            select.style.margin = '10px';
+            select.style.width = '100px'
+            select.style.border = this.selectedIndex === index ? '2px solid red' : '2px solid transparent';
 
             const picture = document.createElement('img');
             picture.src = boss.image;
@@ -30,8 +36,8 @@ export class SelectScreen extends Scene {
             picture.style.width = '100px';
             picture.style.height = '100px';
 
-            div.appendChild(picture);
-            this.screen.appendChild(div);
+            select.appendChild(picture);
+            this.selectBox.appendChild(select);
         });
     }
 

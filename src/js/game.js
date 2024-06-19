@@ -6,6 +6,8 @@ import { FightScreen } from "./scenes/fightscreen.js";
 import { PauseScreen } from './scenes/pausescreen.js';
 import { TimeOutScreen } from './scenes/timeoutscreen.js';
 import { SelectScreen } from './scenes/selectscreen.js';
+import { WinScreen } from './scenes/winscreen.js';
+import { LossScreen } from './scenes/lossscreen.js';
 
 
 export class Game extends Engine {
@@ -32,6 +34,8 @@ export class Game extends Engine {
     this.add('pausescreen', new PauseScreen())
     this.add('timeoutscreen', new TimeOutScreen())
     this.add('selectscreen', new SelectScreen())
+    this.add('winscreen', new WinScreen())
+    this.add('lossscreen', new LossScreen())
     this.goToScene('startscreen')
     this.input.gamepads.enabled = true
         this.input.gamepads.on('connect', (connectevent) => {

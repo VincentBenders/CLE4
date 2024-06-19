@@ -54,7 +54,11 @@ export class StartScreen extends Scene {
         }
 
         if(engine.input.keyboard.wasPressed(Keys.Digit2)) {
-            this.engine.goToScene('selectscreen');
+            this.engine.goToScene('winscreen');
+        }
+
+        if(engine.input.keyboard.wasPressed(Keys.Digit3)) {
+            this.engine.goToScene('lossscreen');
         }
     }
 
