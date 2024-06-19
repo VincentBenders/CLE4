@@ -45,13 +45,14 @@ export class Player extends Actor {
       fcn: () => {
         this.isAttacking = false;
         this.isDodging = false;
-        console.log(this.punch);
-        console.log(this.dodge);
+        // console.log(this.punch);
+        // console.log(this.dodge);
         // this.graphics.use("downLeft");
         this.graphics.use("idle");
+        console.log('in timer');
       },
       repeats: false,
-      interval: 100,
+      interval: 400,
     });
     this.scene?.add(this.cooldown);
     const PlayerAnimations = SpriteSheet.fromImageSource({
@@ -73,24 +74,24 @@ export class Player extends Actor {
     this.graphics.use("idle");
 
     //attacks
-    const dLFrame = range(49, 55);
-    const donwLeft = Animation.fromSpriteSheet(PlayerAnimations, dLFrame, 50);
+    const dLFrame = range(49, 53);
+    const donwLeft = Animation.fromSpriteSheet(PlayerAnimations, dLFrame, 100);
     this.graphics.add("donwLeft", donwLeft);
     // donwLeft.strategy = AnimationStrategy.End;
 
-    const dRFrame = range(56, 62);
-    const donwRight = Animation.fromSpriteSheet(PlayerAnimations, dRFrame, 150);
+    const dRFrame = range(56, 60);
+    const donwRight = Animation.fromSpriteSheet(PlayerAnimations, dRFrame, 80);
     this.graphics.add("donwRight", donwRight);
 
     const uLFrame = range(42, 45);
-    const upperLeft = Animation.fromSpriteSheet(PlayerAnimations, uLFrame, 150);
+    const upperLeft = Animation.fromSpriteSheet(PlayerAnimations, uLFrame, 80);
     this.graphics.add("upLeft", upperLeft);
 
     const uRFrame = range(63, 66);
     const upperRight = Animation.fromSpriteSheet(
       PlayerAnimations,
       uRFrame,
-      150
+      80
     );
     this.graphics.add("upRight", upperRight);
 
@@ -107,19 +108,24 @@ export class Player extends Actor {
     const dodgeRight = Animation.fromSpriteSheet(
       PlayerAnimations,
       dRightFrame,
-      200
+      100
     );
     this.graphics.add("dodgeRight", dodgeRight);
 
     const duckFrame = range(21, 25);
-    const duck = Animation.fromSpriteSheet(PlayerAnimations, duckFrame, 200);
+    const duck = Animation.fromSpriteSheet(PlayerAnimations, duckFrame, 100);
     this.graphics.add("duck", duck);
 
 
     const blockFrame = range(0, 2);
-    const block = Animation.fromSpriteSheet(PlayerAnimations, blockFrame, 200);
+    const block = Animation.fromSpriteSheet(PlayerAnimations, blockFrame, 100);
     this.graphics.add("block", block);
     block.strategy = AnimationStrategy.Freeze;
+    
+    const downFrame = range(0, 2);
+    const down = Animation.fromSpriteSheet(PlayerAnimations, downFrame, 100);
+    this.graphics.add("down", down);
+    down.strategy = AnimationStrategy.Freeze;
   }
 
   //create function to check if previous scene was switch round
@@ -156,7 +162,7 @@ export class Player extends Actor {
         this.isAttacking = true;
         this.graphics.use("donwLeft");
         this.cooldown.start();
-        this.scene.boss.hitWith(this.punch);
+        console.log('after timer');
       }
     }
     if (engine.mygamepad.wasButtonPressed(Buttons.Face2) && yValue === 0) {
