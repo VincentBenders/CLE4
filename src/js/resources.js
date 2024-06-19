@@ -12,6 +12,7 @@ import { Player } from "./player/player";
 
 const Resources = {
     Fish: new ImageSource('./images/Blub.png'),
+    CoachFish: new ImageSource('./images/CoachFish.png'),
     Player: new ImageSource('./placeholders/mc-idle.png'),
     BoxingRing: new ImageSource('./images/BOX_RING_final.png'),
     Background1: new ImageSource('./images/BACKGROUND_01_final.png'),
