@@ -51,7 +51,7 @@ export class SelectScreen extends Scene {
             this.selectedBoss = this.bosses[this.selectedIndex];
             this.engine.goToScene('fightscreen', { sceneActivationData: { boss: this.selectedBoss.name} });
             // Hier ga je naar de gevechtsscène met de geselecteerde boss
-            // this.engine.goToScene('fightScene', { boss: selectedBoss });
+            
         }
 
         if (this.engine.mygamepad.getAxes(0) > 0.5) {
@@ -63,11 +63,11 @@ export class SelectScreen extends Scene {
             this.renderSelectScreen();
         }
 
-        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face1)) { // A-knop op een Xbox-controller
+        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face1)) {
             this.selectedBoss = this.bosses[this.selectedIndex];
-            console.log('Selected Boss:', this.selectedBoss.name);
+            this.engine.goToScene('fightscreen', { sceneActivationData: { boss: this.selectedBoss.name} });
             // Hier ga je naar de gevechtsscène met de geselecteerde boss
-            // this.engine.goToScene('fightScene', { boss: selectedBoss });
+           
         }
 
         // Terug naar het startscherm
