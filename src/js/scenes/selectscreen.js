@@ -4,14 +4,9 @@ import { Resources } from "../resources";
 export class SelectScreen extends Scene {
 
     bosses = [
-        { name: 'sil', image: './placeholders/sil-idle.png' },
-        { name: 'kasper', image: './placeholders/Kasper.png' },
-        { name: 'ginus', image: './placeholders/Ginus.png' },
-        { name: 'juno', image: './placeholders/Juno.png' },
-        { name: 'vincent', image: './placeholders/Placeholder.png' },
-        { name: 'chris', image: './placeholders/Chris.png' },
-        { name: 'mathijs', image: './placeholders/Placeholder.png' },
-        { name: 'sander', image: './placeholders/Placeholder.png' },
+        { name: 'sil', image: './images/time-out-sil.png' },
+        { name: 'ginus', image: './images/time-out-ginus.png' },
+
     ]
 
     screen;
