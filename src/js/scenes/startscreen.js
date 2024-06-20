@@ -43,7 +43,7 @@ export class StartScreen extends Scene {
     }
 
     onPostUpdate(engine) {
-        if (engine.mygamepad && engine.mygamepad.wasButtonPressed(Buttons.Face1)) {
+        if (engine.mygamepad && engine.mygamepad.wasButtonPressed(Buttons.Face1) || engine.input.keyboard.wasPressed(Keys.A)) {
             engine.goToScene('selectscreen');
         }
 
