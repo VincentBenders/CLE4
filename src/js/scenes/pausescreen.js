@@ -1,7 +1,6 @@
 import { Actor, Buttons, Color, Font, FontUnit, Keys, Label, Scene, Vector } from "excalibur";
 import { Resources } from "../resources";
 import { ResumeButton } from "../pause/resumebutton.js";
-import { OptionsButton } from "../pause/optionsbutton.js";
 import { ExitButton } from "../pause/exitbutton.js";
 import { Player } from "../player/player.js";
 
