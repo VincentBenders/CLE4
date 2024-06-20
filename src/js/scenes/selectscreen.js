@@ -52,6 +52,7 @@ export class SelectScreen extends Scene {
             select.style.display = 'inline-block';
             select.style.margin = '10px';
             select.style.width = '100px';
+            select.style.border = this.selectedIndex === index ? '2px solid red' : '2px solid transparent';
 
             const name = document.createElement('p');
             name.textContent = boss.name;
@@ -118,7 +119,7 @@ export class SelectScreen extends Scene {
         }
     }
 
-    onDeactivate() {
-        this.screen.innerHTML = ''
-    }
+    // onDeactivate() {
+    //     this.screen.innerHTML = ''
+    // }
 }

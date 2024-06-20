@@ -6,10 +6,10 @@ import { Background, BoxingRing, Resources } from "../resources.js";
 import { SilBoss } from "../enemies/silboss.js";
 import { SelectScreen } from "./selectscreen.js";
 import { TimeOutScreen } from "./timeoutscreen.js";
-import {JunoBoss} from "../enemies/junoBoss.js";
-import {GinusBoss} from "../enemies/ginusBoss.js";
-import {SanderBoss} from "../enemies/sanderBoss.js";
-import {ChrisBoss} from "../enemies/chrisBoss.js";
+import { JunoBoss } from "../enemies/junoBoss.js";
+import { GinusBoss } from "../enemies/ginusBoss.js";
+import { SanderBoss } from "../enemies/sanderBoss.js";
+import { ChrisBoss } from "../enemies/chrisBoss.js";
 
 export class FightScreen extends Scene {
   //Properties
@@ -31,7 +31,7 @@ export class FightScreen extends Scene {
     Resources.Track1.stop();
     Resources.Track2.volume = 0.5;
     Resources.Track2.loop = true;
-    Resources.Track2.play();  
+    Resources.Track2.play();
 
     //Create actors for the background and arena
     this.background = new Background();
@@ -55,14 +55,16 @@ export class FightScreen extends Scene {
     //Get the ui from the HTML
     this.ui.element = document.getElementById("ui");
 
+
   }
 
   onActivate(context) {
     console.log("fightscreen");
-
+    this.ui.element.innerHTML = '';
+    this.createUI();
 
     //Create UI elements
-    this.createUI();
+
 
     //Check where this scene got called from
     // If it's from the roadmap, set everything up
@@ -70,10 +72,12 @@ export class FightScreen extends Scene {
       this.resetFight(context);
     } else if (context.previousScene instanceof TimeOutScreen) {
       // Else if it's from the timeout, do something else
+      this.roundTimeRemaining = 180;
       this.player.health = context.data.player.health;
       this.ui.element.style.display = 'flex';
       this.currentRound++;
       this.roundTimer.reset();
+
       console.log(this.currentRound)
     }
 
@@ -125,19 +129,19 @@ export class FightScreen extends Scene {
         this.boss = new SilBoss();
         break;
 
-        case "juno":
+      case "juno":
         this.boss = new JunoBoss();
         break;
 
-        case "ginus":
+      case "ginus":
         this.boss = new GinusBoss();
         break;
 
-        case "sander":
+      case "sander":
         this.boss = new SanderBoss();
         break;
 
-        case "chris":
+      case "chris":
         this.boss = new ChrisBoss();
         break;
 
@@ -266,7 +270,7 @@ export class FightScreen extends Scene {
     )}:${extraZero}${this.roundTimeRemaining % 60}`;
 
     //Check if the time has reached 0
-    if (this.roundTimeRemaining <= 0 && this.currentRound === 1 || this.currentRound === 2) {
+    if (this.roundTimeRemaining <= 0 ) {
 
       this.ui.element.style.display = 'none';
 
@@ -279,7 +283,13 @@ export class FightScreen extends Scene {
       this.engine.goToScene("timeoutscreen", {
         sceneActivationData: { boss: this.boss, player: this.player }
       });
-    } else if (this.roundTimeRemaining <= 0 && this.currentRound === 3) {
+    } 
+    
+    if (this.roundTimeRemaining <= 0 && this.currentRound === 3) {
+      this.ui.element.style.display = 'none';
+      console.log('Transitioning to timeoutscreen with context:', {
+        sceneActivationData: { round: this.currentRound, time: this.roundTimeRemaining }
+      });
       this.engine.goToScene('lossscreen', { sceneActivationData: { round: this.currentRound, time: this.roundTimeRemaining } })
 
     }

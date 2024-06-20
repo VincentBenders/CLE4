@@ -12,31 +12,31 @@ export class TimeOutScreen extends Scene {
     healthBoost
     context
 
-   
+
     onInitialize() {
         //Sound initialization
         Resources.Track2.stop();
         Resources.Track1.volume = 0.5;
         Resources.Track1.loop = true;
-        Resources.Track1.play();  
+        Resources.Track1.play();
 
         this.healthBoost = 1;
         this.coach = new Coach(new Vector(150, 600));
         this.add(this.coach)
-       
+
 
     }
     onActivate(context) {
         console.log('Context:', context);
         this.context = context;
-      
+
         // if (!context || !context.player) {
         //     console.error('Context or player is undefined in TimeOutScreen onActivate');
         //     return;
         // }
         console.log(context.data.player.health);
         this.resetTimeOut();
-        
+
         // console.log(`BOSS: ${ctx.data.boss},
         // PLAYER HEALTH: ${ctx.data.player.healthCurrent}`)
 
@@ -55,19 +55,42 @@ export class TimeOutScreen extends Scene {
 
         this.add(this.tipLabel);
 
+        switch (context.data.boss) {
+            case "sil":
+                this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.SilHeadShot.toSprite());
+                break;
+
+            case "juno":
+                this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.CoachFish.toSprite());
+                break;
+
+            case "ginus":
+                this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.GinusHeadShot.toSprite());
+                break;
+
+            case "sander":
+                this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.CoachFish.toSprite());
+                break;
+
+            case "chris":
+                this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.CoachFish.toSprite());
+                break;
+
+        }
+
 
         this.square1 = new TimeOutSquare(new Vector(400, 350), Resources.Player.toSprite());
         this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.CoachFish.toSprite());
         this.add(this.square1);
         this.add(this.square2);
-      
+
 
     }
 
 
     onPreUpdate() {
-        
-        
+
+
         if (this.engine.mygamepad.wasButtonPressed(Buttons.Face1)) {
             this.engine.goToScene('fightscreen', { sceneActivationData: { player: this.context.data.player } });
         }
@@ -88,11 +111,11 @@ export class TimeOutScreen extends Scene {
         // Fucntie kijkt of je een health boost hebt
         if (this.healthBoost === 1 && context && context.data.player) {
             // Zo ja boost deze de player health
-           context.data.player.health += 40;
-           this.healthBoost = 0
-           console.log(context.data.player.health)
-           // Zet de healthboost naar 0 na gebruik 
-        } 
+            context.data.player.health += 40;
+            this.healthBoost = 0
+            console.log(context.data.player.health)
+            // Zet de healthboost naar 0 na gebruik 
+        }
     }
 
     resetTimeOut() {

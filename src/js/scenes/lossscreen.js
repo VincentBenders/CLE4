@@ -7,6 +7,7 @@ export class LossScreen extends Scene {
     }
 
     onActivate(context) {
+        console.log(context)
         //Sound initialization
         Resources.Track2.stop();
         Resources.Track1.volume = 0.5;
@@ -26,7 +27,7 @@ export class LossScreen extends Scene {
         })
 
         this.lossRoundLabel = new Label({
-            text: `Round ${context.currentRound}`,
+            text: `Round: ${context.data.round}`,
             pos: new Vector(650, 300),
             font: new Font({
                 family: 'Serif',
@@ -37,19 +38,8 @@ export class LossScreen extends Scene {
         })
 
         this.lossTimeLabel = new Label({
-            text: `Time: ${context.roundTime}`,
+            text: `Time: ${context.data.time}`,
             pos: new Vector(650, 350),
-            font: new Font({
-                family: 'Serif',
-                size: 30,
-                unit: FontUnit.Px,
-                color: Color.White
-            })
-        })
-
-        this.lossKoLabel = new Label({
-            text: 'KO',// `${kO}`,
-            pos: new Vector(650, 400),
             font: new Font({
                 family: 'Serif',
                 size: 30,
@@ -60,7 +50,7 @@ export class LossScreen extends Scene {
         this.add(this.lossLabel)
         this.add(this.lossRoundLabel)
         this.add(this.lossTimeLabel)
-        this.add(this.lossKoLabel)
+     
 
         
     }
@@ -80,9 +70,7 @@ export class LossScreen extends Scene {
         if (this.lossLabel instanceof Label) {
             this.lossLabel.kill();
         }
-        if (this.lossKoLabel instanceof Label) {
-            this.lossKoLabel.kill();
-        }
+       
         if (this.lossRoundLabel instanceof Label) {
             this.lossRoundLabel.kill();
         }
