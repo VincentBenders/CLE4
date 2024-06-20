@@ -10,6 +10,8 @@ import {
 } from "excalibur";
 import {Player} from "./player/player";
 
+
+// TODO: Set the sheet paths to the correct sheet
 const Resources = {
     Fish: new ImageSource('./images/Blub.png'),
     CoachFish: new ImageSource('./images/CoachFish.png'),
@@ -17,11 +19,18 @@ const Resources = {
     BoxingRing: new ImageSource('./images/BOX_RING_final.png'),
     Background1: new ImageSource('./images/BACKGROUND_01_final.png'),
     Square: new ImageSource('./placeholders/timeoutsquare.jpg'),
-    SilSheet: new ImageSource('./images/sprite_sheet_sil.png'),
     PlayerSheet: new ImageSource("./animations/player/spritesheet.png"),
     Track1: new Sound('sound/GAME_OTHERSOUNDTRACK_1.mp3'),
     Track2: new Sound('sound/GAME_MAINSOUNDTRACK.wav'),
     Punch: new Sound('sound/GAME_HIT_SOUND.wav'),
+    SilSheet: new ImageSource('./images/sprite_sheet_sil.png'),
+    SanderSheet: new ImageSource('./images/sprite_sheet_sil.png'),
+    JunoSheet: new ImageSource('./images/sprite_sheet_sil.png'),
+    ChrisSheet: new ImageSource('./images/sprite_sheet_sil.png'),
+    GinusSheet: new ImageSource('./images/sprite_sheet_sil.png'),
+    VincentSheet: new ImageSource('./images/sprite_sheet_sil.png'),
+    KasperSheet: new ImageSource('./images/sprite_sheet_sil.png'),
+    MathijsSheet: new ImageSource('./images/sprite_sheet_sil.png'),
 }
 
 const ResourceLoader = new Loader();

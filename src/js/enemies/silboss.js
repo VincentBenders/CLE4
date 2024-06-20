@@ -9,10 +9,9 @@ export class SilBoss extends Boss {
 
     //Properties
     hitsBeforeBlock;
-    receivedHits;
 
     constructor() {
-        super(150, 'sil');
+        super(75, 'sil');
 
         //Set properties
         this.hitsBeforeBlock = 3;
@@ -95,6 +94,15 @@ export class SilBoss extends Boss {
             this.pattern.unshift(this.moves.taunt);
 
         }
+    }
+
+    postOnHit() {
+
+        if (this.counterHits === 0 && (this.totalReceivedHits % this.hitsBeforeBlock) !== 0) {
+            this.isHittableBody = true;
+            this.isHittableHead = true;
+        }
+
     }
 
 }
