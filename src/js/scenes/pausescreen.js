@@ -8,6 +8,7 @@ import { Player } from "../player/player.js";
 export class PauseScreen extends Scene {
 
     onInitialize() {
+
         this.pauseLabel = new Label({
             text: 'PAUSE',
             pos: new Vector(600, 150),
