@@ -241,7 +241,6 @@ export class Boss extends Actor {
 
         //Don't do anything else if the move isn't an attack
         if (!(move instanceof Attack)) {
-            this.resumeIdle();
             return;
         }
 

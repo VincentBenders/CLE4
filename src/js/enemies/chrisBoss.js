@@ -1,16 +1,26 @@
 import {Boss} from "./boss.js";
+import {Random} from "excalibur";
 
 
 export class ChrisBoss extends Boss {
 
     //Properties
+    random;
+    blockChance;
 
     constructor() {
         super(125, 'chris');
+        this.random = new Random();
 
         this.nextAttackDelay = 750;
 
+        this.blockChance = 0.8;
+
+        this.nextPatternDelay = this.random.integer(750, 2250) ;
+
+
         this.setMoves();
+
 
     }
 
@@ -29,7 +39,7 @@ export class ChrisBoss extends Boss {
         for (const [key, move] of Object.entries(this.moves)) {
 
             move.animation.events.on('end', () => {
-                this.setTimer(200, this.resumeIdle);
+                this.setTimer(this.random.integer(100, 300), this.resumeIdle);
             });
 
         }
@@ -39,6 +49,32 @@ export class ChrisBoss extends Boss {
     setNextPattern() {
         super.setNextPattern();
 
+
+
+        this.nextPatternDelay = this.random.integer(750, 2250) ;
+
+    }
+
+    postOnHit() {
+
+        if (this.counterHits > 0) {
+            return;
+        }
+
+        if (this.random.bool(this.blockChance)) {
+            this.isHittableBody = false;
+            this.isHittableHead = false;
+        } else {
+            this.isHittableBody = true;
+            this.isHittableHead = true;
+        }
+
+    }
+
+    postGetUp() {
+        super.postGetUp();
+
+        this.blockChance -= 0.15;
 
 
     }
