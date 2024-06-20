@@ -41,6 +41,7 @@ export class Player extends Actor {
     this.isDodging = false;
     this.punch = "";
     this.dodge = "";
+    this.graphics.opacity = 0.65;
     this.cooldown = new Timer({
       fcn: () => {
         this.isAttacking = false;
