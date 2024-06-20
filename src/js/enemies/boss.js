@@ -63,7 +63,7 @@ export class Boss extends Actor {
         this.spriteSheet = SpriteSheet.fromImageSource({
             image: image,
             grid: {
-                rows: 8,
+                rows: 12,
                 columns: 10,
                 spriteHeight: 256,
                 spriteWidth: 256
