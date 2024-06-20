@@ -15,7 +15,7 @@ export class LossScreen extends Scene {
 
         this.resetLoss()
         this.lossLabel = new Label({
-            text: 'YOU LOSSTT UWU',// `${coachTip}`,
+            text: 'YOU LOST',
             pos: new Vector(500, 200),
             font: new Font({
                 family: 'Fantasy, Copperplate',
