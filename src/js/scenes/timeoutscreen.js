@@ -92,10 +92,7 @@ export class TimeOutScreen extends Scene {
            this.healthBoost = 0
            console.log(context.data.player.health)
            // Zet de healthboost naar 0 na gebruik 
-        } else if (this.healthBoost === 0) {
-            // Zo niet sluit hij de functie
-            close();
-        }
+        } 
     }
 
     resetTimeOut() {

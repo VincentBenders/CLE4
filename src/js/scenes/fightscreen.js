@@ -5,6 +5,7 @@ import { StartScreen } from "./startscreen.js";
 import { Background, BoxingRing, Resources } from "../resources.js";
 import { SilBoss } from "../enemies/silboss.js";
 import { SelectScreen } from "./selectscreen.js";
+import { TimeOutScreen } from "./timeoutscreen.js";
 
 export class FightScreen extends Scene {
   //Properties
@@ -63,14 +64,13 @@ export class FightScreen extends Scene {
     // If it's from the roadmap, set everything up
     if (context.previousScene instanceof SelectScreen || context.previousScene instanceof StartScreen) {
       this.resetFight(context);
-    } else if (context.previousScene instanceof FightScreen) {
+    } else if (context.previousScene instanceof TimeOutScreen) {
       // Else if it's from the timeout, do something else
-      this.player.health = context.player.health;
-      this.currentRound++
-
+      this.player.health = context.data.player.health;
       this.ui.element.style.display = 'flex';
       this.currentRound++;
       this.roundTimer.reset();
+      console.log(this.currentRound)
     }
 
     this.roundTimer.start();
