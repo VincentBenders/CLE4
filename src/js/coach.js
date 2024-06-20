@@ -14,8 +14,6 @@ export class Coach extends Actor {
     tips = [];
     onInitialize(pos) {
         
-        // this.graphics.use(Resources.CoachFish.toSprite());
-
         const CoachFish = SpriteSheet.fromImageSource({
             image: Resources.CoachFish,
             grid: { rows: 1, columns: 2, spriteWidth: 190, spriteHeight: 329 }

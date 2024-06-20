@@ -7,7 +7,7 @@ export class StartScreen extends Scene {
 
         this.startLabel = new Label({
             text: 'PUNCHPARK',
-            pos: new Vector(495, 150),
+            pos: new Vector(550, 150),
             font: new Font({
                 family: 'Serif',
                 size: 60,
@@ -19,7 +19,7 @@ export class StartScreen extends Scene {
 
         this.startButton = new Label({
             text: 'PRESS SPACE TO START',
-            pos: new Vector(500, 250),
+            pos: new Vector(550, 250),
             font: new Font({
                 family: 'Arial',
                 size: 30,
@@ -31,7 +31,7 @@ export class StartScreen extends Scene {
 
         this.creditsLabel = new Label({
             text: 'Made by Sander Landmeter, Juno Craane, Sil van Gemeren, Vincent Benders, Chris Tang, Kasper de Jong, Mathijs van der Meijde en Ginus van der Zee',
-            pos: new Vector(200, 800),
+            pos: new Vector(270, 800),
             font: new Font({
                 family: 'Serif',
                 size: 15,
