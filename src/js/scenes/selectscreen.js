@@ -13,6 +13,7 @@ export class SelectScreen extends Scene {
     selectBox;
 
     onActivate() {
+        console.log('selecting time');
         this.renderSelectScreen();
         //Sound initialization
         Resources.Track2.stop();

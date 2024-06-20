@@ -12,14 +12,14 @@ export class ExitButton extends Actor {
         this.on('pointerdown', () => {
             engine.goToScene('startscreen')
         });
-        this.pos = new Vector(700,500);
+        this.pos = new Vector(700,400);
         
     }
 
     onInitialize() {
         this.exitLabel = new Label({
             text: 'EXIT',
-            pos: new Vector(-63, -18),
+            pos: new Vector(-35, -20),
             font: new Font({
                 family: 'Arial',
                 size: 30,

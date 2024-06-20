@@ -124,7 +124,7 @@ body {
 
 #selectbox {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .select {

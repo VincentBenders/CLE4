@@ -432,7 +432,7 @@ export class Boss extends Actor {
             this.scene.player.hitFor(move.damage);
             this.resumeIdle();
             console.log("You've been hit!");
-            Resources.Punch.volume = 0.75;
+            Resources.Punch.volume = 1.0;
             Resources.Punch.loop = false;
             Resources.Punch.play(); 
         } else {
