@@ -1,4 +1,4 @@
-import { Color, Font, FontUnit, Keys, Label, Scene, Vector } from "excalibur";
+import { Buttons, Color, Font, FontUnit, Keys, Label, Scene, Vector } from "excalibur";
 import { Resources } from "../resources";
 
 export class WinScreen extends Scene {
@@ -8,7 +8,7 @@ export class WinScreen extends Scene {
     constructor() {
         super()
     }
-    onActivate() {
+    onActivate(context) {
         //Sound initialization
         Resources.Track2.stop();
         Resources.Track1.volume = 0.5;
@@ -70,6 +70,10 @@ export class WinScreen extends Scene {
         if (this.engine.input.keyboard.wasPressed(Keys.Esc)) {
             this.engine.goToScene('startscreen');
         }
+        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face1)) {
+            this.engine.goToScene('selectscreen');
+        }
+
     }
 
     

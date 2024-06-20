@@ -32,7 +32,7 @@ export class PauseScreen extends Scene {
         }
         
         if (this.engine.mygamepad.wasButtonPressed(Buttons.Face2)) {
-            engine.goToScene('startscreen');
+            engine.goToScene('selectscreen');
         }
 
         

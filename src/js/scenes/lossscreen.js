@@ -1,4 +1,4 @@
-import { Color, Font, FontUnit, Keys, Label, Scene, Vector } from "excalibur";
+import { Buttons, Color, Font, FontUnit, Keys, Label, Scene, Vector } from "excalibur";
 import { Resources } from "../resources";
 
 export class LossScreen extends Scene {
@@ -6,7 +6,7 @@ export class LossScreen extends Scene {
         super()
     }
 
-    onActivate() {
+    onActivate(context) {
         //Sound initialization
         Resources.Track2.stop();
         Resources.Track1.volume = 0.5;
@@ -26,7 +26,7 @@ export class LossScreen extends Scene {
         })
 
         this.lossRoundLabel = new Label({
-            text: 'round',// `${round}`,
+            text: `Round ${context.currentRound}`,
             pos: new Vector(650, 300),
             font: new Font({
                 family: 'Serif',
@@ -37,7 +37,7 @@ export class LossScreen extends Scene {
         })
 
         this.lossTimeLabel = new Label({
-            text: 'Time',// `${roundTime}`,
+            text: `Time: ${context.roundTime}`,
             pos: new Vector(650, 350),
             font: new Font({
                 family: 'Serif',
@@ -68,6 +68,10 @@ export class LossScreen extends Scene {
     onPreUpdate() {
         if (this.engine.input.keyboard.wasPressed(Keys.Esc)) {
             this.engine.goToScene('startscreen');
+        }
+
+        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face1)) {
+            this.engine.goToScene('selectscreen');
         }
     }
 
