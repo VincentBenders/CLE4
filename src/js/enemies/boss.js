@@ -8,7 +8,6 @@ export class Boss extends Actor {
 
 
     //Properties
-    name;
     healthCurrent;
     healthMax;
     healthRecover;
@@ -79,7 +78,7 @@ export class Boss extends Actor {
             super3: 75,
         }
 
-        this.nextAttackDelay = 3000;
+        this.nextAttackDelay = 4000;
 
         this.nextAttackDelayTimer = new Timer({
             fcn: () => {
@@ -125,7 +124,7 @@ export class Boss extends Actor {
         this.setNextPattern();
 
         this.resumeIdle();
-        this.pos = new Vector(720, 500);
+        this.pos = new Vector(720, 600);
 
 
     }
