@@ -26,7 +26,7 @@ const Resources = {
     SilSheet: new ImageSource('./images/sprite_sheet_sil.png'),
     SanderSheet: new ImageSource('./images/sprite_sheet_sil.png'),
     JunoSheet: new ImageSource('./images/sprite_sheet_sil.png'),
-    ChrisSheet: new ImageSource('./images/sprite_sheet_sil.png'),
+    ChrisSheet: new ImageSource('./images/sprite_sheet_chris.png'),
     GinusSheet: new ImageSource('./images/sprite_sheet_sil.png'),
     VincentSheet: new ImageSource('./images/sprite_sheet_sil.png'),
     KasperSheet: new ImageSource('./images/sprite_sheet_sil.png'),
@@ -54,20 +54,20 @@ export class BossAnimations {
 
     constructor(sheet) {
 
-        this.idle = animate(2000, sheet, [20, 21, 22, 23]);
+        this.idle = animate(2000, sheet, [0, 1]);
 
-        this.block = animate(200, sheet, [0, 1, 2, 3, 4]);
+        this.block = animate(200, sheet, [50, 51, 52, 53]);
         this.block.strategy = AnimationStrategy.End;
 
-        this.getHit = animate(200, sheet, [10, 11, 12]);
+        this.getHit = animate(200, sheet, [40, 41, 42]);
         this.getHit.strategy = AnimationStrategy.Freeze;
 
-        this.goingDown = animate(2000, sheet, [30, 31, 32, 33]);
+        this.goingDown = animate(2000, sheet, [10, 11, 12, 13, 14]);
         this.goingDown.strategy = AnimationStrategy.Freeze;
 
-        this.tauntDownedPlayer = animate(1000, sheet, [40, 41, 42, 43]);
+        this.tauntDownedPlayer = animate(1000, sheet, [20, 21, 22, 23, 24, 25, 26, 27, 28, 29]);
 
-        this.getUp = animate(2000, sheet, [32, 31, 30]);
+        this.getUp = animate(2000, sheet, [30, 31]);
         this.getUp.strategy = AnimationStrategy.End;
 
 

@@ -4,12 +4,16 @@ import {animate} from "../resources.js";
 import {Move} from "./Move.js";
 import {AnimationStrategy} from "excalibur";
 
-export class MathijsBoss extends Boss {
+export class KasperBoss extends Boss {
 
     //Properties
+    hitsBeforeBlock;
 
     constructor() {
-        super(400, 'mathijs');
+        super(125, 'kasper');
+
+        //Set properties
+        this.hitsBeforeBlock = 5;
 
         //fill the move object
         this.setMoves();
@@ -32,15 +36,20 @@ export class MathijsBoss extends Boss {
         let blockAnimation = animate(1000, this.spriteSheet, [25, 26]);
         this.moves.uppercut = new Attack(30, 'block', 7, 1000, 300, blockAnimation, 3);
 
-        //leftpunch
-        let leftPunchAnimation = animate(1000, this.spriteSheet, [70, 71, 72, 73]);
-        this.moves.uppercut = new Attack(30, 'uppercut', 7, 1000, 300, leftPunchAnimation, 3);
 
-        //rightpunch
-        let rightPunchAnimation = animate(1000, this.spriteSheet, [70, 71, 72, 73]);
-        this.moves.uppercut = new Attack(30, 'uppercut', 7, 1000, 300, rightPunchAnimation, 3);
+        //kick left
+        let kickLeftAnimation = animate(1000, this.spriteSheet, [30, 31, 32, 33, 34]);
+        this.moves.uppercut = new Attack(30, 'kickleft', 7, 1000, 300, kickLeftAnimation, 3);
+        //kick right
+        let kickRightAnimation = animate(1000, this.spriteSheet, [35, 36, 37, 38, 39]);
+        this.moves.uppercut = new Attack(30, 'kickright', 7, 1000, 300, kickRightAnimation, 3);
+        //overhead swing
+        let overHeadSwingAnimation = animate(1000, this.spriteSheet, [40, 41, 42, 43]);
+        this.moves.uppercut = new Attack(30, 'overheadswing', 7, 1000, 300, overHeadSwingAnimation, 3);
+    
+        
 
-        let tauntAnimation = animate(2000, this.spriteSheet, [72]);
+        let tauntAnimation = animate(2000, this.spriteSheet, [10, 11, 12]);
         tauntAnimation.events.on('frame', (e) => {if (e.frameIndex === 0) {this.isVulnerable = true}})
         this.moves.taunt = new Move(tauntAnimation, 2000);
 
@@ -62,7 +71,14 @@ export class MathijsBoss extends Boss {
 
     postGetUp() {
 
-       
+        //After kasper gets up, he needs to block sooner
+        this.hitsBeforeBlock--;
+
+        //Make sure this number can't go below 0
+        if (this.hitsBeforeBlock < 0) {
+            this.hitsBeforeBlock = 0;
+        }
+
     }
 
     postOnPostUpdate() {
