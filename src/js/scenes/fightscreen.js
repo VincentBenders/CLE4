@@ -2,7 +2,7 @@ import { Actor, Buttons, Keys, Scene, Timer, Vector } from "excalibur";
 import { Label, FontUnit, Font } from "excalibur";
 import { Player } from "../player/player";
 import { StartScreen } from "./startscreen.js";
-import { Background, BoxingRing } from "../resources.js";
+import { Background, BoxingRing, Resources } from "../resources.js";
 import { SilBoss } from "../enemies/silboss.js";
 import { SelectScreen } from "./selectscreen.js";
 
@@ -21,6 +21,12 @@ export class FightScreen extends Scene {
 
   onInitialize(engine) {
     // this.add(new Placeholder());
+
+    //Sound initialization
+    Resources.Track1.stop();
+    Resources.Track2.volume = 0.5;
+    Resources.Track2.loop = true;
+    Resources.Track2.play();  
 
     //Create actors for the background and arena
     this.background = new Background();

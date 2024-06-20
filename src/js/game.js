@@ -42,14 +42,8 @@ export class Game extends Engine {
             console.log("gamepad detected: ", connectevent.gamepad)
             this.mygamepad = connectevent.gamepad
             console.log(this.mygamepad);
-        })
-    
-        Resources.Track1.volume = 0.5;
-        Resources.Track1.loop = true;
-        Resources.Track1.play();    
+        })      
     }
-
-    
 }
 
 new Game()
