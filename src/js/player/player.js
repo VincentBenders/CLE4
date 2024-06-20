@@ -159,7 +159,7 @@ export class Player extends Actor {
     // attacks
     if (engine.mygamepad.wasButtonPressed(Buttons.Face1) && yValue === 0) {
       if (!this.isAttacking && !this.isDodging) {
-        Resources.Punch.volume = 0.75;
+        Resources.Punch.volume = 1.0;
         Resources.Punch.loop = false;
         Resources.Punch.play(); 
         this.punch = "lower left";
@@ -171,7 +171,7 @@ export class Player extends Actor {
     }
     if (engine.mygamepad.wasButtonPressed(Buttons.Face2) && yValue === 0) {
       if (!this.isAttacking && !this.isDodging) {
-        Resources.Punch.volume = 0.75;
+        Resources.Punch.volume = 1.0;
         Resources.Punch.loop = false;
         Resources.Punch.play(); 
         this.punch = "lower right";
@@ -187,7 +187,7 @@ export class Player extends Actor {
     // upper attacks
     if (engine.mygamepad.wasButtonPressed(Buttons.Face2) && yValue < 0) {
       if (!this.isAttacking && !this.isDodging) {
-        Resources.Punch.volume = 0.75;
+        Resources.Punch.volume = 1.0;
         Resources.Punch.loop = false;
         Resources.Punch.play(); 
         this.punch = "upper right";
@@ -200,7 +200,7 @@ export class Player extends Actor {
     }
     if (engine.mygamepad.wasButtonPressed(Buttons.Face1) && yValue < 0) {
       if (!this.isAttacking && !this.isDodging) {
-        Resources.Punch.volume = 0.75;
+        Resources.Punch.volume = 1.0;
         Resources.Punch.loop = false;
         Resources.Punch.play(); 
         this.punch = "upper left";
