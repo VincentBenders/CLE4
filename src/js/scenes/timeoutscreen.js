@@ -1,6 +1,7 @@
 import { Actor, Buttons, Color, Font, FontUnit, Keys, Label, Scene, Vector } from "excalibur";
 import { Coach } from "../coach";
 import { TimeOutSquare } from "../player/placeholder/timeout-placeholder";
+import { Resources } from "../resources";
 
 export class TimeOutScreen extends Scene {
 
@@ -11,6 +12,12 @@ export class TimeOutScreen extends Scene {
     healthBoost
    
     onInitialize() {
+        //Sound initialization
+        Resources.Track2.stop();
+        Resources.Track1.volume = 0.5;
+        Resources.Track1.loop = true;
+        Resources.Track1.play();  
+
         this.healthBoost = 1;
 
         this.coach = new Coach(new Vector(150, 600));

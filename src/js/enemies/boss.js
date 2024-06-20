@@ -8,7 +8,6 @@ export class Boss extends Actor {
 
 
     //Properties
-    name;
     healthCurrent;
     healthMax;
     healthRecover;
@@ -27,6 +26,7 @@ export class Boss extends Actor {
     damageInfo;
     missTimer;
     stunnedTimer;
+    totalReceivedHits;
 
 
     //States
@@ -78,7 +78,7 @@ export class Boss extends Actor {
             super3: 75,
         }
 
-        this.nextAttackDelay = 3000;
+        this.nextAttackDelay = 4000;
 
         this.nextAttackDelayTimer = new Timer({
             fcn: () => {
@@ -124,7 +124,7 @@ export class Boss extends Actor {
         this.setNextPattern();
 
         this.resumeIdle();
-        this.pos = new Vector(720, 500);
+        this.pos = new Vector(720, 575);
 
 
     }
@@ -147,39 +147,38 @@ export class Boss extends Actor {
     onPreUpdate(engine, delta) {
         super.onPreUpdate(engine, delta);
 
+        if (this.graphics.current !== this.animations.idle) {
+            this.nextAttackDelayTimer.pause();
+        }
+
         //Check for health
-        if (this.healthCurrent <= 0) {
+
+        if (this.healthCurrent <= 0 && !this.isDown) {
 
             this.healthCurrent = 0;
 
-            this.goDown(this.lastHitBy);
-
+            this.goDown();
             //Not yet implemented
+
             // this.scene.enemyDowned(this);
 
             const random = new Random;
 
             if (this.timesDowned > this.timesDownedMax) {
-
                 //Once the boss is knocked down more than their max, roll a d10
-                let randomNumber = random.integer(1, 10)
 
+                let randomNumber = random.integer(1, 10)
                 //If the roll is lower than the amount of times they went down, return early so they won't get up
                 if (randomNumber <= this.timesDowned) {
                     return;
+
                 }
 
             }
-
             //Set a random time from 3-9 seconds before the boss gets up
+
             this.setTimer(random.integer(3000, 9000), this.getUp);
 
-            return;
-
-        }
-
-        if (this.graphics.current !== this.animations.idle) {
-            this.nextAttackDelayTimer.pause();
         }
 
 
@@ -231,7 +230,7 @@ export class Boss extends Actor {
         }
 
         move.animation.events.on('end', () => {
-                this.landAttack(move);
+            this.landAttack(move);
         })
 
 
@@ -267,10 +266,10 @@ export class Boss extends Actor {
 
         this.healthRecover = this.healthMax - (this.healthMax * (0.1 * this.timesDowned));
 
-        this.animations.getUp.events.on('end', () => {
-            this.healthCurrent = this.healthRecover;
-            this.isInCenter = true;
-        })
+        this.healthCurrent = this.healthRecover;
+        this.isInCenter = true;
+
+        this.animations.getUp.on('end', () => {this.resumeIdle()});
 
         this.postGetUp();
 
@@ -294,7 +293,9 @@ export class Boss extends Actor {
     block() {
         this.animations.block.reset();
         this.graphics.use(this.animations.block);
-        this.animations.block.events.on('end', () => {this.resumeIdle();})
+        this.animations.block.events.on('end', () => {
+            this.resumeIdle();
+        })
     }
 
     hitWith(punch) {
@@ -375,12 +376,13 @@ export class Boss extends Actor {
 
         this.healthCurrent -= damage;
 
+        this.totalReceivedHits++;
         this.lastHitBy = punch;
 
-        if (this.counterHits === 0) {
-            this.isHittableBody = false;
-            this.isHittableHead = false;
-        }
+        // if (this.counterHits === 0) {
+        //     this.isHittableBody = false;
+        //     this.isHittableHead = false;
+        // }
 
     }
 
@@ -412,6 +414,9 @@ export class Boss extends Actor {
             this.scene.player.hitFor(move.damage);
             this.resumeIdle();
             console.log("You've been hit!");
+            Resources.Punch.volume = 1.0;
+            Resources.Punch.loop = false;
+            Resources.Punch.play(); 
         } else {
             //Otherwise, set condition
             this.hasMissed = true;

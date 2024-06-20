@@ -2,7 +2,7 @@ import { Actor, Buttons, Keys, Scene, Timer, Vector } from "excalibur";
 import { Label, FontUnit, Font } from "excalibur";
 import { Player } from "../player/player";
 import { StartScreen } from "./startscreen.js";
-import { Background, BoxingRing } from "../resources.js";
+import { Background, BoxingRing, Resources } from "../resources.js";
 import { SilBoss } from "../enemies/silboss.js";
 import { SelectScreen } from "./selectscreen.js";
 
@@ -21,6 +21,12 @@ export class FightScreen extends Scene {
 
   onInitialize(engine) {
     // this.add(new Placeholder());
+
+    //Sound initialization
+    Resources.Track1.stop();
+    Resources.Track2.volume = 0.5;
+    Resources.Track2.loop = true;
+    Resources.Track2.play();  
 
     //Create actors for the background and arena
     this.background = new Background();
@@ -53,10 +59,13 @@ export class FightScreen extends Scene {
 
     //Check where this scene got called from
     // If it's from the roadmap, set everything up
-    if (context.previousScene instanceof SelectScreen) {
+    if (context.previousScene instanceof SelectScreen || context.previousScene instanceof StartScreen) {
       this.resetFight(context);
     } else {
       // Else if it's from the timeout, do something else
+      this.ui.element.style.display = 'flex';
+      this.currentRound++;
+      this.roundTimer.reset();
     }
 
     this.roundTimer.start();
@@ -136,10 +145,10 @@ export class FightScreen extends Scene {
     let playerStaminaContainer = document.createElement("div");
     playerStaminaContainer.id = "playerStaminaContainer";
 
-    let playerStaminaText = document.createElement("h2");
-    playerStaminaText.id = "playerStaminaText";
+    this.ui.playerStaminaText = document.createElement("h2");
+    this.ui.playerStaminaText.id = "playerStaminaText";
 
-    playerStaminaContainer.appendChild(playerStaminaText);
+    playerStaminaContainer.appendChild(this.ui.playerStaminaText);
 
     playerInfo.appendChild(playerStaminaContainer);
 
@@ -195,18 +204,22 @@ export class FightScreen extends Scene {
 
     //Add them to the ui
     this.ui.element.appendChild(playerInfo);
-    this.ui.element.appendChild(clock);
+    this.ui.element.appendChild(clockContainer);
     this.ui.element.appendChild(bossInfo);
   }
 
   updateUI() {
     //Update the health bars
-    this.ui.bossHealthBar.width = `${Math.floor(
+    this.ui.bossHealthBar.style.width = `${Math.floor(
       (this.boss.healthCurrent / this.boss.healthMax) * 100
     )}%`;
-    this.ui.playerHealthBar.width = `${Math.floor(
+    this.ui.playerHealthBar.style.width = `${Math.floor(
       (this.player.healthCurrent / this.player.healthMax) * 100
     )}%`;
+
+    //Update the stamina bar
+    this.ui.playerStaminaText.innerText = this.player.stamina;
+
   }
 
   roundTimeHandler() {
@@ -227,6 +240,9 @@ export class FightScreen extends Scene {
 
     //Check if the time has reached 0
     if (this.roundTimeRemaining <= 0) {
+
+      this.ui.element.style.display = 'none';
+
       //If so, end the round immediately
       this.engine.goToScene("timeoutscreen", {
         sceneActivationData: { boss: this.boss, player: this.player },

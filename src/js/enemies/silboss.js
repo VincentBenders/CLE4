@@ -9,15 +9,19 @@ export class SilBoss extends Boss {
 
     //Properties
     hitsBeforeBlock;
+    receivedHits;
 
     constructor() {
         super(150, 'sil');
 
         //Set properties
-        this.hitsBeforeBlock = 5;
+        this.hitsBeforeBlock = 3;
 
         //fill the move object
         this.setMoves();
+
+        this.isHittableHead = true;
+        this.isHittableBody = true;
 
     }
 
@@ -38,15 +42,15 @@ export class SilBoss extends Boss {
         this.moves.uppercut = new Attack(30, 'uppercut', 7, 1000, 300, uppercutAnimation, 3);
 
 
-        let tauntAnimation = animate(2000, this.spriteSheet, [72]);
-        tauntAnimation.events.on('frame', (e) => {if (e.frameIndex === 0) {this.isVulnerable = true}})
+        let tauntAnimation = animate(4000, this.spriteSheet, [72, 72]);
+        tauntAnimation.events.on('start', () => {this.isVulnerable = true; this.setTimer(2000, () => {this.isVulnerable = false})})
         this.moves.taunt = new Move(tauntAnimation, 2000);
 
         //Make sure the animations go back to idle once they end
         for (const [key, move] of Object.entries(this.moves)) {
 
             move.animation.events.on('end', () => {
-                this.resumeIdle();
+                this.setTimer(200, this.resumeIdle);
             });
 
         }
@@ -74,6 +78,15 @@ export class SilBoss extends Boss {
     }
 
     postOnPostUpdate() {
+
+        if ((this.totalReceivedHits % this.hitsBeforeBlock) === 0) {
+            this.isHittableBody = true;
+            this.isHittableHead = false;
+        } else {
+            this.isHittableBody = false;
+            this.isHittableHead = true;
+        }
+
         const time = this.scene.ui.clock.innerText;
 
         if (time === '2:30' || time === '1:30' || time === '0:30') {
