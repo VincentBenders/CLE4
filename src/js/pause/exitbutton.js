@@ -19,7 +19,7 @@ export class ExitButton extends Actor {
     onInitialize() {
         this.exitLabel = new Label({
             text: 'EXIT',
-            pos: new Vector(-63, -18),
+            pos: new Vector(-35, -20),
             font: new Font({
                 family: 'Arial',
                 size: 30,
