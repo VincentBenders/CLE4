@@ -320,6 +320,9 @@ export class Boss extends Actor {
             return;
         }
 
+        this.lastHitBy = punch;
+
+
         //Check if the punch can land
         let hit = false;
         switch (punch) {
@@ -392,7 +395,6 @@ export class Boss extends Actor {
         this.healthCurrent -= damage;
 
         this.totalReceivedHits++;
-        this.lastHitBy = punch;
 
         if (this.counterHits === 0) {
             this.isHittableBody = false;

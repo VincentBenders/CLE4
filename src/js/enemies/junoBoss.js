@@ -42,5 +42,24 @@ export class JunoBoss extends Boss {
 
     }
 
+    block() {
+
+        let animation;
+        if (this.lastHitBy === 'lower left' || this.lastHitBy === 'upper left') {
+            animation = this.animations.dodgeRight;
+        } else {
+            animation = this.animations.dodgeLeft;
+        }
+
+        animation.reset();
+        this.graphics.use(animation);
+
+
+        animation.events.on('end', () => {
+            this.resumeIdle();
+        })
+
+    }
+
 
 }
