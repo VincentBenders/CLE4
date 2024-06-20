@@ -7,20 +7,22 @@ import {AnimationStrategy} from "excalibur";
 export class MathijsBoss extends Boss {
 
     //Properties
-    hitsBeforeBlock;
 
     constructor() {
         super(150, 'mathijs');
-
-        //Set properties
-        this.hitsBeforeBlock = 5;
 
         //fill the move object
         this.setMoves();
     }
 
     setMoves() {
+        //leftpunch
+        let leftPunchAnimation = animate(1000, this.spriteSheet, [70, 71, 72, 73]);
+        this.moves.uppercut = new Attack(30, 'uppercut', 7, 1000, 300, leftPunchAnimation, 3);
 
+        //rightpunch
+        let rightPunchAnimation = animate(1000, this.spriteSheet, [70, 71, 72, 73]);
+        this.moves.uppercut = new Attack(30, 'uppercut', 7, 1000, 300, rightPunchAnimation, 3);
 
         let tauntAnimation = animate(2000, this.spriteSheet, [72]);
         tauntAnimation.events.on('frame', (e) => {if (e.frameIndex === 0) {this.isVulnerable = true}})
@@ -44,14 +46,7 @@ export class MathijsBoss extends Boss {
 
     postGetUp() {
 
-        //After mathijs gets up, he needs to block sooner
-        this.hitsBeforeBlock--;
-
-        //Make sure this number can't go below 0
-        if (this.hitsBeforeBlock < 0) {
-            this.hitsBeforeBlock = 0;
-        }
-
+       
     }
 
     postOnPostUpdate() {

@@ -13,16 +13,19 @@ export class VincentBoss extends Boss {
         super(150, 'vincent');
 
         //Set properties
-        this.hitsBeforeBlock = 5;
+        this.hitsBeforeBlock = 8;
 
         //fill the move object
         this.setMoves();
     }
 
     setMoves() {
-
-        let uppercutAnimation = animate(1000, this.spriteSheet, [70, 71, 72, 73]);
-        this.moves.uppercut = new Attack(30, 'uppercut', 7, 1000, 300, uppercutAnimation, 3);
+        //left punch
+        let leftPunchAnimation = animate(1000, this.spriteSheet, [70, 71, 72, 73]);
+        this.moves.uppercut = new Attack(30, 'uppercut', 7, 1000, 300, leftPunchAnimation, 3);
+        //right punch
+        let rightPunchAnimation = animate(1000, this.spriteSheet, [70, 71, 72, 73]);
+        this.moves.uppercut = new Attack(30, 'uppercut', 7, 1000, 300, rightPunchAnimation, 3);
 
         let tauntAnimation = animate(2000, this.spriteSheet, [72]);
         tauntAnimation.events.on('frame', (e) => {if (e.frameIndex === 0) {this.isVulnerable = true}})
