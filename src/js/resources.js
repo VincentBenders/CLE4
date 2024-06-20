@@ -19,6 +19,7 @@ const Resources = {
     Square: new ImageSource('./placeholders/timeoutsquare.jpg'),
     SilSheet: new ImageSource('./images/sprite_sheet_sil.png'),
     PlayerSheet: new ImageSource("./animations/player/spritesheet.png"),
+    Track1: new Sound('sound/8BITADVENTURE_CLE4.wav'),
 }
 
 const ResourceLoader = new Loader();
