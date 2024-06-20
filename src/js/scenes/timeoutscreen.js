@@ -55,7 +55,7 @@ export class TimeOutScreen extends Scene {
 
         this.add(this.tipLabel);
 
-        switch (context.data.boss) {
+        switch (context.data.boss.name) {
             case "sil":
                 this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.SilHeadShot.toSprite());
                 break;
@@ -80,7 +80,7 @@ export class TimeOutScreen extends Scene {
 
 
         this.square1 = new TimeOutSquare(new Vector(400, 350), Resources.Player.toSprite());
-        this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.CoachFish.toSprite());
+        // this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.CoachFish.toSprite());
         this.add(this.square1);
         this.add(this.square2);
 
