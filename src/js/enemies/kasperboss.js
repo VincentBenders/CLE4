@@ -10,7 +10,7 @@ export class KasperBoss extends Boss {
     hitsBeforeBlock;
 
     constructor() {
-        super(150, 'kasper');
+        super(125, 'kasper');
 
         //Set properties
         this.hitsBeforeBlock = 5;
