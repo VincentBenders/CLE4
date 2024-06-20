@@ -20,7 +20,7 @@ export class ResumeButton extends Actor {
         
         this.resumeLabel = new Label({
             text: 'RESUME',
-            pos: new Vector(-63, -18),
+            pos: new Vector(-65, -20),
             font: new Font({
                 family: 'Arial',
                 size: 30,
