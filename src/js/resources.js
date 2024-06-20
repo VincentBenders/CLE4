@@ -31,6 +31,8 @@ const Resources = {
     VincentSheet: new ImageSource('./images/sprite_sheet_sil.png'),
     KasperSheet: new ImageSource('./images/sprite_sheet_sil.png'),
     MathijsSheet: new ImageSource('./images/sprite_sheet_sil.png'),
+    SilHeadShot: new ImageSource('./images/time-out-sil.png'),
+    GinusHeadShot: new ImageSource('./images/time-out-ginus.png'),
 }
 
 const ResourceLoader = new Loader();

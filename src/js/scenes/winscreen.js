@@ -49,20 +49,10 @@ export class WinScreen extends Scene {
             })
         })
 
-        this.winKoLabel = new Label({
-            text: 'KO',// `${kO}`,
-            pos: new Vector(650, 400),
-            font: new Font({
-                family: 'Serif',
-                size: 30,
-                unit: FontUnit.Px,
-                color: Color.White
-            })
-        })
         this.add(this.winLabel)
         this.add(this.winRoundLabel)
         this.add(this.winTimeLabel)
-        this.add(this.winKoLabel)
+  
     
     }
 
@@ -87,9 +77,7 @@ export class WinScreen extends Scene {
         if (this.winTimeLabel instanceof Label) {
             this.winTimeLabel.kill();
         }
-        if (this.winKoLabel instanceof Label) {
-            this.winKoLabel.kill();
-        }
+        
 
 
         
