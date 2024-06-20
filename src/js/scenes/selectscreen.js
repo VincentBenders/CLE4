@@ -61,6 +61,7 @@ export class SelectScreen extends Scene {
             const name = document.createElement('p');
             name.textContent = boss.name;
             name.style.textAlign = 'center';
+            name.style.color = 'white';
             select.appendChild(name);
 
             const picture = document.createElement('img');
