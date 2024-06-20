@@ -5,6 +5,11 @@ import { StartScreen } from "./startscreen.js";
 import { Background, BoxingRing, Resources } from "../resources.js";
 import { SilBoss } from "../enemies/silboss.js";
 import { SelectScreen } from "./selectscreen.js";
+import { TimeOutScreen } from "./timeoutscreen.js";
+import {JunoBoss} from "../enemies/junoBoss.js";
+import {GinusBoss} from "../enemies/ginusBoss.js";
+import {SanderBoss} from "../enemies/sanderBoss.js";
+import {ChrisBoss} from "../enemies/chrisBoss.js";
 
 export class FightScreen extends Scene {
   //Properties
@@ -63,14 +68,13 @@ export class FightScreen extends Scene {
     // If it's from the roadmap, set everything up
     if (context.previousScene instanceof SelectScreen || context.previousScene instanceof StartScreen) {
       this.resetFight(context);
-    } else if (context.previousScene instanceof FightScreen) {
+    } else if (context.previousScene instanceof TimeOutScreen) {
       // Else if it's from the timeout, do something else
-      this.player.health = context.player.health;
-      this.currentRound++
-
+      this.player.health = context.data.player.health;
       this.ui.element.style.display = 'flex';
       this.currentRound++;
       this.roundTimer.reset();
+      console.log(this.currentRound)
     }
 
     this.roundTimer.start();
@@ -112,22 +116,38 @@ export class FightScreen extends Scene {
     this.currentRound = 1;
     this.roundTimeRemaining = 180;
 
-    //Set the correct background image
-
-    //Add the player to the scene
+    //Create player and set it as a property
     this.player = new Player();
 
-    //Add the correct enemy to the scene, and adjust the background
+    //Create the correct enemy and set it as a property
     switch (context.data.boss) {
       case "sil":
         this.boss = new SilBoss();
-        this.background.graphics.use();
         break;
+
+        case "juno":
+        this.boss = new JunoBoss();
+        break;
+
+        case "ginus":
+        this.boss = new GinusBoss();
+        break;
+
+        case "sander":
+        this.boss = new SanderBoss();
+        break;
+
+        case "chris":
+        this.boss = new ChrisBoss();
+        break;
+
     }
 
+    //Add the player and boss to the scene
     this.add(this.boss);
     this.add(this.player);
 
+    //Use the correct background
     this.background.setBackgroundImageFor(this.boss.name);
   }
 

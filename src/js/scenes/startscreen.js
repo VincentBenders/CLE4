@@ -1,11 +1,9 @@
 import { Buttons, Color, Keys, Scene, Vector } from "excalibur";
 import { Label, FontUnit, Font } from "excalibur";
-import { Resources } from "../resources";
 
 export class StartScreen extends Scene {
     onInitialize(engine) {
-          
-        console.log("start screen!")
+        console.log("start screen!");
 
         this.startLabel = new Label({
             text: 'PUNCHPARK',
@@ -16,11 +14,11 @@ export class StartScreen extends Scene {
                 unit: FontUnit.Px,
                 color: Color.White
             })
-        })
-        this.add(this.startLabel)
+        });
+        this.add(this.startLabel);
 
         this.startButton = new Label({
-            text: 'PRESS SPACE TO START',
+            text: 'PRESS A TO START',
             pos: new Vector(550, 250),
             font: new Font({
                 family: 'Arial',
@@ -28,8 +26,8 @@ export class StartScreen extends Scene {
                 unit: FontUnit.Px,
                 color: Color.White
             })
-        })
-        this.add(this.startButton)
+        });
+        this.add(this.startButton);
 
         this.creditsLabel = new Label({
             text: 'Made by Sander Landmeter, Juno Craane, Sil van Gemeren, Vincent Benders, Chris Tang, Kasper de Jong, Mathijs van der Meijde en Ginus van der Zee',
@@ -40,32 +38,29 @@ export class StartScreen extends Scene {
                 unit: FontUnit.Px,
                 color: Color.White
             })
-        })
-        this.add(this.creditsLabel)
-       
+        });
+        this.add(this.creditsLabel);
     }
 
-
-    onPostUpdate(engine){
-        if (engine.input.keyboard.wasPressed(Keys.Space)) {
-            this.engine.goToScene('selectscreen');
+    onPostUpdate(engine) {
+        if (engine.mygamepad && engine.mygamepad.wasButtonPressed(Buttons.Face1) || engine.input.keyboard.wasPressed(Keys.A)) {
+            engine.goToScene('selectscreen');
         }
 
         if (engine.input.keyboard.wasPressed(Keys.V)) {
-            this.engine.goToScene('fightscreen', {sceneActivationData: {boss: 'sil'}});
+            engine.goToScene('fightscreen', { sceneActivationData: { boss: 'sil' } });
         }
 
-        if(engine.input.keyboard.wasPressed(Keys.Digit1)) {
-            this.engine.goToScene('timeoutscreen');
+        if (engine.input.keyboard.wasPressed(Keys.Digit1)) {
+            engine.goToScene('timeoutscreen');
         }
 
-        if(engine.input.keyboard.wasPressed(Keys.Digit2)) {
-            this.engine.goToScene('winscreen');
+        if (engine.input.keyboard.wasPressed(Keys.Digit2)) {
+            engine.goToScene('winscreen');
         }
 
-        if(engine.input.keyboard.wasPressed(Keys.Digit3)) {
-            this.engine.goToScene('lossscreen');
+        if (engine.input.keyboard.wasPressed(Keys.Digit3)) {
+            engine.goToScene('lossscreen');
         }
     }
-
 }

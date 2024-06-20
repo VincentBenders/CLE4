@@ -22,6 +22,7 @@ export class Boss extends Actor {
     spriteSheet;
     nextAttackDelay;
     nextAttackDelayTimer;
+    nextPatternDelay;
     lastHitBy;
     damageInfo;
     missTimer;
@@ -45,8 +46,22 @@ export class Boss extends Actor {
 
         this.name = name;
 
+        let image;
+
+        switch (name) {
+            case 'sil': image = Resources.SilSheet; break;
+            case 'chris': image = Resources.ChrisSheet; break;
+            case 'juno': image = Resources.JunoSheet; break;
+            case 'kasper': image = Resources.KasperSheet; break;
+            case 'vincent': image = Resources.VincentSheet; break;
+            case 'ginus': image = Resources.GinusSheet; break;
+            case 'mathijs': image = Resources.MathijsSheet; break;
+            case 'sander': image = Resources.SanderSheet; break;
+            default: image = Resources.SilSheet;
+        }
+
         this.spriteSheet = SpriteSheet.fromImageSource({
-            image: Resources.SilSheet,
+            image: image,
             grid: {
                 rows: 8,
                 columns: 10,
@@ -79,11 +94,12 @@ export class Boss extends Actor {
         }
 
         this.nextAttackDelay = 4000;
+        this.nextPatternDelay = this.nextAttackDelay * 3;
 
         this.nextAttackDelayTimer = new Timer({
             fcn: () => {
-                if (this.pattern.length === 0) {
-                    this.setNextPattern();
+                if (this.pattern.length <= 0) {
+                    this.setTimer(this.nextPatternDelay, this.setNextPattern)
                 } else {
                     this.performMove(this.pattern.shift());
                 }
@@ -225,7 +241,6 @@ export class Boss extends Actor {
 
         //Don't do anything else if the move isn't an attack
         if (!(move instanceof Attack)) {
-            this.resumeIdle();
             return;
         }
 
@@ -379,10 +394,12 @@ export class Boss extends Actor {
         this.totalReceivedHits++;
         this.lastHitBy = punch;
 
-        // if (this.counterHits === 0) {
-        //     this.isHittableBody = false;
-        //     this.isHittableHead = false;
-        // }
+        if (this.counterHits === 0) {
+            this.isHittableBody = false;
+            this.isHittableHead = false;
+        }
+
+        this.postOnHit();
 
     }
 
@@ -440,6 +457,10 @@ export class Boss extends Actor {
     }
 
     postOnPostUpdate() {
+
+    }
+
+    postOnHit() {
 
     }
 
