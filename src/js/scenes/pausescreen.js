@@ -22,7 +22,6 @@ export class PauseScreen extends Scene {
         this.add(this.pauseLabel);
 
         this.add(new ResumeButton(this.engine));
-        this.add(new OptionsButton(this.engine));
         this.add(new ExitButton(this.engine));
     }
 
@@ -32,14 +31,8 @@ export class PauseScreen extends Scene {
         if (this.engine.mygamepad.wasButtonPressed(Buttons.Face1)) {
             engine.goToScene('fightscreen');
         }
-
         
         if (this.engine.mygamepad.wasButtonPressed(Buttons.Face2)) {
-            engine.goToScene('fightscreen');
-        }
-
-        
-        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face3)) {
             engine.goToScene('startscreen');
         }
 
