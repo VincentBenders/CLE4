@@ -12,7 +12,7 @@ export class ExitButton extends Actor {
         this.on('pointerdown', () => {
             engine.goToScene('startscreen')
         });
-        this.pos = new Vector(700,500);
+        this.pos = new Vector(700,400);
         
     }
 

@@ -1,4 +1,5 @@
 import { Buttons, Keys, Scene } from "excalibur";
+import { Resources } from "../resources";
 
 export class SelectScreen extends Scene {
     bosses = [
@@ -14,6 +15,11 @@ export class SelectScreen extends Scene {
     onActivate() {
         console.log('selecting time');
         this.renderSelectScreen();
+        //Sound initialization
+        Resources.Track2.stop();
+        Resources.Track1.volume = 0.5;
+        Resources.Track1.loop = true;
+        Resources.Track1.play();
     }
 
     renderSelectScreen() {

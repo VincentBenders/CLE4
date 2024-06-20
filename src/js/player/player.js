@@ -41,6 +41,7 @@ export class Player extends Actor {
     this.isDodging = false;
     this.punch = "";
     this.dodge = "";
+    this.graphics.opacity = 0.65;
     this.cooldown = new Timer({
       fcn: () => {
         this.isAttacking = false;
@@ -158,6 +159,9 @@ export class Player extends Actor {
     // attacks
     if (engine.mygamepad.wasButtonPressed(Buttons.Face1) && yValue === 0) {
       if (!this.isAttacking && !this.isDodging) {
+        Resources.Punch.volume = 1.0;
+        Resources.Punch.loop = false;
+        Resources.Punch.play(); 
         this.punch = "lower left";
         this.isAttacking = true;
         this.graphics.use("donwLeft");
@@ -167,6 +171,9 @@ export class Player extends Actor {
     }
     if (engine.mygamepad.wasButtonPressed(Buttons.Face2) && yValue === 0) {
       if (!this.isAttacking && !this.isDodging) {
+        Resources.Punch.volume = 1.0;
+        Resources.Punch.loop = false;
+        Resources.Punch.play(); 
         this.punch = "lower right";
         this.isAttacking = true;
 
@@ -180,6 +187,9 @@ export class Player extends Actor {
     // upper attacks
     if (engine.mygamepad.wasButtonPressed(Buttons.Face2) && yValue < 0) {
       if (!this.isAttacking && !this.isDodging) {
+        Resources.Punch.volume = 1.0;
+        Resources.Punch.loop = false;
+        Resources.Punch.play(); 
         this.punch = "upper right";
         this.isAttacking = true;
         this.graphics.use("upRight");
@@ -190,6 +200,9 @@ export class Player extends Actor {
     }
     if (engine.mygamepad.wasButtonPressed(Buttons.Face1) && yValue < 0) {
       if (!this.isAttacking && !this.isDodging) {
+        Resources.Punch.volume = 1.0;
+        Resources.Punch.loop = false;
+        Resources.Punch.play(); 
         this.punch = "upper left";
         this.isAttacking = true;
         this.graphics.use("upLeft");

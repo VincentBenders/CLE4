@@ -1,8 +1,10 @@
 import { Buttons, Color, Keys, Scene, Vector } from "excalibur";
 import { Label, FontUnit, Font } from "excalibur";
+import { Resources } from "../resources";
 
 export class StartScreen extends Scene {
     onInitialize(engine) {
+          
         console.log("start screen!")
 
         this.startLabel = new Label({

@@ -14,6 +14,12 @@ export class TimeOutScreen extends Scene {
 
    
     onInitialize() {
+        //Sound initialization
+        Resources.Track2.stop();
+        Resources.Track1.volume = 0.5;
+        Resources.Track1.loop = true;
+        Resources.Track1.play();  
+
         this.healthBoost = 1;
         this.coach = new Coach(new Vector(150, 600));
         this.add(this.coach)

@@ -1,4 +1,5 @@
 import { Buttons, Color, Font, FontUnit, Keys, Label, Scene, Vector } from "excalibur";
+import { Resources } from "../resources";
 
 export class LossScreen extends Scene {
     constructor() {
@@ -6,6 +7,12 @@ export class LossScreen extends Scene {
     }
 
     onActivate(context) {
+        //Sound initialization
+        Resources.Track2.stop();
+        Resources.Track1.volume = 0.5;
+        Resources.Track1.loop = true;
+        Resources.Track1.play();  
+
         this.resetLoss()
         this.lossLabel = new Label({
             text: 'YOU LOSSTT UWU',// `${coachTip}`,

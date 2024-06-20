@@ -7,8 +7,8 @@ body {
     margin: 0;
     padding: 0;
     background-color: rgb(61, 61, 61);
-    display: flex;
-    justify-content: center;
+    /*display: flex;*/
+    /*justify-content: center;*/
 }
 
 
@@ -18,9 +18,107 @@ body {
 
 #ui {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
+    flex-direction: row;
+    align-content: center;
     position: absolute;
-    width: calc(1800px * var(--pixel-conversion));
+    margin-left: calc(270px * var(--pixel-conversion));
+    margin-top: calc(100px * var(--pixel-conversion));
+    width: calc(900px * var(--pixel-conversion));
+}
+
+#playerInfo,
+#bossInfo {
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    width: calc(300px * var(--pixel-conversion));
+    height: calc(150px * var(--pixel-conversion));
+    flex-direction: column-reverse;
+    border: solid silver calc(2px * var(--pixel-conversion));
+}
+
+#playerHealthContainer,
+#bossHealthContainer {
+    display: flex;
+    width: calc(240px * var(--pixel-conversion));
+    height: calc(30px * var(--pixel-conversion));
+    background-color: black;
+    border: solid silver calc(2px * var(--pixel-conversion));
+}
+
+#playerHealthBar,
+#bossHealthBar {
+    width: 100%;
+    height: 100%;
+    background-color: red;
+}
+
+#playerHealthBar {
+    align-content: flex-start;
+}
+
+#bossHealthBar {
+    align-content: flex-end;
+}
+
+#playerStaminaContainer {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: rebeccapurple;
+    border: solid silver calc(2px * var(--pixel-conversion));
+
+    height: calc(50px * var(--pixel-conversion));
+    width: calc(50px * var(--pixel-conversion));
+
+}
+
+#playerStaminaText {
+    color: white;
+}
+
+#specialMeterContainer {
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+
+    height: calc(50px * var(--pixel-conversion));
+    width: 100%;
+
+    div {
+        border: solid silver calc(2px * var(--pixel-conversion));
+        width: calc(25px * var(--pixel-conversion));
+        height: calc(25px * var(--pixel-conversion));
+    }
+
+}
+
+#clockContainer {
+    background-color: white;
+    border: solid silver calc(2px * var(--pixel-conversion));
+    width: calc(75px * var(--pixel-conversion));
+    height: calc(75px * var(--pixel-conversion));
+    align-content: center;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+
+
+    h2 {
+        padding: 0;
+        margin: 0;
+        height: 25%;
+    }
+
+}
+
+.empty {
+    background-color: black;
+}
+
+.filled {
+    background-color: gold;
 }
 
 

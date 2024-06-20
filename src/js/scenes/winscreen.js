@@ -1,4 +1,5 @@
 import { Buttons, Color, Font, FontUnit, Keys, Label, Scene, Vector } from "excalibur";
+import { Resources } from "../resources";
 
 export class WinScreen extends Scene {
     round;
@@ -8,6 +9,12 @@ export class WinScreen extends Scene {
         super()
     }
     onActivate(context) {
+        //Sound initialization
+        Resources.Track2.stop();
+        Resources.Track1.volume = 0.5;
+        Resources.Track1.loop = true;
+        Resources.Track1.play();  
+
         this.resetWin()
         this.winLabel = new Label({
             text: 'YOU WINNN B-)',
