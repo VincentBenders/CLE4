@@ -1,6 +1,7 @@
 import { Actor, Buttons, Color, Font, FontUnit, Keys, Label, Scene, Vector } from "excalibur";
 import { Coach } from "../coach";
 import { TimeOutSquare } from "../player/placeholder/timeout-placeholder";
+import { Resources } from "../resources";
 
 export class TimeOutScreen extends Scene {
 
@@ -9,19 +10,27 @@ export class TimeOutScreen extends Scene {
     square1
     square2
     healthBoost
+    context
+
    
     onInitialize() {
         this.healthBoost = 1;
-
         this.coach = new Coach(new Vector(150, 600));
         this.add(this.coach)
-
-
+       
 
     }
-    onActivate(engine, ctx) {
-        console.log('tijd voor een pauze');
+    onActivate(context) {
+        console.log('Context:', context);
+        this.context = context;
+      
+        // if (!context || !context.player) {
+        //     console.error('Context or player is undefined in TimeOutScreen onActivate');
+        //     return;
+        // }
+        console.log(context.data.player.health);
         this.resetTimeOut();
+        
         // console.log(`BOSS: ${ctx.data.boss},
         // PLAYER HEALTH: ${ctx.data.player.healthCurrent}`)
 
@@ -41,27 +50,24 @@ export class TimeOutScreen extends Scene {
         this.add(this.tipLabel);
 
 
-        this.square1 = new TimeOutSquare(new Vector(400, 350));
-        this.square2 = new TimeOutSquare(new Vector(1000, 350));
+        this.square1 = new TimeOutSquare(new Vector(400, 350), Resources.Player.toSprite());
+        this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.CoachFish.toSprite());
         this.add(this.square1);
         this.add(this.square2);
-        // if (ctx.data.boss === 'sil') {
-        //     coach.tips[0];
-        // } 
-
+      
 
     }
 
 
-    onPreUpdate(engine, ctx) {
+    onPreUpdate() {
         
         
         if (this.engine.mygamepad.wasButtonPressed(Buttons.Face1)) {
-            this.engine.goToScene('fightscreen', { sceneActivationData: { player: ctx.player.healthCurrent } });
+            this.engine.goToScene('fightscreen', { sceneActivationData: { player: this.context.data.player } });
         }
 
         if (this.engine.mygamepad.wasButtonPressed(Buttons.Face2)) {
-            this.healthRestore();
+            this.healthRestore(this.context);
         }
 
 
@@ -71,13 +77,14 @@ export class TimeOutScreen extends Scene {
 
     }
 
-    healthRestore(ctx) {
+    healthRestore(context) {
         console.log('heatlh increased')
         // Fucntie kijkt of je een health boost hebt
-        if (this.healthBoost === 1) {
+        if (this.healthBoost === 1 && context && context.data.player) {
             // Zo ja boost deze de player health
-           ctx.player.healthCurrent + 40;
+           context.data.player.health += 40;
            this.healthBoost = 0
+           console.log(context.data.player.health)
            // Zet de healthboost naar 0 na gebruik 
         } else if (this.healthBoost === 0) {
             // Zo niet sluit hij de functie

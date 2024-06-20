@@ -1,4 +1,4 @@
-import { Color, Font, FontUnit, Keys, Label, Scene, Vector } from "excalibur";
+import { Buttons, Color, Font, FontUnit, Keys, Label, Scene, Vector } from "excalibur";
 
 export class WinScreen extends Scene {
     round;
@@ -7,7 +7,7 @@ export class WinScreen extends Scene {
     constructor() {
         super()
     }
-    onActivate() {
+    onActivate(context) {
         this.resetWin()
         this.winLabel = new Label({
             text: 'YOU WINNN B-)',
@@ -63,6 +63,10 @@ export class WinScreen extends Scene {
         if (this.engine.input.keyboard.wasPressed(Keys.Esc)) {
             this.engine.goToScene('startscreen');
         }
+        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face1)) {
+            this.engine.goToScene('selectscreen');
+        }
+
     }
 
     

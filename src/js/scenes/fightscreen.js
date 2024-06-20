@@ -44,19 +44,24 @@ export class FightScreen extends Scene {
     //Get the ui from the HTML
     this.ui.element = document.getElementById("ui");
 
-    //Create UI elements
-    this.createUI();
   }
 
   onActivate(context) {
     console.log("fightscreen");
 
+
+    //Create UI elements
+    this.createUI();
+
     //Check where this scene got called from
     // If it's from the roadmap, set everything up
     if (context.previousScene instanceof SelectScreen || context.previousScene instanceof StartScreen) {
       this.resetFight(context);
-    } else {
+    } else if (context.previousScene instanceof FightScreen) {
       // Else if it's from the timeout, do something else
+      this.player.health = context.player.health;
+      this.currentRound++
+
     }
 
     this.roundTimer.start();
@@ -66,11 +71,13 @@ export class FightScreen extends Scene {
     super.onPreUpdate(engine, delta);
 
     this.updateUI();
-    
-    if(this.engine.mygamepad.wasButtonPressed(Buttons.Face4)) {
+
+    if (this.engine.mygamepad.wasButtonPressed(Buttons.Face4)) {
       console.log("wako");
-        this.pauseGame();
+      this.pauseGame();
     }
+
+
   }
 
   //Custom methods
@@ -226,11 +233,19 @@ export class FightScreen extends Scene {
     )}:${extraZero}${this.roundTimeRemaining % 60}`;
 
     //Check if the time has reached 0
-    if (this.roundTimeRemaining <= 0) {
+    if (this.roundTimeRemaining <= 0 && this.currentRound === 1 || this.currentRound === 2) {
       //If so, end the round immediately
-      this.engine.goToScene("timeoutscreen", {
-        sceneActivationData: { boss: this.boss, player: this.player },
+      console.log('boss:', this.boss);
+      console.log('player:', this.player)
+      console.log('Transitioning to timeoutscreen with context:', {
+        sceneActivationData: { boss: this.boss, player: this.player }
       });
+      this.engine.goToScene("timeoutscreen", {
+        sceneActivationData: { boss: this.boss, player: this.player }
+      });
+    } else if (this.roundTimeRemaining <= 0 && this.currentRound === 3) {
+      this.engine.goToScene('lossscreen', { sceneActivationData: { round: this.currentRound, time: this.roundTimeRemaining } })
+
     }
   }
 
