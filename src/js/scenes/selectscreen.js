@@ -14,9 +14,6 @@ export class SelectScreen extends Scene {
         { name: 'sander', image: './placeholders/Placeholder.png' },
     ]
 
-
-
-
     screen;
     selectedIndex = 0;
     selectedBoss;
