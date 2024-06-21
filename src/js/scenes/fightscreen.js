@@ -85,7 +85,7 @@ export class FightScreen extends Scene {
     this.roundTimer.start();
   }
 
-  onPreUpdate(engine, delta) {
+  onPreUpdate(context, engine, delta) {
     super.onPreUpdate(engine, delta);
 
     this.updateUI();
@@ -99,29 +99,30 @@ export class FightScreen extends Scene {
 
     switch (context.data.boss) {
       case "sil":
-        this.boss = new SilBoss();
+        this.winCheck();
         break;
 
       case "juno":
-        this.boss = new JunoBoss();
+        this.winCheck();
         break;
 
       case "ginus":
-        this.boss = new GinusBoss();
+        this.winCheck();
         break;
 
       case "sander":
-        this.boss = new SanderBoss();
+        this.winCheck();
         break;
 
       case "chris":
-        this.boss = new ChrisBoss();
+        this.winCheck();
+        break;
+
+      case "mathijs":
+        this.winCheckMathijs();
         break;
 
     }
-
-    this.winCheck();
-
 
   }
 
@@ -313,7 +314,7 @@ export class FightScreen extends Scene {
     }
 
     if (this.roundTimeRemaining <= 0 && this.currentRound === 3) {
-      
+
       console.log('Transitioning to timeoutscreen with context:', {
         sceneActivationData: { round: this.currentRound, time: this.roundTimeRemaining }
       });
@@ -356,28 +357,28 @@ export class FightScreen extends Scene {
 
   winCheckMathijs() {
     if (this.boss.timesDowned === 1) {
-      let winTimer = new Timer({
+      let winTimerMathijs = new Timer({
         fcn: () => this.winGame(),
         repeats: false,
         interval: 4000
       });
-      this.add(winTimer);
-      winTimer.start();
+      this.add(winTimerMathijs);
+      winTimerMathijs.start();
     }
   }
 
   winGame() {
     this.ui.element.style.display = 'none';
     this.engine.goToScene('winscreen', {
-       sceneActivationData: { round: this.currentRound, time: this.roundTimeRemaining }
-     });
+      sceneActivationData: { round: this.currentRound, time: this.roundTimeRemaining }
+    });
   }
 
   loseGame() {
     this.ui.element.style.display = 'none';
     this.engine.goToScene('lossscreen', {
-       sceneActivationData: { round: this.currentRound, time: this.roundTimeRemaining }
-     });
+      sceneActivationData: { round: this.currentRound, time: this.roundTimeRemaining }
+    });
 
   }
 
