@@ -423,6 +423,7 @@ export class Boss extends Actor {
                 break;
             case 'block':
                 move.affectedAreas.front ? hit = true : hit = false;
+                this.scene.player.stamina--;
                 break;
             case '':
                 hit = true;

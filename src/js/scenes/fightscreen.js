@@ -127,22 +127,27 @@ export class FightScreen extends Scene {
     switch (context.data.boss) {
       case "sil":
         this.boss = new SilBoss();
+        this.player.stamina = 10;
         break;
 
       case "juno":
         this.boss = new JunoBoss();
+        this.player.stamina = 12;
         break;
 
       case "ginus":
         this.boss = new GinusBoss();
+        this.player.stamina = 15;
         break;
 
       case "sander":
         this.boss = new SanderBoss();
+        this.player.stamina = 10;
         break;
 
       case "chris":
         this.boss = new ChrisBoss();
+        this.player.stamina = 8;
         break;
 
     }

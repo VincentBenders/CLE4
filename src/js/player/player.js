@@ -235,6 +235,7 @@ export class Player extends Actor {
       if (!this.isAttacking && !this.isDodging) {
         this.isDodging = true;
         this.dodge = "left";
+        this.stamina--
         this.graphics.use("dodgeLeft");
         this.cooldown.start();
       }
@@ -243,6 +244,7 @@ export class Player extends Actor {
       if (!this.isAttacking && !this.isDodging) {
         this.isDodging = true;
         this.dodge = "right";
+        this.stamina--
         this.graphics.use("dodgeRight");
         this.cooldown.start();
       }
@@ -251,6 +253,7 @@ export class Player extends Actor {
       if (!this.isAttacking && !this.isDodging) {
         this.isDodging = true;
         this.dodge = "duck";
+        this.stamina--
         this.graphics.use("duck");
         this.cooldown.start();
       }
