@@ -32,6 +32,9 @@ const Resources = {
     MathijsSheet: new ImageSource('./images/sprite_sheet_sil.png'),
     SilHeadShot: new ImageSource('./images/time-out-sil.png'),
     GinusHeadShot: new ImageSource('./images/time-out-ginus.png'),
+    JunoHeadShot: new ImageSource('./images/time-out-juno.png'),
+    ChrisHeadShot: new ImageSource('./images/time-out-chris.png'),
+    KasperHeadShot: new ImageSource('./images/time-out-kasper.png'),
 }
 
 const ResourceLoader = new Loader();

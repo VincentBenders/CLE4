@@ -5,11 +5,11 @@ export class SelectScreen extends Scene {
 
     bosses = [
         { name: 'sil', image: './images/time-out-sil.png' },
-        { name: 'kasper', image: './placeholders/Kasper.png' },
+        { name: 'kasper', image: './images/time-out-kasper.png' },
         { name: 'ginus', image: './images/time-out-ginus.png' },
-        { name: 'juno', image: './placeholders/Juno.png' },
+        { name: 'juno', image: './images/time-out-juno.png' },
         { name: 'vincent', image: './placeholders/Placeholder.png' },
-        { name: 'chris', image: './placeholders/Chris.png' },
+        { name: 'chris', image: './images/time-out-chris.png' },
         { name: 'mathijs', image: './placeholders/Placeholder.png' },
         { name: 'sander', image: './placeholders/Placeholder.png' },
     ]

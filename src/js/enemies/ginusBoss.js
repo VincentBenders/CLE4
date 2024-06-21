@@ -20,7 +20,8 @@ export class GinusBoss extends Boss {
 
     setMoves() {
 
-
+        //Set properties
+        this.hitsBeforeBlock = 2;
 
 
 

@@ -17,7 +17,7 @@ export class LossScreen extends Scene {
         this.resetLoss()
         this.lossLabel = new Label({
             text: 'YOU LOST',
-            pos: new Vector(500, 200),
+            pos: new Vector(550, 200),
             font: new Font({
                 family: 'Fantasy, Copperplate',
                 size: 60,
@@ -28,7 +28,7 @@ export class LossScreen extends Scene {
 
         this.lossBossLabel = new Label({
             text: `You lost to: ${context.data.boss.name}!`,
-            pos: new Vector(650, 250),
+            pos: new Vector(600, 300),
             font: new Font({
                 family: 'Serif',
                 size: 30,
@@ -39,7 +39,7 @@ export class LossScreen extends Scene {
 
         this.lossRoundLabel = new Label({
             text: `Round: ${context.data.round}`,
-            pos: new Vector(650, 300),
+            pos: new Vector(600, 350),
             font: new Font({
                 family: 'Serif',
                 size: 30,
@@ -50,7 +50,7 @@ export class LossScreen extends Scene {
 
         this.lossTimeLabel = new Label({
             text: `Time: ${context.data.time}`,
-            pos: new Vector(650, 350),
+            pos: new Vector(600, 400),
             font: new Font({
                 family: 'Serif',
                 size: 30,

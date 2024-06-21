@@ -106,7 +106,7 @@ export class TimeOutScreen extends Scene {
                 break;
 
             case "juno":
-                this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.CoachFish.toSprite());
+                this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.JunoHeadShot.toSprite());
                 break;
 
             case "ginus":
@@ -118,11 +118,11 @@ export class TimeOutScreen extends Scene {
                 break;
 
             case "chris":
-                this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.CoachFish.toSprite());
+                this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.ChrisHeadShot.toSprite());
                 break;
 
             case "kasper":
-                this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.CoachFish.toSprite());
+                this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.KasperHeadShot.toSprite());
                 break;
 
             case "vincent":

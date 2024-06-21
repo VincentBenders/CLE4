@@ -7,7 +7,7 @@ export class StartScreen extends Scene {
 
         this.startLabel = new Label({
             text: 'PUNCHPARK',
-            pos: new Vector(550, 150),
+            pos: new Vector(500, 150),
             font: new Font({
                 family: 'Serif',
                 size: 60,
@@ -48,7 +48,9 @@ export class StartScreen extends Scene {
         }
 
         if (engine.input.keyboard.wasPressed(Keys.V)) {
-            engine.goToScene('fightscreen', { sceneActivationData: { boss: 'sil' } });
+            engine.goToScene('fightscreen', { 
+                sceneActivationData: { boss: 'sil' }
+             });
         }
 
         if (engine.input.keyboard.wasPressed(Keys.Digit1)) {
@@ -56,11 +58,15 @@ export class StartScreen extends Scene {
         }
 
         if (engine.input.keyboard.wasPressed(Keys.Digit2)) {
-            engine.goToScene('winscreen');
+            engine.goToScene('winscreen', { 
+                sceneActivationData: { boss: "sil", round: 2, time: 100 }
+             });
         }
 
         if (engine.input.keyboard.wasPressed(Keys.Digit3)) {
-            engine.goToScene('lossscreen');
+            engine.goToScene('lossscreen', { 
+                sceneActivationData: { boss: "sil", round: 2, time: 100 }
+             });
         }
     }
 }
