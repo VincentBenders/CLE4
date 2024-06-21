@@ -5,8 +5,13 @@ export class SelectScreen extends Scene {
 
     bosses = [
         { name: 'sil', image: './images/time-out-sil.png' },
+        { name: 'kasper', image: './placeholders/Kasper.png' },
         { name: 'ginus', image: './images/time-out-ginus.png' },
-
+        { name: 'juno', image: './placeholders/Juno.png' },
+        { name: 'vincent', image: './placeholders/Placeholder.png' },
+        { name: 'chris', image: './placeholders/Chris.png' },
+        { name: 'mathijs', image: './placeholders/Placeholder.png' },
+        { name: 'sander', image: './placeholders/Placeholder.png' },
     ]
 
     screen;
@@ -14,7 +19,7 @@ export class SelectScreen extends Scene {
     selectedBoss;
     selectBox;
     lastChangeTime = 0;
-    changeCooldown = 500; // Change cooldown period in milliseconds
+    changeCooldown = 500;
 
     onActivate() {
         console.log('selecting time');
@@ -28,10 +33,10 @@ export class SelectScreen extends Scene {
 
         this.title = new Label({
             text: 'Select your opponent!',
-            pos: new Vector(250, 250),
+            pos: new Vector(600, 300),
             font: new Font({
                 family: 'Arial',
-                size: 60,
+                size: 30,
                 unit: FontUnit.Px,
                 color: Color.White
             })
