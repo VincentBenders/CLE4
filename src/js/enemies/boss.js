@@ -137,8 +137,6 @@ export class Boss extends Actor {
         //The boss' current pattern. Another function will run through it and execute all the moves
         this.pattern = [];
 
-        this.setNextPattern();
-
         this.resumeIdle();
         this.pos = new Vector(720, 575);
 
@@ -149,6 +147,8 @@ export class Boss extends Actor {
 
     onInitialize(engine) {
         super.onInitialize(engine);
+
+        this.setNextPattern();
 
         //Add all the timers to the scene
         this.scene.add(this.stunnedTimer);
