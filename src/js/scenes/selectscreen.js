@@ -36,10 +36,10 @@ export class SelectScreen extends Scene {
 
         this.title = new Label({
             text: 'Select your opponent!',
-            pos: new Vector(250, 250),
+            pos: new Vector(600, 300),
             font: new Font({
                 family: 'Arial',
-                size: 60,
+                size: 30,
                 unit: FontUnit.Px,
                 color: Color.White
             })

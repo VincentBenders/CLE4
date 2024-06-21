@@ -85,7 +85,7 @@ export class FightScreen extends Scene {
     this.roundTimer.start();
   }
 
-  onPreUpdate(context, engine, delta) {
+  onPreUpdate(engine, delta) {
     super.onPreUpdate(engine, delta);
 
     this.updateUI();
@@ -97,32 +97,32 @@ export class FightScreen extends Scene {
 
     this.lossCheck();
 
-    switch (context.data.boss) {
-      case "sil":
-        this.winCheck();
-        break;
+    // switch (context.data.boss) {
+    //   case "sil":
+    //     this.winCheck();
+    //     break;
 
-      case "juno":
-        this.winCheck();
-        break;
+    //   case "juno":
+    //     this.winCheck();
+    //     break;
 
-      case "ginus":
-        this.winCheck();
-        break;
+    //   case "ginus":
+    //     this.winCheck();
+    //     break;
 
-      case "sander":
-        this.winCheck();
-        break;
+    //   case "sander":
+    //     this.winCheck();
+    //     break;
 
-      case "chris":
-        this.winCheck();
-        break;
+    //   case "chris":
+    //     this.winCheck();
+    //     break;
 
-      case "mathijs":
-        this.winCheckMathijs();
-        break;
+    //   case "mathijs":
+    //     this.winCheckMathijs();
+    //     break;
 
-    }
+    // }
 
   }
 
