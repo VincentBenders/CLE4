@@ -212,7 +212,7 @@ export class Boss extends Actor {
 
         if (this.graphics.current !== this.animations.idle && this.nextAttackDelayTimer.isRunning) {
             this.nextAttackDelayTimer.pause();
-        } else if (!(this.nextAttackDelayTimer.isRunning)) {
+        } else if (this.graphics.current === this.animations.idle && !(this.nextAttackDelayTimer.isRunning)) {
             this.nextAttackDelayTimer.resume()
         }
 
