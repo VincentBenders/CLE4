@@ -60,8 +60,31 @@ export class BossAnimations {
 
         this.tauntDownedPlayer = animate(1000, sheet, [20, 21, 22, 23]);
 
-        this.getUp = animate(2000, sheet, [13, 12, 11, 10]);
-        this.getUp.strategy = AnimationStrategy.End;
+        this.getUp = new Animation({
+            frames: [
+                {
+                    graphic: sheet.sprites[33],
+                    duration: 200
+                },
+
+                {
+                    graphic: sheet.sprites[32],
+                    duration: 200
+                },
+
+                {
+                    graphic: sheet.sprites[31],
+                    duration: 200
+                },
+
+                {
+                    graphic: sheet.sprites[30],
+                    duration: 200
+                }
+
+            ]
+        });
+        this.getUp.strategy = AnimationStrategy.Freeze;
 
         this.getHit = animate(200, sheet, [40, 41]);
         this.getHit.strategy = AnimationStrategy.End;

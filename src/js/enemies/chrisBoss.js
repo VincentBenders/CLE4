@@ -1,5 +1,6 @@
 import {Boss} from "./boss.js";
 import {Random} from "excalibur";
+import {animate} from "../resources.js";
 
 
 export class ChrisBoss extends Boss {
@@ -31,6 +32,7 @@ export class ChrisBoss extends Boss {
     setMoves() {
 
 
+        const leftJabAnimation = animate(600, this.spriteSheet, )
 
 
 

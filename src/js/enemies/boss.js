@@ -23,11 +23,13 @@ export class Boss extends Actor {
     nextAttackDelay;
     nextAttackDelayTimer;
     nextPatternDelay;
+    nextPatternTimer;
     lastHitBy;
     damageInfo;
     missTimer;
     stunnedTimer;
     totalReceivedHits;
+    getUpTimer;
 
 
     //States
@@ -90,14 +92,10 @@ export class Boss extends Actor {
         this.animations = new BossAnimations(this.spriteSheet, this);
 
         this.animations.getHit.events.on('end', () => {
-            this.resumeIdle()
-        });
-        this.animations.block.events.on('end', () => {
             this.resumeIdle();
         });
-        this.animations.getUp.events.on('end', () => {
-            this.resumeIdle()
-        });
+
+
 
 
         this.healthMax = health;
@@ -121,18 +119,26 @@ export class Boss extends Actor {
         }
 
         this.nextAttackDelay = 4000;
-        this.nextPatternDelay = this.nextAttackDelay * 3;
+        this.nextPatternDelay = this.nextAttackDelay * 2;
 
         this.nextAttackDelayTimer = new Timer({
             fcn: () => {
-                if (this.pattern.length <= 0) {
-                    this.setTimer(this.nextPatternDelay, this.setNextPattern)
+                if (this.pattern.length <= 0 && !(this.nextPatternTimer.isRunning)) {
+                    this.nextPatternTimer.start();
                 } else {
                     this.performMove(this.pattern.shift());
                 }
             },
             repeats: true,
             interval: this.nextAttackDelay
+        });
+
+        this.nextPatternTimer = new Timer({
+            fcn: () => {
+                this.setNextPattern()
+            },
+            repeats: false,
+            interval: this.nextPatternDelay
         });
 
         this.missTimer = new Timer({
@@ -159,6 +165,18 @@ export class Boss extends Actor {
             interval: this.stunnedDuration
         });
 
+
+        const random = new Random;
+        this.getUpTimer = new Timer({
+            random,
+            randomRange: [2000, 8000],
+            fcn: () => {
+                this.getUp();
+            },
+            repeats: false,
+            interval: 1000
+        });
+
         //Place to store all the attacks, taunts and other funky moves
         this.moves = {};
         //The boss' current pattern. Another function will run through it and execute all the moves
@@ -181,6 +199,8 @@ export class Boss extends Actor {
         this.scene.add(this.stunnedTimer);
         this.scene.add(this.missTimer);
         this.scene.add(this.nextAttackDelayTimer);
+        this.scene.add(this.nextPatternTimer);
+        this.scene.add(this.getUpTimer);
 
         this.nextAttackDelayTimer.start();
 
@@ -190,8 +210,10 @@ export class Boss extends Actor {
     onPreUpdate(engine, delta) {
         super.onPreUpdate(engine, delta);
 
-        if (this.graphics.current !== this.animations.idle) {
+        if (this.graphics.current !== this.animations.idle && this.nextAttackDelayTimer.isRunning) {
             this.nextAttackDelayTimer.pause();
+        } else if (!(this.nextAttackDelayTimer.isRunning)) {
+            this.nextAttackDelayTimer.resume()
         }
 
         //Check for health
@@ -204,22 +226,6 @@ export class Boss extends Actor {
 
             // this.scene.enemyDowned(this);
 
-            const random = new Random;
-
-            if (this.timesDowned > this.timesDownedMax) {
-                //Once the boss is knocked down more than their max, roll a d10
-
-                let randomNumber = random.integer(1, 10)
-                //If the roll is lower than the amount of times they went down, return early so they won't get up
-                if (randomNumber <= this.timesDowned) {
-                    return;
-
-                }
-
-            }
-
-            //Set a random time from 3-9 seconds before the boss gets up
-            this.setTimer(random.integer(3000, 9000), () => (this.getUp()));
 
         }
 
@@ -257,7 +263,7 @@ export class Boss extends Actor {
 
 
         //Double check to make sure move parameter is an instance of the move class
-        if (!(move instanceof Move)) {
+        if (!(move instanceof Move) || this.isDown) {
             return;
         }
 
@@ -296,14 +302,35 @@ export class Boss extends Actor {
         this.graphics.use(this.animations.goingDown);
 
 
+        if (this.timesDowned > this.timesDownedMax) {
+            //Once the boss is knocked down more than their max, roll a d10
+
+            let randomNumber = random.integer(1, 10)
+            //If the roll is lower than the amount of times they went down, return early so they won't get up
+            if (randomNumber <= this.timesDowned) {
+                return;
+
+            }
+
+        }
+
+        console.log('Timer getting set...');
+        this.getUpTimer.start();
+
+
     }
 
     getUp() {
 
+        console.log('Boss gets up!')
         this.isDown = false;
 
         this.animations.getUp.reset();
         this.graphics.use(this.animations.getUp);
+
+        this.animations.getUp.events.on('end', () => {
+            this.resumeIdle();
+        });
 
         this.healthRecover = this.healthMax - (this.healthMax * (0.1 * this.timesDowned));
 
@@ -330,8 +357,12 @@ export class Boss extends Actor {
     }
 
     block() {
+
         this.animations.block.reset();
         this.graphics.use(this.animations.block);
+        this.animations.block.events.on('end', () => {
+            this.resumeIdle();
+        });
     }
 
     hitWith(punch) {
