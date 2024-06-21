@@ -28,10 +28,10 @@ export class SelectScreen extends Scene {
 
         this.title = new Label({
             text: 'Select your opponent!',
-            pos: new Vector(550, 250),
+            pos: new Vector(250, 250),
             font: new Font({
                 family: 'Arial',
-                size: 30,
+                size: 60,
                 unit: FontUnit.Px,
                 color: Color.White
             })
@@ -58,7 +58,7 @@ export class SelectScreen extends Scene {
             name.textContent = boss.name;
             name.style.textAlign = 'center';
             name.style.color = 'white';
-            select.appendChild(name);
+
 
             const picture = document.createElement('img');
             picture.src = boss.image;
@@ -66,6 +66,7 @@ export class SelectScreen extends Scene {
             picture.style.width = '100px';
             picture.style.height = '100px';
 
+            select.appendChild(name);
             select.appendChild(picture);
             this.selectBox.appendChild(select);
         });

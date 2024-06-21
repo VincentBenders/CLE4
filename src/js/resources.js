@@ -13,7 +13,6 @@ import {Player} from "./player/player";
 
 // TODO: Set the sheet paths to the correct sheet
 const Resources = {
-    Fish: new ImageSource('./images/Blub.png'),
     CoachFish: new ImageSource('./images/CoachFish.png'),
     Player: new ImageSource('./placeholders/mc-idle.png'),
     BoxingRing: new ImageSource('./images/BOX_RING_final.png'),
