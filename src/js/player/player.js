@@ -16,7 +16,8 @@ import { PlayerAnimation, Resources, animate } from "../resources";
 export class Player extends Actor {
   game;
   stamina;
-  health;
+  healthCurrent;
+  healthMax;
   superEnergy;
   punch;
   dodge;
@@ -32,7 +33,8 @@ export class Player extends Actor {
     // this.graphics.use(Resources.Player.toSprite());
     this.pos = new Vector(700, 650);
     this.stamina = 20;
-    this.health = 100;
+    this.healthCurrent = 100;
+    this.healthMax = 100;
     this.superEnergy = 0;
     this.downed = 0;
     this.isDown = false;
@@ -137,7 +139,7 @@ export class Player extends Actor {
   //   this.graphics.use(Resources.Player.toSprite());
   //   this.pos = new Vector(400, 400);
   //   this.stamina = 20;
-  //   this.health = 100;
+  //   this.healthCurrent = 100;
   //   this.superEnergy = 0;
   //   this.downed = 0;
   //   this.isDown = false;
@@ -270,7 +272,7 @@ export class Player extends Actor {
       this.exhuasted = true;
       //check on sucsesive hit then set exhuast to false
     }
-    if (this.health === 0) {
+    if (this.healthCurrent === 0) {
       this.isDown = true;
       this.downed++;
       if (this.downed >= 3) {
@@ -288,11 +290,13 @@ export class Player extends Actor {
   }
 
   hitFor(damage) {
-    this.health -= damage;
+    this.healthCurrent -= damage;
+    console.log(damage);
+    console.log(this.healthCurrent);
 
-    //Make sure the health doesn't go negative just in case
-    if (this.health < 0) {
-      this.health = 0;
+    //Make sure the healthCurrent doesn't go negative just in case
+    if (this.healthCurrent < 0) {
+      this.healthCurrent = 0;
     }
   }
 }
