@@ -7,7 +7,7 @@ export class StartScreen extends Scene {
 
         this.startLabel = new Label({
             text: 'PUNCHPARK',
-            pos: new Vector(550, 150),
+            pos: new Vector(500, 150),
             font: new Font({
                 family: 'Serif',
                 size: 60,

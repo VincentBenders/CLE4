@@ -401,6 +401,7 @@ export class FightScreen extends Scene {
   }
 
   pauseGame() {
+    this.ui.element.style.display = 'none';
     this.engine.goToScene("pausescreen");
   }
 
