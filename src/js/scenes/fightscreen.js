@@ -10,6 +10,7 @@ import { JunoBoss } from "../enemies/junoBoss.js";
 import { GinusBoss } from "../enemies/ginusBoss.js";
 import { SanderBoss } from "../enemies/sanderBoss.js";
 import { ChrisBoss } from "../enemies/chrisBoss.js";
+import { PauseScreen } from "./pausescreen.js";
 
 export class FightScreen extends Scene {
   //Properties
@@ -65,7 +66,61 @@ export class FightScreen extends Scene {
     this.ui.element.innerHTML = '';
     this.createUI();
 
-    switch (context.data.boss) {
+    
+
+    //Create UI elements
+
+
+    //Check where this scene got called from
+    // If it's from the roadmap, set everything up
+    if (context.previousScene instanceof SelectScreen || context.previousScene instanceof StartScreen) {
+      this.resetFight(context);
+    } else if (context.previousScene instanceof TimeOutScreen) {
+      // Else if it's from the timeout, do something else
+      this.roundTimeRemaining = 180;
+      this.player.health = context.data.player.health;
+      this.ui.element.style.display = 'flex';
+      this.currentRound++;
+      this.roundTimer.reset();
+      this.healthBoostChange(context);
+      console.log(this.currentRound)
+    } 
+    
+    if (context.previousScene instanceof PauseScreen ) {
+      this.ui.element.style.display = 'flex';
+    }
+
+    this.roundTimer.start();
+  }
+
+  onPreUpdate( engine, delta) {
+    super.onPreUpdate(engine, delta);
+
+    this.updateUI();
+
+    if (this.engine.mygamepad.wasButtonPressed(Buttons.Face4)) {
+      console.log("wako");
+      this.pauseGame();
+    }
+
+    this.lossCheck();
+
+    this.winCheck(this.winCheckVariabel)
+
+
+  }
+
+  //Custom methods
+
+  resetFight(context) {
+    //Make sure there's a boss selected
+    if (context.data.boss === undefined) {
+      console.log("Error: No enemy given to scene context data");
+      //Go back to the start screen
+      this.engine.goToScene("startScreen");
+    }
+
+    switch (context.data.name) {
       case "sil":
         this.winCheckVariabel = 1;
         break;
@@ -98,54 +153,6 @@ export class FightScreen extends Scene {
         this.winCheckVariabel = 2;
         break;
 
-    }
-
-    //Create UI elements
-
-
-    //Check where this scene got called from
-    // If it's from the roadmap, set everything up
-    if (context.previousScene instanceof SelectScreen || context.previousScene instanceof StartScreen) {
-      this.resetFight(context);
-    } else if (context.previousScene instanceof TimeOutScreen) {
-      // Else if it's from the timeout, do something else
-      this.roundTimeRemaining = 180;
-      this.player.health = context.data.player.health;
-      this.ui.element.style.display = 'flex';
-      this.currentRound++;
-      this.roundTimer.reset();
-      this.healthBoostChange(context);
-      console.log(this.currentRound)
-    }
-
-    this.roundTimer.start();
-  }
-
-  onPreUpdate( engine, delta) {
-    super.onPreUpdate(engine, delta);
-
-    this.updateUI();
-
-    if (this.engine.mygamepad.wasButtonPressed(Buttons.Face4)) {
-      console.log("wako");
-      this.pauseGame();
-    }
-
-    this.lossCheck();
-
-    this.winCheck(this.winCheckVariabel)
-
-
-  }
-
-  //Custom methods
-
-  resetFight(context) {
-    //Make sure there's a boss selected
-    if (context.data.boss === undefined) {
-      console.log("Error: No enemy given to scene context data");
-      //Go back to the start screen
-      this.engine.goToScene("startScreen");
     }
     this.healthRestore = 1
 
@@ -356,9 +363,9 @@ export class FightScreen extends Scene {
     }
   }
 
-  winCheck(v) {
+  winCheck(winCheckVariabel) {
 
-    if (v === 1) {
+    if (winCheckVariabel === 1) {
 
       if (this.boss.timesDowned === 3) {
         let winTimer = new Timer({
@@ -370,7 +377,7 @@ export class FightScreen extends Scene {
         winTimer.start();
       }
 
-    } else {
+    } else if (winCheckVariabel === 2) {
 
       if (this.boss.timesDowned === 1) {
         let winTimerMathijs = new Timer({
