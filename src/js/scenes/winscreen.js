@@ -17,7 +17,7 @@ export class WinScreen extends Scene {
 
         this.resetWin()
         this.winLabel = new Label({
-            text: 'YOU WINNN B-)',
+            text: 'YOU WIN',
             pos: new Vector(500, 200),
             font: new Font({
                 family: 'Fantasy, Copperplate',
@@ -28,7 +28,7 @@ export class WinScreen extends Scene {
         })
 
         this.winRoundLabel = new Label({
-            text: 'round',// `${round}`,
+            text: `Round: ${context.data.round}`,
             pos: new Vector(650, 300),
             font: new Font({
                 family: 'Serif',
@@ -39,7 +39,7 @@ export class WinScreen extends Scene {
         })
 
         this.winTimeLabel = new Label({
-            text: 'Time',// `${roundTime}`,
+            text: `Time: ${context.data.time}`,
             pos: new Vector(650, 350),
             font: new Font({
                 family: 'Serif',

@@ -326,10 +326,10 @@ export class Boss extends Actor {
         //Check if the punch can land
         let hit = false;
         switch (punch) {
-            case 'lower left' || 'lower right':
+            case "lower left": case "lower right":
                 this.isHittableBody ? hit = true : this.block();
                 break;
-            case 'upper left' || 'upper right':
+            case "upper left": case "upper right":
                 this.isHittableHead ? hit = true : this.block();
                 break;
         }
@@ -423,6 +423,7 @@ export class Boss extends Actor {
                 break;
             case 'block':
                 move.affectedAreas.front ? hit = true : hit = false;
+                this.scene.player.stamina--;
                 break;
             case '':
                 hit = true;

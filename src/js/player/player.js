@@ -50,7 +50,7 @@ export class Player extends Actor {
         // console.log(this.dodge);
         // this.graphics.use("downLeft");
         this.graphics.use("idle");
-        console.log('in timer');
+        // console.log('in timer');
       },
       repeats: false,
       interval: 400,
@@ -155,7 +155,7 @@ export class Player extends Actor {
     // bewegen
     const xValue = engine.mygamepad.getAxes(Axes.LeftStickX);
     const yValue = engine.mygamepad.getAxes(Axes.LeftStickY);
-    console.log("x: ", xValue, "y: ", yValue);
+    // console.log("x: ", xValue, "y: ", yValue);
     // attacks
     if (engine.mygamepad.wasButtonPressed(Buttons.Face1) && yValue === 0) {
       if (!this.isAttacking && !this.isDodging) {
@@ -166,7 +166,8 @@ export class Player extends Actor {
         this.isAttacking = true;
         this.graphics.use("donwLeft");
         this.cooldown.start();
-        console.log('after timer');
+        this.scene.boss.hitWith(this.punch);
+        // console.log('after timer');
       }
     }
     if (engine.mygamepad.wasButtonPressed(Buttons.Face2) && yValue === 0) {
@@ -235,6 +236,7 @@ export class Player extends Actor {
       if (!this.isAttacking && !this.isDodging) {
         this.isDodging = true;
         this.dodge = "left";
+        this.stamina--
         this.graphics.use("dodgeLeft");
         this.cooldown.start();
       }
@@ -243,6 +245,7 @@ export class Player extends Actor {
       if (!this.isAttacking && !this.isDodging) {
         this.isDodging = true;
         this.dodge = "right";
+        this.stamina--
         this.graphics.use("dodgeRight");
         this.cooldown.start();
       }
@@ -251,6 +254,7 @@ export class Player extends Actor {
       if (!this.isAttacking && !this.isDodging) {
         this.isDodging = true;
         this.dodge = "duck";
+        this.stamina--
         this.graphics.use("duck");
         this.cooldown.start();
       }
