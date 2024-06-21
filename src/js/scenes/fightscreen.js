@@ -21,6 +21,7 @@ export class FightScreen extends Scene {
   roundTimeRemaining;
   roundTimer;
   ui;
+  healthRestore;
 
   // ispaused is er zodat de engine kan kijken of de game al gepauzeerd is
 
@@ -77,7 +78,7 @@ export class FightScreen extends Scene {
       this.ui.element.style.display = 'flex';
       this.currentRound++;
       this.roundTimer.reset();
-
+      this.healthBoostChange(context);
       console.log(this.currentRound)
     }
 
@@ -94,6 +95,34 @@ export class FightScreen extends Scene {
       this.pauseGame();
     }
 
+    this.lossCheck();
+
+    // switch (context.data.boss) {
+    //   case "sil":
+    //     this.winCheck();
+    //     break;
+
+    //   case "juno":
+    //     this.winCheck();
+    //     break;
+
+    //   case "ginus":
+    //     this.winCheck();
+    //     break;
+
+    //   case "sander":
+    //     this.winCheck();
+    //     break;
+
+    //   case "chris":
+    //     this.winCheck();
+    //     break;
+
+    //   case "mathijs":
+    //     this.winCheckMathijs();
+    //     break;
+
+    // }
 
   }
 
@@ -106,6 +135,7 @@ export class FightScreen extends Scene {
       //Go back to the start screen
       this.engine.goToScene("startScreen");
     }
+    this.healthRestore = 1
 
     //Delete the player and boss in case they were still there
     if (this.boss instanceof Actor) {
@@ -275,32 +305,90 @@ export class FightScreen extends Scene {
     )}:${extraZero}${this.roundTimeRemaining % 60}`;
 
     //Check if the time has reached 0
-    if (this.roundTimeRemaining <= 0 ) {
+    if (this.roundTimeRemaining <= 0) {
 
       this.ui.element.style.display = 'none';
 
       //If so, end the round immediately
-      console.log('boss:', this.boss);
-      console.log('player:', this.player)
       console.log('Transitioning to timeoutscreen with context:', {
-        sceneActivationData: { boss: this.boss, player: this.player }
+        sceneActivationData: { boss: this.boss, player: this.player, healthrestore: this.healthRestore }
       });
       this.engine.goToScene("timeoutscreen", {
-        sceneActivationData: { boss: this.boss, player: this.player }
+        sceneActivationData: { boss: this.boss, player: this.player, healthrestore: this.healthRestore }
       });
-    } 
-    
+    }
+
     if (this.roundTimeRemaining <= 0 && this.currentRound === 3) {
-      this.ui.element.style.display = 'none';
+
       console.log('Transitioning to timeoutscreen with context:', {
         sceneActivationData: { round: this.currentRound, time: this.roundTimeRemaining }
       });
-      this.engine.goToScene('lossscreen', { sceneActivationData: { round: this.currentRound, time: this.roundTimeRemaining } })
+      this.loseGame();
 
     }
+  }
+
+  healthBoostChange(context) {
+    if (context.data.healthboost === 0) {
+      this.healthRestore = 0;
+    }
+  }
+
+  lossCheck() {
+    if (this.player.downed === 3) {
+      let lossTimer = new Timer({
+        fcn: () => this.loseGame(),
+        repeats: false,
+        interval: 4000
+      });
+      this.add(lossTimer);
+      lossTimer.start();
+
+
+    }
+  }
+
+  winCheck() {
+    if (this.boss.timesDowned === 3) {
+      let winTimer = new Timer({
+        fcn: () => this.winGame(),
+        repeats: false,
+        interval: 4000
+      });
+      this.add(winTimer);
+      winTimer.start();
+    }
+  }
+
+  winCheckMathijs() {
+    if (this.boss.timesDowned === 1) {
+      let winTimerMathijs = new Timer({
+        fcn: () => this.winGame(),
+        repeats: false,
+        interval: 4000
+      });
+      this.add(winTimerMathijs);
+      winTimerMathijs.start();
+    }
+  }
+
+  winGame() {
+    this.ui.element.style.display = 'none';
+    this.engine.goToScene('winscreen', {
+      sceneActivationData: { round: this.currentRound, time: this.roundTimeRemaining }
+    });
+  }
+
+  loseGame() {
+    this.ui.element.style.display = 'none';
+    this.engine.goToScene('lossscreen', {
+      sceneActivationData: { round: this.currentRound, time: this.roundTimeRemaining }
+    });
+
   }
 
   pauseGame() {
     this.engine.goToScene("pausescreen");
   }
+
 }

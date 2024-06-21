@@ -5,16 +5,24 @@ export class SelectScreen extends Scene {
 
     bosses = [
         { name: 'sil', image: './images/time-out-sil.png' },
+        { name: 'kasper', image: './placeholders/Kasper.png' },
         { name: 'ginus', image: './images/time-out-ginus.png' },
-
+        { name: 'juno', image: './placeholders/Juno.png' },
+        { name: 'vincent', image: './placeholders/Placeholder.png' },
+        { name: 'chris', image: './placeholders/Chris.png' },
+        { name: 'mathijs', image: './placeholders/Placeholder.png' },
+        { name: 'sander', image: './placeholders/Placeholder.png' },
     ]
+
+
+
 
     screen;
     selectedIndex = 0;
     selectedBoss;
     selectBox;
     lastChangeTime = 0;
-    changeCooldown = 500; // Change cooldown period in milliseconds
+    changeCooldown = 500;
 
     onActivate() {
         console.log('selecting time');
@@ -28,7 +36,7 @@ export class SelectScreen extends Scene {
 
         this.title = new Label({
             text: 'Select your opponent!',
-            pos: new Vector(550, 250),
+            pos: new Vector(600, 300),
             font: new Font({
                 family: 'Arial',
                 size: 30,
@@ -58,7 +66,7 @@ export class SelectScreen extends Scene {
             name.textContent = boss.name;
             name.style.textAlign = 'center';
             name.style.color = 'white';
-            select.appendChild(name);
+
 
             const picture = document.createElement('img');
             picture.src = boss.image;
@@ -66,6 +74,7 @@ export class SelectScreen extends Scene {
             picture.style.width = '100px';
             picture.style.height = '100px';
 
+            select.appendChild(name);
             select.appendChild(picture);
             this.selectBox.appendChild(select);
         });

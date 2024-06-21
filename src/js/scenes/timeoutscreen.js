@@ -92,7 +92,7 @@ export class TimeOutScreen extends Scene {
 
 
         if (this.engine.mygamepad.wasButtonPressed(Buttons.Face1)) {
-            this.engine.goToScene('fightscreen', { sceneActivationData: { player: this.context.data.player } });
+            this.engine.goToScene('fightscreen', { sceneActivationData: { player: this.context.data.player, healthboost: this.healthBoost } });
         }
 
         if (this.engine.mygamepad.wasButtonPressed(Buttons.Face2)) {
@@ -109,7 +109,7 @@ export class TimeOutScreen extends Scene {
     healthRestore(context) {
         console.log('heatlh increased')
         // Fucntie kijkt of je een health boost hebt
-        if (this.healthBoost === 1 && context && context.data.player) {
+        if (this.healthBoost === 1 && context.data.healthrestore === 1) {
             // Zo ja boost deze de player health
             context.data.player.health += 40;
             this.healthBoost = 0
