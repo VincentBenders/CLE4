@@ -89,13 +89,13 @@ export class Boss extends Actor {
 
         this.animations = new BossAnimations(this.spriteSheet, this);
 
-        this.animations.getHit.on('end', () => {
+        this.animations.getHit.events.on('end', () => {
             this.resumeIdle()
         });
         this.animations.block.events.on('end', () => {
             this.resumeIdle();
         });
-        this.animations.getUp.on('end', () => {
+        this.animations.getUp.events.on('end', () => {
             this.resumeIdle()
         });
 
