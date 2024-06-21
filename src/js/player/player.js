@@ -76,6 +76,12 @@ export class Player extends Actor {
     this.graphics.add("idle", idle);
     this.graphics.use("idle");
 
+    const koFrame = range(35, 41);
+    const knockOut = Animation.fromSpriteSheet(PlayerAnimations, koFrame, 500);
+    this.graphics.add("knockOut", knockOut);
+    knockOut.strategy = AnimationStrategy.Freeze;
+
+
     //attacks
     const dLFrame = range(49, 53);
     const donwLeft = Animation.fromSpriteSheet(PlayerAnimations, dLFrame, 100);
@@ -275,9 +281,8 @@ export class Player extends Actor {
     if (this.healthCurrent === 0) {
       this.isDown = true;
       this.downed++;
-      if (this.downed >= 3) {
-        //game over
-      }
+      this.graphics.use('knockOut');
+      
     }
   }
 
