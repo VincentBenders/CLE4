@@ -1,16 +1,17 @@
-import { Actor, Buttons, Color, Font, FontUnit, Keys, Label, Scene, Vector } from "excalibur";
+import { Actor, Buttons, Color, Font, FontUnit, Keys, Label, Random, Scene, Vector } from "excalibur";
 import { Coach } from "../coach";
 import { TimeOutSquare } from "../player/placeholder/timeout-placeholder";
 import { Resources } from "../resources";
+import { FightScreen } from "./fightscreen";
 
 export class TimeOutScreen extends Scene {
 
-    coach
-    tipLabel
-    square1
-    square2
-    healthBoost
-    context
+    coach;
+    tipLabel;
+    square1;
+    square2;
+    healthBoost;
+    tip;
 
 
     onInitialize() {
@@ -20,30 +21,74 @@ export class TimeOutScreen extends Scene {
         Resources.Track1.loop = true;
         Resources.Track1.play();
 
-        this.healthBoost = 1;
+
         this.coach = new Coach(new Vector(150, 600));
         this.add(this.coach)
 
 
     }
     onActivate(context) {
+        if (context.previousScene instanceof FightScreen) {
+            //check of healthrestore availebale is
+            if (context.data.healthrestore === 1) {
+                this.healthBoost = 1;
+            } else {
+                this.healthBoost = 0;
+            }
+
+        }
         console.log('Context:', context);
         this.context = context;
-
-        // if (!context || !context.player) {
-        //     console.error('Context or player is undefined in TimeOutScreen onActivate');
-        //     return;
-        // }
         console.log(context.data.player.health);
         this.resetTimeOut();
-
-        // console.log(`BOSS: ${ctx.data.boss},
-        // PLAYER HEALTH: ${ctx.data.player.healthCurrent}`)
-
         this.coach.onInitialize(this.engine);
+        let bossTip = this.coach.bossTips;
+        const random = new Random;
+
+        switch (context.data.boss.name) {
+            case "sil":
+                bossTip[0];
+                break;
+
+            case "juno":
+                bossTip[2]
+                break;
+
+            case "ginus":
+                bossTip[5];
+                break;
+
+            case "sander":
+                bossTip[6]
+                break;
+
+            case "chris":
+                bossTip[3]
+                break;
+
+            case "kasper":
+                bossTip[4]
+                break;
+
+            case "vincent":
+                bossTip[7]
+                break;
+
+            case "mathijs":
+                bossTip[1]
+                break;
+
+        }
+
         let coachTip = this.coach.tips[Math.floor(Math.random() * this.coach.tips.length)];
+        let randomNumber = random.integer(1, 2)
+        if( randomNumber === 1) {
+            this.tip = coachTip;
+        } else if (randomNumber === 2){
+            this.tip = bossTip;
+        }
         this.tipLabel = new Label({
-            text: `${coachTip}`,
+            text: `${this.tip}`,
             pos: new Vector(250, 600),
             font: new Font({
                 family: 'Fantasy, Copperplate',
@@ -73,6 +118,18 @@ export class TimeOutScreen extends Scene {
                 break;
 
             case "chris":
+                this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.CoachFish.toSprite());
+                break;
+
+            case "kasper":
+                this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.CoachFish.toSprite());
+                break;
+
+            case "vincent":
+                this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.CoachFish.toSprite());
+                break;
+
+            case "mathijs":
                 this.square2 = new TimeOutSquare(new Vector(1000, 350), Resources.CoachFish.toSprite());
                 break;
 
@@ -109,7 +166,7 @@ export class TimeOutScreen extends Scene {
     healthRestore(context) {
         console.log('heatlh increased')
         // Fucntie kijkt of je een health boost hebt
-        if (this.healthBoost === 1 && context.data.healthrestore === 1) {
+        if (this.healthBoost === 1) {
             // Zo ja boost deze de player health
             context.data.player.health += 40;
             this.healthBoost = 0

@@ -8,12 +8,13 @@ export class Coach extends Actor {
     constructor(pos) {
         super()
         this.pos = pos;
-        
+
     }
-    
+
     tips = [];
+    bossTips = [];
     onInitialize(pos) {
-        
+
         const CoachFish = SpriteSheet.fromImageSource({
             image: Resources.CoachFish,
             grid: { rows: 1, columns: 2, spriteWidth: 190, spriteHeight: 329 }
@@ -24,10 +25,22 @@ export class Coach extends Actor {
         this.graphics.use(CoachFishAnimation);
 
         this.tips = [
-            'Let op je stamina! Als je niks geen stamina hebt kan je niet slaan.', 
-            'Sil is een beetje sloom. Maak je geen zorgen om zijn block.',
+            'Let op je stamina! Als je niks geen stamina hebt kan je niet slaan.',
             'Sla je tegenstanders op bepaalde momenten voor een speciale aanval.',
-            'Kijk goed naar de aanvallen. Sommige zijn moeilijker te ontwijken dan anderen'
+            'Kijk goed naar de aanvallen. Sommigen zijn moeilijker te ontwijken dan anderen',
+            'Dodge en counter, Dodge en counter!'
+
+        ]
+
+        this.bossTips = [
+            'Sil is een beetje sloom. Maak je geen zorgen om zijn block.',
+            'Mathijs hoef je maar 1 keer neer te slaan',
+            'Juno is mister djalla',
+            'Chris is',
+            'Kasper',
+            'Ginus',
+            'Sander',
+            'Vincent',
         ]
     }
 }

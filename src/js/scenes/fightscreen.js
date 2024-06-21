@@ -22,6 +22,7 @@ export class FightScreen extends Scene {
   roundTimer;
   ui;
   healthRestore;
+  winCheckVariabel;
 
   // ispaused is er zodat de engine kan kijken of de game al gepauzeerd is
 
@@ -64,6 +65,41 @@ export class FightScreen extends Scene {
     this.ui.element.innerHTML = '';
     this.createUI();
 
+    switch (context.data.boss) {
+      case "sil":
+        this.winCheckVariabel = 1;
+        break;
+
+      case "juno":
+        this.winCheckVariabel = 1;
+        break;
+
+      case "ginus":
+        this.winCheckVariabel = 1;
+        break;
+
+      case "sander":
+        this.winCheckVariabel = 1;
+        break;
+
+      case "chris":
+        this.winCheckVariabel = 1;
+        break;
+
+      case "kasper":
+        this.winCheckVariabel = 1;
+        break;
+
+      case "vincent":
+        this.winCheckVariabel = 1;
+        break;
+
+      case "mathijs":
+        this.winCheckVariabel = 2;
+        break;
+
+    }
+
     //Create UI elements
 
 
@@ -85,7 +121,7 @@ export class FightScreen extends Scene {
     this.roundTimer.start();
   }
 
-  onPreUpdate(engine, delta) {
+  onPreUpdate( engine, delta) {
     super.onPreUpdate(engine, delta);
 
     this.updateUI();
@@ -97,32 +133,8 @@ export class FightScreen extends Scene {
 
     this.lossCheck();
 
-    // switch (context.data.boss) {
-    //   case "sil":
-    //     this.winCheck();
-    //     break;
+    this.winCheck(this.winCheckVariabel)
 
-    //   case "juno":
-    //     this.winCheck();
-    //     break;
-
-    //   case "ginus":
-    //     this.winCheck();
-    //     break;
-
-    //   case "sander":
-    //     this.winCheck();
-    //     break;
-
-    //   case "chris":
-    //     this.winCheck();
-    //     break;
-
-    //   case "mathijs":
-    //     this.winCheckMathijs();
-    //     break;
-
-    // }
 
   }
 
@@ -319,10 +331,6 @@ export class FightScreen extends Scene {
     }
 
     if (this.roundTimeRemaining <= 0 && this.currentRound === 3) {
-
-      console.log('Transitioning to timeoutscreen with context:', {
-        sceneActivationData: { round: this.currentRound, time: this.roundTimeRemaining }
-      });
       this.loseGame();
 
     }
@@ -348,41 +356,46 @@ export class FightScreen extends Scene {
     }
   }
 
-  winCheck() {
-    if (this.boss.timesDowned === 3) {
-      let winTimer = new Timer({
-        fcn: () => this.winGame(),
-        repeats: false,
-        interval: 4000
-      });
-      this.add(winTimer);
-      winTimer.start();
+  winCheck(v) {
+
+    if (v === 1) {
+
+      if (this.boss.timesDowned === 3) {
+        let winTimer = new Timer({
+          fcn: () => this.winGame(),
+          repeats: false,
+          interval: 4000
+        });
+        this.add(winTimer);
+        winTimer.start();
+      }
+
+    } else {
+
+      if (this.boss.timesDowned === 1) {
+        let winTimerMathijs = new Timer({
+          fcn: () => this.winGame(),
+          repeats: false,
+          interval: 4000
+        });
+        this.add(winTimerMathijs);
+        winTimerMathijs.start();
+      }
     }
   }
 
-  winCheckMathijs() {
-    if (this.boss.timesDowned === 1) {
-      let winTimerMathijs = new Timer({
-        fcn: () => this.winGame(),
-        repeats: false,
-        interval: 4000
-      });
-      this.add(winTimerMathijs);
-      winTimerMathijs.start();
-    }
-  }
 
   winGame() {
     this.ui.element.style.display = 'none';
     this.engine.goToScene('winscreen', {
-      sceneActivationData: { round: this.currentRound, time: this.roundTimeRemaining }
+      sceneActivationData: { boss: this.boss, round: this.currentRound, time: this.roundTimeRemaining }
     });
   }
 
   loseGame() {
     this.ui.element.style.display = 'none';
     this.engine.goToScene('lossscreen', {
-      sceneActivationData: { round: this.currentRound, time: this.roundTimeRemaining }
+      sceneActivationData: { boss: this.boss, round: this.currentRound, time: this.roundTimeRemaining }
     });
 
   }
