@@ -64,7 +64,7 @@ export class BossAnimations {
         this.getUp.strategy = AnimationStrategy.End;
 
         this.getHit = animate(200, sheet, [40, 41]);
-        this.getHit.strategy = AnimationStrategy.Freeze;
+        this.getHit.strategy = AnimationStrategy.End;
 
         this.block = animate(200, sheet, [50, 51]);
         this.block.strategy = AnimationStrategy.End;

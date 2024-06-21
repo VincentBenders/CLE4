@@ -29,19 +29,19 @@ export class SilBoss extends Boss {
     //Custom methods
     setMoves() {
 
-        let leftHookAnimation = animate(1400, this.spriteSheet, [50, 51, 52, 53, 54]);
+        let leftHookAnimation = animate(1400, this.spriteSheet, [70, 71, 72, 73, 74]);
         this.moves.leftHook = new Attack(15, 'jab', 5, 1400, 400, leftHookAnimation, 4);
 
 
-        let rightHookAnimation = animate(1400, this.spriteSheet, [40, 41, 42, 43]);
+        let rightHookAnimation = animate(1400, this.spriteSheet, [60, 61, 62, 63]);
         this.moves.rightHook = new Attack(15, 'jab', 5, 1400, 400, rightHookAnimation, 3);
 
 
-        let uppercutAnimation = animate(1000, this.spriteSheet, [70, 71, 72, 73]);
+        let uppercutAnimation = animate(1000, this.spriteSheet, [80, 81, 82, 83]);
         this.moves.uppercut = new Attack(30, 'uppercut', 7, 1000, 300, uppercutAnimation, 3);
 
 
-        let tauntAnimation = animate(4000, this.spriteSheet, [72, 72]);
+        let tauntAnimation = animate(4000, this.spriteSheet, [20, 21, 22, 23]);
         tauntAnimation.events.on('start', () => {this.isVulnerable = true; this.setTimer(2000, () => {this.isVulnerable = false})})
         this.moves.taunt = new Move(tauntAnimation, 2000);
 
