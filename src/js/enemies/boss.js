@@ -49,15 +49,32 @@ export class Boss extends Actor {
         let image;
 
         switch (name) {
-            case 'sil': image = Resources.SilSheet; break;
-            case 'chris': image = Resources.ChrisSheet; break;
-            case 'juno': image = Resources.JunoSheet; break;
-            case 'kasper': image = Resources.KasperSheet; break;
-            case 'vincent': image = Resources.VincentSheet; break;
-            case 'ginus': image = Resources.GinusSheet; break;
-            case 'mathijs': image = Resources.MathijsSheet; break;
-            case 'sander': image = Resources.SanderSheet; break;
-            default: image = Resources.SilSheet;
+            case 'sil':
+                image = Resources.SilSheet;
+                break;
+            case 'chris':
+                image = Resources.ChrisSheet;
+                break;
+            case 'juno':
+                image = Resources.JunoSheet;
+                break;
+            case 'kasper':
+                image = Resources.KasperSheet;
+                break;
+            case 'vincent':
+                image = Resources.VincentSheet;
+                break;
+            case 'ginus':
+                image = Resources.GinusSheet;
+                break;
+            case 'mathijs':
+                image = Resources.MathijsSheet;
+                break;
+            case 'sander':
+                image = Resources.SanderSheet;
+                break;
+            default:
+                image = Resources.SilSheet;
         }
 
         this.spriteSheet = SpriteSheet.fromImageSource({
@@ -71,6 +88,16 @@ export class Boss extends Actor {
         });
 
         this.animations = new BossAnimations(this.spriteSheet, this);
+
+        this.animations.getHit.events.on('end', () => {
+            this.resumeIdle()
+        });
+        this.animations.block.events.on('end', () => {
+            this.resumeIdle();
+        });
+        this.animations.getUp.events.on('end', () => {
+            this.resumeIdle()
+        });
 
 
         this.healthMax = health;
@@ -137,8 +164,6 @@ export class Boss extends Actor {
         //The boss' current pattern. Another function will run through it and execute all the moves
         this.pattern = [];
 
-        this.setNextPattern();
-
         this.resumeIdle();
         this.pos = new Vector(720, 575);
 
@@ -149,6 +174,8 @@ export class Boss extends Actor {
 
     onInitialize(engine) {
         super.onInitialize(engine);
+
+        this.setNextPattern();
 
         //Add all the timers to the scene
         this.scene.add(this.stunnedTimer);
@@ -174,7 +201,6 @@ export class Boss extends Actor {
             this.healthCurrent = 0;
 
             this.goDown();
-            //Not yet implemented
 
             // this.scene.enemyDowned(this);
 
@@ -191,9 +217,9 @@ export class Boss extends Actor {
                 }
 
             }
-            //Set a random time from 3-9 seconds before the boss gets up
 
-            this.setTimer(random.integer(3000, 9000), this.getUp);
+            //Set a random time from 3-9 seconds before the boss gets up
+            this.setTimer(random.integer(3000, 9000), () => (this.getUp()));
 
         }
 
@@ -284,8 +310,6 @@ export class Boss extends Actor {
         this.healthCurrent = this.healthRecover;
         this.isInCenter = true;
 
-        this.animations.getUp.on('end', () => {this.resumeIdle()});
-
         this.postGetUp();
 
 
@@ -308,9 +332,6 @@ export class Boss extends Actor {
     block() {
         this.animations.block.reset();
         this.graphics.use(this.animations.block);
-        this.animations.block.events.on('end', () => {
-            this.resumeIdle();
-        })
     }
 
     hitWith(punch) {
@@ -326,10 +347,12 @@ export class Boss extends Actor {
         //Check if the punch can land
         let hit = false;
         switch (punch) {
-            case "lower left": case "lower right":
+            case "lower left":
+            case "lower right":
                 this.isHittableBody ? hit = true : this.block();
                 break;
-            case "upper left": case "upper right":
+            case "upper left":
+            case "upper right":
                 this.isHittableHead ? hit = true : this.block();
                 break;
         }
@@ -436,7 +459,7 @@ export class Boss extends Actor {
             console.log("You've been hit!");
             Resources.Punch.volume = 1.0;
             Resources.Punch.loop = false;
-            Resources.Punch.play(); 
+            Resources.Punch.play();
         } else {
             //Otherwise, set condition
             this.hasMissed = true;

@@ -26,6 +26,17 @@ export class LossScreen extends Scene {
             })
         })
 
+        this.lossBossLabel = new Label({
+            text: `You lost to: ${context.data.boss.name}!`,
+            pos: new Vector(650, 250),
+            font: new Font({
+                family: 'Serif',
+                size: 30,
+                unit: FontUnit.Px,
+                color: Color.White
+            })
+        })
+
         this.lossRoundLabel = new Label({
             text: `Round: ${context.data.round}`,
             pos: new Vector(650, 300),
@@ -48,6 +59,7 @@ export class LossScreen extends Scene {
             })
         })
         this.add(this.lossLabel)
+        this.add(this.lossBossLabel)
         this.add(this.lossRoundLabel)
         this.add(this.lossTimeLabel)
      
@@ -69,6 +81,9 @@ export class LossScreen extends Scene {
     resetLoss() {
         if (this.lossLabel instanceof Label) {
             this.lossLabel.kill();
+        }
+        if (this.lossBossLabel instanceof Label) {
+            this.lossBossLabel.kill();
         }
        
         if (this.lossRoundLabel instanceof Label) {

@@ -27,6 +27,17 @@ export class WinScreen extends Scene {
             })
         })
 
+        this.winBossLabel = new Label({
+            text: `You beat: ${context.data.boss.name}!`,
+            pos: new Vector(650, 250),
+            font: new Font({
+                family: 'Serif',
+                size: 30,
+                unit: FontUnit.Px,
+                color: Color.White
+            })
+        })
+
         this.winRoundLabel = new Label({
             text: `Round: ${context.data.round}`,
             pos: new Vector(650, 300),
@@ -50,6 +61,7 @@ export class WinScreen extends Scene {
         })
 
         this.add(this.winLabel)
+        this.add(this.winBossLabel)
         this.add(this.winRoundLabel)
         this.add(this.winTimeLabel)
   
@@ -70,6 +82,9 @@ export class WinScreen extends Scene {
     resetWin() {
         if (this.winLabel instanceof Label) {
             this.winLabel.kill();
+        }
+        if (this.winBossLabel instanceof Label) {
+            this.winBossLabel.kill();
         }
         if (this.winRoundLabel instanceof Label) {
             this.winRoundLabel.kill();
