@@ -109,7 +109,7 @@ export class FightScreen extends Scene {
       this.resetFight(context);
     } else if (context.previousScene instanceof TimeOutScreen) {
       // Else if it's from the timeout, do something else
-      this.roundTimeRemaining = 10;
+      this.roundTimeRemaining = 180;
       this.player.health = context.data.player.health;
       this.ui.element.style.display = 'flex';
       this.currentRound++;
@@ -160,7 +160,7 @@ export class FightScreen extends Scene {
 
     //Reset properties
     this.currentRound = 1;
-    this.roundTimeRemaining = 10;
+    this.roundTimeRemaining = 180;
 
     //Create player and set it as a property
     this.player = new Player();
