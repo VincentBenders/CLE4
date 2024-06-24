@@ -76,7 +76,7 @@ export class Player extends Actor {
     this.graphics.add("idle", idle);
     this.graphics.use("idle");
 
-    const koFrame = range(35, 41);
+    const koFrame = range(35, 39);
     const knockOut = Animation.fromSpriteSheet(PlayerAnimations, koFrame, 500);
     this.graphics.add("knockOut", knockOut);
     knockOut.strategy = AnimationStrategy.Freeze;
@@ -207,6 +207,7 @@ export class Player extends Actor {
 
       }
     }
+    
     if (engine.mygamepad.wasButtonPressed(Buttons.Face1) && yValue < 0) {
       if (!this.isAttacking && !this.isDodging) {
         Resources.Punch.volume = 1.0;

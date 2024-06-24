@@ -20,36 +20,19 @@ export class KasperBoss extends Boss {
     }
 
     setMoves() {
-        //idle
-        let idleAnimation = animate(1000, this.spriteSheet, [0, 1, 2, 3]);
-        this.moves.uppercut = new Attack(30, 'idle', 7, 1000, 300, idleAnimation, 3);
-        //goingdown
-        let goingDownAnimation = animate(1000, this.spriteSheet, [5, 6, 7, 8]);
-        this.moves.uppercut = new Attack(30, 'goingdown', 7, 1000, 300, goingDownAnimation, 3);
-        //getup
-        let getUpAnimation = animate(1000, this.spriteSheet, [15, 16, 17, 18]);
-        this.moves.uppercut = new Attack(30, 'getup', 7, 1000, 300, getUpAnimation, 3);
-        //gethit
-        let getHitAnimation = animate(1000, this.spriteSheet, [20, 21]);
-        this.moves.uppercut = new Attack(30, 'gethit', 7, 1000, 300, getHitAnimation, 3);
-        //block
-        let blockAnimation = animate(1000, this.spriteSheet, [25, 26]);
-        this.moves.uppercut = new Attack(30, 'block', 7, 1000, 300, blockAnimation, 3);
-
-
         //kick left
-        let kickLeftAnimation = animate(1000, this.spriteSheet, [30, 31, 32, 33, 34]);
-        this.moves.uppercut = new Attack(30, 'kickleft', 7, 1000, 300, kickLeftAnimation, 3);
+        let kickLeftAnimation = animate(1000, this.spriteSheet, [60, 61, 62, 63, 64]);
+        this.moves.kickLeft = new Attack(30, 'rightHook', 7, 1000, 300, kickLeftAnimation, 3);
         //kick right
-        let kickRightAnimation = animate(1000, this.spriteSheet, [35, 36, 37, 38, 39]);
-        this.moves.uppercut = new Attack(30, 'kickright', 7, 1000, 300, kickRightAnimation, 3);
+        let kickRightAnimation = animate(1000, this.spriteSheet, [70, 71, 72, 73, 74]);
+        this.moves.kickRight = new Attack(30, 'leftHook', 7, 1000, 300, kickRightAnimation, 3);
         //overhead swing
-        let overHeadSwingAnimation = animate(1000, this.spriteSheet, [40, 41, 42, 43]);
-        this.moves.uppercut = new Attack(30, 'overheadswing', 7, 1000, 300, overHeadSwingAnimation, 3);
+        let overHeadSwingAnimation = animate(1000, this.spriteSheet, [80, 81, 82, 83, 84]);
+        this.moves.overheadSwing = new Attack(30, 'overhead', 7, 1000, 300, overHeadSwingAnimation, 3);
     
         
 
-        let tauntAnimation = animate(2000, this.spriteSheet, [10, 11, 12]);
+        let tauntAnimation = animate(2000, this.spriteSheet, [20, 21, 22, 23]);
         tauntAnimation.events.on('frame', (e) => {if (e.frameIndex === 0) {this.isVulnerable = true}})
         this.moves.taunt = new Move(tauntAnimation, 2000);
 
@@ -63,10 +46,13 @@ export class KasperBoss extends Boss {
     setNextPattern() {
         super.setNextPattern();
 
-        this.pattern.push(this.moves.leftHook);
-        this.pattern.push(this.moves.rightHook);
-        this.pattern.push(this.moves.uppercut);
-
+        this.pattern.push(this.moves.kickLeft);
+        this.pattern.push(this.moves.overheadSwing);
+        this.pattern.push(this.moves.kickRight);
+        this.pattern.push(this.moves.kickRight);
+        this.pattern.push(this.moves.kickLeft);
+        this.pattern.push(this.moves.taunt);
+        
     }
 
     postGetUp() {

@@ -10,6 +10,9 @@ import { JunoBoss } from "../enemies/junoBoss.js";
 import { GinusBoss } from "../enemies/ginusBoss.js";
 import { SanderBoss } from "../enemies/sanderBoss.js";
 import { ChrisBoss } from "../enemies/chrisBoss.js";
+import { KasperBoss } from "../enemies/kasperboss.js";
+import { MathijsBoss } from "../enemies/mathijsboss.js";
+import { VincentBoss } from "../enemies/vincentboss.js";
 import { PauseScreen } from "./pausescreen.js";
 
 export class FightScreen extends Scene {
@@ -196,6 +199,18 @@ export class FightScreen extends Scene {
 
       case "chris":
         this.boss = new ChrisBoss();
+        this.player.stamina = 8;
+        break;
+      case "kasper":
+        this.boss = new KasperBoss();
+        this.player.stamina = 8;
+        break;
+      case "mathijs":
+        this.boss = new MathijsBoss();
+        this.player.stamina = 8;
+        break;
+      case "vincent":
+        this.boss = new VincentBoss();
         this.player.stamina = 8;
         break;
 
