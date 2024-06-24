@@ -39,52 +39,52 @@ export class TimeOutScreen extends Scene {
         }
         console.log('Context:', context);
         this.context = context;
-        console.log(context.data.player.health);
+        // console.log(context.data.player.healthCurrent);
         this.resetTimeOut();
         this.coach.onInitialize(this.engine);
-        let bossTip = this.coach.bossTips;
-        const random = new Random;
 
+        const random = new Random;
+        let bossTip
         switch (context.data.boss.name) {
             case "sil":
-                bossTip[0];
+                bossTip = this.coach.bossTips[0];
                 break;
 
             case "juno":
-                bossTip[2]
+                bossTip = this.coach.bossTips[2];
                 break;
 
             case "ginus":
-                bossTip[5];
+                bossTip = this.coach.bossTips[5];
                 break;
 
             case "sander":
-                bossTip[6]
+                bossTip = this.coach.bossTips[6]
                 break;
 
             case "chris":
-                bossTip[3]
+                bossTip = this.coach.bossTips[3]
                 break;
 
             case "kasper":
-                bossTip[4]
+                bossTip = this.coach.bossTips[4]
                 break;
 
             case "vincent":
-                bossTip[7]
+                bossTip = this.coach.bossTips[7]
                 break;
 
             case "mathijs":
-                bossTip[1]
+                bossTip = this.coach.bossTips[1]
                 break;
 
         }
 
         let coachTip = this.coach.tips[Math.floor(Math.random() * this.coach.tips.length)];
-        let randomNumber = random.integer(1, 2)
-        if( randomNumber === 1) {
+        let randomNumber = random.integer(1, 3)
+        if (randomNumber === 1) {
             this.tip = coachTip;
-        } else if (randomNumber === 2){
+        } else {
             this.tip = bossTip;
         }
         this.tipLabel = new Label({
@@ -99,6 +99,18 @@ export class TimeOutScreen extends Scene {
         })
 
         this.add(this.tipLabel);
+
+        let goLabel = new Label({
+            text: 'Press Button 3 to continue',
+            pos: new Vector(600, 700),
+            font: new Font({
+                family: 'Fantasy, Copperplate',
+                size: 30,
+                unit: FontUnit.Px,
+                color: Color.White
+            })
+        })
+        this.add(goLabel)
 
         switch (context.data.boss.name) {
             case "sil":
@@ -148,11 +160,11 @@ export class TimeOutScreen extends Scene {
     onPreUpdate() {
 
 
-        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face1)) {
+        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face3)) {
             this.engine.goToScene('fightscreen', { sceneActivationData: { player: this.context.data.player, healthboost: this.healthBoost } });
         }
 
-        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face2)) {
+        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face4)) {
             this.healthRestore(this.context);
         }
 
@@ -168,9 +180,12 @@ export class TimeOutScreen extends Scene {
         // Fucntie kijkt of je een health boost hebt
         if (this.healthBoost === 1) {
             // Zo ja boost deze de player health
-            context.data.player.health += 40;
+            context.data.player.healthCurrent += 40;
+            if (context.data.player.healthCurrent > 100) {
+                context.data.player.healthCurrent = 100
+            }
             this.healthBoost = 0
-            console.log(context.data.player.health)
+            console.log(context.data.player.healthCurrent)
             // Zet de healthboost naar 0 na gebruik 
         }
     }

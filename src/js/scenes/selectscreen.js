@@ -8,10 +8,10 @@ export class SelectScreen extends Scene {
         { name: 'kasper', image: './images/time-out-kasper.png' },
         { name: 'ginus', image: './images/time-out-ginus.png' },
         { name: 'juno', image: './images/time-out-juno.png' },
-        { name: 'vincent', image: './placeholders/Placeholder.png' },
+        { name: 'vincent', image: './images/time-out-vincent.png' },
         { name: 'chris', image: './images/time-out-chris.png' },
-        { name: 'mathijs', image: './placeholders/Placeholder.png' },
-        { name: 'sander', image: './placeholders/Placeholder.png' },
+        { name: 'mathijs', image: './images/time-out-mathijs.png' },
+        { name: 'sander', image: './images/time-out-sander.png' },
     ]
 
     screen;
@@ -46,6 +46,7 @@ export class SelectScreen extends Scene {
 
     renderSelectScreen() {
         this.screen = document.getElementById('ui');
+        this.screen.style.display= 'flex';
         this.screen.innerHTML = '';
         this.selectBox = document.createElement('div');
         this.screen.appendChild(this.selectBox);
@@ -57,12 +58,15 @@ export class SelectScreen extends Scene {
             select.style.display = 'inline-block';
             select.style.margin = '10px';
             select.style.width = '100px';
-            select.style.border = this.selectedIndex === index ? '2px solid red' : '2px solid transparent';
+            select.style.border = this.selectedIndex === index ? '2px solid white' : '2px solid transparent';
 
             const name = document.createElement('p');
             name.textContent = boss.name;
             name.style.textAlign = 'center';
             name.style.color = 'white';
+            name.style.fontFamily = 'Arial';
+            name.style.textDecoration = 'bold';
+            name.style.fontSize = '20';
 
 
             const picture = document.createElement('img');

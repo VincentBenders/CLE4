@@ -8,11 +8,12 @@ import {
     SpriteSheet,
     Animation, AnimationStrategy,
 } from "excalibur";
-import {Player} from "./player/player";
+import { Player } from "./player/player";
 
 
 // TODO: Set the sheet paths to the correct sheet
 const Resources = {
+    Startscreen: new ImageSource('./images/Startscreen.png'),
     CoachFish: new ImageSource('./images/CoachFish.png'),
     Player: new ImageSource('./placeholders/mc-idle.png'),
     BoxingRing: new ImageSource('./images/BOX_RING_final.png'),
@@ -20,22 +21,22 @@ const Resources = {
     Background2: new ImageSource('./images/BACKGROUND_02_final.png'),
     Square: new ImageSource('./placeholders/timeoutsquare.jpg'),
     PlayerSheet: new ImageSource("./animations/player/spritesheet.png"),
-    Track1: new Sound('sound/GAME_OTHERSOUNDTRACK_1.mp3'),
-    Track2: new Sound('sound/GAME_MAINSOUNDTRACK.wav'),
-    Punch: new Sound('sound/GAME_HIT_SOUND.wav'),
     SilSheet: new ImageSource('./images/sprite_sheet_sil.png'),
-    SanderSheet: new ImageSource('./images/sprite_sheet_sil.png'),
+    SanderSheet: new ImageSource('./images/sprite_sheet_sander.png'),
     JunoSheet: new ImageSource('./images/sprite_sheet_juno.png'),
     ChrisSheet: new ImageSource('./images/sprite_sheet_chris.png'),
     GinusSheet: new ImageSource('./images/sprite_sheet_ginus.png'),
     VincentSheet: new ImageSource('./images/sprite_sheet_sil.png'),
     KasperSheet: new ImageSource('./images/sprite_sheet_kasper.png'),
-    MathijsSheet: new ImageSource('./images/sprite_sheet_sil.png'),
+    MathijsSheet: new ImageSource('./images/sprite_sheet_mathijs.png'),
     SilHeadShot: new ImageSource('./images/time-out-sil.png'),
     GinusHeadShot: new ImageSource('./images/time-out-ginus.png'),
     JunoHeadShot: new ImageSource('./images/time-out-juno.png'),
     ChrisHeadShot: new ImageSource('./images/time-out-chris.png'),
     KasperHeadShot: new ImageSource('./images/time-out-kasper.png'),
+    Track1: new Sound('sound/GAME_OTHERSOUNDTRACK_1.mp3'),
+    Track2: new Sound('sound/GAME_MAINSOUNDTRACK.wav'),
+    Punch: new Sound('sound/GAME_HIT_SOUND.wav'),
 }
 
 const ResourceLoader = new Loader();
@@ -43,7 +44,7 @@ for (let res of Object.values(Resources)) {
     ResourceLoader.addResource(res);
 }
 
-export {Resources, ResourceLoader};
+export { Resources, ResourceLoader };
 
 export class BossAnimations {
     idle;
