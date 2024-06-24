@@ -8,7 +8,7 @@ export class StartScreen extends Scene {
         Resources.Startscreen.load().then(() => {
             this.sprite = new Sprite({
                 image: Resources.Startscreen,
-                sourceView: { x: 0, y: 0, width: engine.drawWidth, height: engine.drawHeight }
+                sourceView: { x: 210, y: 0, width: engine.drawWidth, height: engine.drawHeight }
             });
             this.sprite.scale = new Vector(1, 1);
         });
@@ -17,36 +17,39 @@ export class StartScreen extends Scene {
 
         this.startLabel = new Label({
             text: 'PUNCHPARK',
-            pos: new Vector(500, 150),
+            pos: new Vector(550, 75),
             font: new Font({
-                family: 'Serif',
+                family: 'Arial',
                 size: 60,
                 unit: FontUnit.Px,
-                color: Color.White
+                color: Color.White,
+                bold: true
             })
         });
         this.add(this.startLabel);
 
         this.startButton = new Label({
             text: 'PRESS BUTTON 1 TO START',
-            pos: new Vector(480, 250),
+            pos: new Vector(530, 150),
             font: new Font({
                 family: 'Arial',
                 size: 30,
                 unit: FontUnit.Px,
-                color: Color.White
+                color: Color.White,
+                bold: true
             })
         });
         this.add(this.startButton);
 
         this.creditsLabel = new Label({
             text: 'Made by Sander Landmeter, Juno Craane, Sil van Gemeren, Vincent Benders, Chris Tang, Kasper de Jong, Mathijs van der Meijde en Ginus van der Zee',
-            pos: new Vector(270, 800),
+            pos: new Vector(80, 860),
             font: new Font({
                 family: 'Arial',
-                size: 20,
+                size: 18,
                 unit: FontUnit.Px,
-                color: Color.White
+                color: Color.White,
+                bold: true,
             })
         });
         this.add(this.creditsLabel);
@@ -66,22 +69,22 @@ export class StartScreen extends Scene {
         }
 
         if (engine.input.keyboard.wasPressed(Keys.V)) {
-            engine.goToScene('fightscreen', { 
+            engine.goToScene('fightscreen', {
                 sceneActivationData: { boss: 'sil' }
-             });
+            });
         }
 
 
         if (engine.input.keyboard.wasPressed(Keys.Digit2)) {
-            engine.goToScene('winscreen', { 
+            engine.goToScene('winscreen', {
                 sceneActivationData: { boss: "sil", round: 2, time: 100 }
-             });
+            });
         }
 
         if (engine.input.keyboard.wasPressed(Keys.Digit3)) {
-            engine.goToScene('lossscreen', { 
+            engine.goToScene('lossscreen', {
                 sceneActivationData: { boss: "sil", round: 2, time: 100 }
-             });
+            });
         }
     }
 }
