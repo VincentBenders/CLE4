@@ -102,11 +102,17 @@ export class GinusBoss extends Boss {
                 break;
         }
 
+    }
 
+    postOnPostUpdate() {
+        const time = this.scene.ui.clock.innerText;
 
+        if (time === '2:30' || time === '1:30' || time === '0:30') {
 
+            //Uses unshift to make sure the taunt is the next move in the pattern
+            this.pattern.unshift(this.moves.taunt);
 
-
+        }
     }
 
 }
