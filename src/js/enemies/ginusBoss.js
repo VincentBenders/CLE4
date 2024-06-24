@@ -92,7 +92,7 @@ export class GinusBoss extends Boss {
                 this.pattern.push(this.moves.angryLab);
                 this.pattern.push(this.moves.angryLab);
                 this.pattern.push(this.moves.leftHook);
-                this.pattern.push(this.moves.taunt);
+               
                 break;
             case 2:
                 this.nextAttackDelay = 1000;
@@ -100,7 +100,9 @@ export class GinusBoss extends Boss {
                 this.pattern.push(this.moves.angryRook);
                 this.pattern.push(this.moves.angryLab);
                 this.pattern.push(this.moves.angryRab);
-                this.pattern.push(this.moves.taunt);
+                this.pattern.push(this.moves.angryLab);
+                this.pattern.push(this.moves.angryRab);
+                
                 break;
         }
 
