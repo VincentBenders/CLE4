@@ -1,8 +1,18 @@
-import { Buttons, Color, Keys, Scene, Vector } from "excalibur";
-import { Label, FontUnit, Font } from "excalibur";
+import { Scene, Sprite, Vector, Label, FontUnit, Font, Color, Keys, Buttons } from "excalibur";
+import { Resources } from "../resources";
 
 export class StartScreen extends Scene {
+    sprite;
+
     onInitialize(engine) {
+        Resources.Startscreen.load().then(() => {
+            this.sprite = new Sprite({
+                image: Resources.Startscreen,
+                sourceView: { x: 0, y: 0, width: engine.drawWidth, height: engine.drawHeight }
+            });
+            this.sprite.scale = new Vector(1, 1);
+        });
+
         console.log("start screen!");
 
         this.startLabel = new Label({
@@ -33,13 +43,21 @@ export class StartScreen extends Scene {
             text: 'Made by Sander Landmeter, Juno Craane, Sil van Gemeren, Vincent Benders, Chris Tang, Kasper de Jong, Mathijs van der Meijde en Ginus van der Zee',
             pos: new Vector(270, 800),
             font: new Font({
-                family: 'Serif',
-                size: 15,
+                family: 'Arial',
+                size: 20,
                 unit: FontUnit.Px,
                 color: Color.White
             })
         });
         this.add(this.creditsLabel);
+    }
+
+    draw(ctx, delta) {
+        if (this.sprite) {
+            this.sprite.draw(ctx, 0, 0);
+        }
+
+        super.draw(ctx, delta);
     }
 
     onPostUpdate(engine) {
