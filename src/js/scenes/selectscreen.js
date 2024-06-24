@@ -8,10 +8,10 @@ export class SelectScreen extends Scene {
         { name: 'kasper', image: './images/time-out-kasper.png' },
         { name: 'ginus', image: './images/time-out-ginus.png' },
         { name: 'juno', image: './images/time-out-juno.png' },
-        { name: 'vincent', image: './placeholders/Placeholder.png' },
+        { name: 'vincent', image: './images/time-out-vincent.png' },
         { name: 'chris', image: './images/time-out-chris.png' },
-        { name: 'mathijs', image: './placeholders/Placeholder.png' },
-        { name: 'sander', image: './placeholders/Placeholder.png' },
+        { name: 'mathijs', image: './images/time-out-mathijs.png' },
+        { name: 'sander', image: './images/time-out-sander.png' },
     ]
 
     screen;

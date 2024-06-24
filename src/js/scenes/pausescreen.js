@@ -32,6 +32,12 @@ export class PauseScreen extends Scene {
         }
         
         if (this.engine.mygamepad.wasButtonPressed(Buttons.Face2)) {
+            //Reset the ui and make it visible again
+            const ui = document.getElementById('ui');
+            ui.style.display = 'flex';
+            ui.innerHTML = '';
+
+            //Then go to the scene
             engine.goToScene('selectscreen');
         }
 
