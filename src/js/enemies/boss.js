@@ -50,34 +50,46 @@ export class Boss extends Actor {
 
         let image;
 
+        let scale;
+
         switch (name) {
             case 'sil':
                 image = Resources.SilSheet;
+                scale = 1.05;
                 break;
             case 'chris':
                 image = Resources.ChrisSheet;
+                scale = 1.2;
                 break;
             case 'juno':
                 image = Resources.JunoSheet;
+                scale = 1.15;
                 break;
             case 'kasper':
                 image = Resources.KasperSheet;
+                scale = 1.10;
                 break;
             case 'vincent':
                 image = Resources.VincentSheet;
+                scale = 1.2;
                 break;
             case 'ginus':
                 image = Resources.GinusSheet;
+                scale = 1.05;
                 break;
             case 'mathijs':
                 image = Resources.MathijsSheet;
+                scale = 1.4;
                 break;
             case 'sander':
                 image = Resources.SanderSheet;
+                scale = 1.25;
                 break;
             default:
                 image = Resources.SilSheet;
         }
+
+        this.scale = new Vector(scale, scale);
 
         this.spriteSheet = SpriteSheet.fromImageSource({
             image: image,
