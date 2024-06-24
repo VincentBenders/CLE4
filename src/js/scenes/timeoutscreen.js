@@ -47,7 +47,7 @@ export class TimeOutScreen extends Scene {
 
         switch (context.data.boss.name) {
             case "sil":
-                bossTip[0];
+                bossTip.length[0];
                 break;
 
             case "juno":
@@ -81,10 +81,10 @@ export class TimeOutScreen extends Scene {
         }
 
         let coachTip = this.coach.tips[Math.floor(Math.random() * this.coach.tips.length)];
-        let randomNumber = random.integer(1, 2)
+        let randomNumber = random.integer(1, 3)
         if( randomNumber === 1) {
             this.tip = coachTip;
-        } else if (randomNumber === 2){
+        } else {
             this.tip = bossTip;
         }
         this.tipLabel = new Label({
@@ -99,6 +99,18 @@ export class TimeOutScreen extends Scene {
         })
 
         this.add(this.tipLabel);
+
+        let goLabel = new Label ({
+            text: 'Press Button 3 to continue',
+            pos: new Vector(600, 700),
+            font: new Font({
+                family: 'Fantasy, Copperplate',
+                size: 30,
+                unit: FontUnit.Px,
+                color: Color.White
+            })
+        })
+        this.add(goLabel)
 
         switch (context.data.boss.name) {
             case "sil":
@@ -148,11 +160,11 @@ export class TimeOutScreen extends Scene {
     onPreUpdate() {
 
 
-        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face1)) {
+        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face3)) {
             this.engine.goToScene('fightscreen', { sceneActivationData: { player: this.context.data.player, healthboost: this.healthBoost } });
         }
 
-        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face2)) {
+        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face4)) {
             this.healthRestore(this.context);
         }
 
@@ -169,6 +181,9 @@ export class TimeOutScreen extends Scene {
         if (this.healthBoost === 1) {
             // Zo ja boost deze de player health
             context.data.player.health += 40;
+            if(context.data.player.health > 100) {
+                context.data.player.health = 100
+            }
             this.healthBoost = 0
             console.log(context.data.player.health)
             // Zet de healthboost naar 0 na gebruik 

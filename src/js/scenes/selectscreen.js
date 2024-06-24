@@ -46,6 +46,7 @@ export class SelectScreen extends Scene {
 
     renderSelectScreen() {
         this.screen = document.getElementById('ui');
+        this.screen.style.display= 'flex';
         this.screen.innerHTML = '';
         this.selectBox = document.createElement('div');
         this.screen.appendChild(this.selectBox);
