@@ -8,7 +8,7 @@ import {
     SpriteSheet,
     Animation, AnimationStrategy,
 } from "excalibur";
-import {Player} from "./player/player";
+import { Player } from "./player/player";
 
 
 // TODO: Set the sheet paths to the correct sheet
@@ -21,9 +21,6 @@ const Resources = {
     Background2: new ImageSource('./images/BACKGROUND_02_final.png'),
     Square: new ImageSource('./placeholders/timeoutsquare.jpg'),
     PlayerSheet: new ImageSource("./animations/player/spritesheet.png"),
-    Track1: new Sound('sound/GAME_OTHERSOUNDTRACK_1.mp3'),
-    Track2: new Sound('sound/GAME_MAINSOUNDTRACK.wav'),
-    Punch: new Sound('sound/GAME_HIT_SOUND.wav'),
     SilSheet: new ImageSource('./images/sprite_sheet_sil.png'),
     SanderSheet: new ImageSource('./images/sprite_sheet_sander.png'),
     JunoSheet: new ImageSource('./images/sprite_sheet_juno.png'),
@@ -37,6 +34,9 @@ const Resources = {
     JunoHeadShot: new ImageSource('./images/time-out-juno.png'),
     ChrisHeadShot: new ImageSource('./images/time-out-chris.png'),
     KasperHeadShot: new ImageSource('./images/time-out-kasper.png'),
+    Track1: new Sound('sound/GAME_OTHERSOUNDTRACK_1.mp3'),
+    Track2: new Sound('sound/GAME_MAINSOUNDTRACK.wav'),
+    Punch: new Sound('sound/GAME_HIT_SOUND.wav'),
 }
 
 const ResourceLoader = new Loader();
@@ -44,7 +44,7 @@ for (let res of Object.values(Resources)) {
     ResourceLoader.addResource(res);
 }
 
-export {Resources, ResourceLoader};
+export { Resources, ResourceLoader };
 
 export class BossAnimations {
     idle;
