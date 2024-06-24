@@ -58,12 +58,15 @@ export class SelectScreen extends Scene {
             select.style.display = 'inline-block';
             select.style.margin = '10px';
             select.style.width = '100px';
-            select.style.border = this.selectedIndex === index ? '2px solid red' : '2px solid transparent';
+            select.style.border = this.selectedIndex === index ? '2px solid white' : '2px solid transparent';
 
             const name = document.createElement('p');
             name.textContent = boss.name;
             name.style.textAlign = 'center';
             name.style.color = 'white';
+            name.style.fontFamily = 'Arial';
+            name.style.textDecoration = 'bold';
+            name.style.fontSize = '20';
 
 
             const picture = document.createElement('img');
