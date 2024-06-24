@@ -3,16 +3,16 @@ import { Label, FontUnit, Font } from "excalibur";
 import { Player } from "../player/player";
 import { StartScreen } from "./startscreen.js";
 import { Background, BoxingRing, Resources } from "../resources.js";
-import { SilBoss } from "../enemies/silboss.js";
+import { SilBoss } from "../enemies/silBoss.js";
 import { SelectScreen } from "./selectscreen.js";
 import { TimeOutScreen } from "./timeoutscreen.js";
 import { JunoBoss } from "../enemies/junoBoss.js";
 import { GinusBoss } from "../enemies/ginusBoss.js";
 import { SanderBoss } from "../enemies/sanderBoss.js";
 import { ChrisBoss } from "../enemies/chrisBoss.js";
-import { KasperBoss } from "../enemies/kasperboss.js";
-import { MathijsBoss } from "../enemies/mathijsboss.js";
-import { VincentBoss } from "../enemies/vincentboss.js";
+import { KasperBoss } from "../enemies/kasperBoss.js";
+import { MathijsBoss } from "../enemies/mathijsBoss.js";
+import { VincentBoss } from "../enemies/vincentBoss.js";
 import { PauseScreen } from "./pausescreen.js";
 
 export class FightScreen extends Scene {
