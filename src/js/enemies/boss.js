@@ -321,6 +321,7 @@ export class Boss extends Actor {
 
         if (this.timesDowned > this.timesDownedMax) {
             //Once the boss is knocked down more than their max, roll a d10
+            const random = new Random;
 
             let randomNumber = random.integer(1, 10)
             //If the roll is lower than the amount of times they went down, return early so they won't get up
