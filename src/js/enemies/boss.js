@@ -241,8 +241,6 @@ export class Boss extends Actor {
 
             this.goDown();
 
-            // this.scene.enemyDowned(this);
-
 
         }
 
@@ -304,6 +302,56 @@ export class Boss extends Actor {
 
     }
 
+    resetAttackTimers() {
+        this.nextAttackDelayTimer = new Timer({
+            fcn: () => {
+                if (this.pattern.length <= 0 && !(this.nextPatternTimer.isRunning)) {
+                    this.nextPatternTimer.start();
+                } else {
+                    this.performMove(this.pattern.shift());
+                }
+            },
+            repeats: true,
+            interval: this.nextAttackDelay
+        });
+
+
+        this.nextPatternTimer = new Timer({
+            fcn: () => {
+                this.setNextPattern()
+            },
+            repeats: false,
+            interval: this.nextPatternDelay
+        });
+
+    }
+
+    resetStunTimers() {
+        this.missTimer = new Timer({
+            fcn: () => {
+                this.hasMissed = false;
+                this.counterHits = 0;
+                this.isHittableHead = false;
+                this.isHittableBody = false;
+                this.resumeIdle();
+            },
+            repeats: false,
+            interval: this.stunnedDuration
+        });
+
+        this.stunnedTimer = new Timer({
+            fcn: () => {
+                this.isStunned = false;
+                this.counterHits = 0;
+                this.isHittableHead = false;
+                this.isHittableBody = false;
+                this.resumeIdle();
+            },
+            repeats: false,
+            interval: this.stunnedDuration
+        });
+    }
+
 
     /**
      * Makes the boss go down
@@ -319,6 +367,8 @@ export class Boss extends Actor {
         this.graphics.use(this.animations.goingDown);
 
 
+        this.scene.fighterDowned();
+
         if (this.timesDowned > this.timesDownedMax) {
             //Once the boss is knocked down more than their max, roll a d10
             const random = new Random;
@@ -327,7 +377,6 @@ export class Boss extends Actor {
             //If the roll is lower than the amount of times they went down, return early so they won't get up
             if (randomNumber <= this.timesDowned) {
                 return;
-
             }
 
         }
@@ -355,6 +404,9 @@ export class Boss extends Actor {
         this.healthCurrent = this.healthRecover;
         this.isInCenter = true;
 
+
+        this.scene.fighterGetsUp();
+
         this.postGetUp();
 
 
@@ -370,6 +422,7 @@ export class Boss extends Actor {
 
     tauntDownedPlayer() {
 
+        this.nextAttackDelayTimer.pause();
         this.graphics.use(this.animations.tauntDownedPlayer);
 
     }
@@ -506,7 +559,9 @@ export class Boss extends Actor {
         //If so, apply damage and end the animation early
         if (hit) {
             this.scene.player.hitFor(move.damage);
+            if (!this.scene.player.isDown) {
             this.resumeIdle();
+            }
             console.log("You've been hit!");
             Resources.Punch.volume = 1.0;
             Resources.Punch.loop = false;
@@ -540,6 +595,7 @@ export class Boss extends Actor {
     postOnHit() {
 
     }
+
 
 
 }

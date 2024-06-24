@@ -15,6 +15,8 @@ export class GinusBoss extends Boss {
 
         this.hitsBeforeBlock = 2;
 
+        this.resetAttackTimers();
+
         this.setMoves();
 
         // this.isHittableHead = false;
