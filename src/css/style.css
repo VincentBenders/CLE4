@@ -2,6 +2,19 @@
     --pixel-conversion: 1;
 }
 
+body::after {
+    position: absolute;
+    z-index: -1;
+    overflow: hidden;
+    height: 0;
+    width: 0;
+    content: url('./images/time-out-sil.png')
+    url('./images/time-out-kasper.png')
+    url('./images/time-out-ginus.png')
+    url('./images/time-out-juno.png')
+    url('./images/time-out-chris.png')
+    url('./placeholders/Placeholder.png');
+}
 
 body {
     margin: 0;

@@ -216,6 +216,11 @@ export class Boss extends Actor {
             this.nextAttackDelayTimer.resume()
         }
 
+        if (this.isDown && this.graphics.current !== this.animations.goingDown) {
+            this.graphics.use(this.animations.goingDown);
+            this.animations.goingDown.goToFrame(3, 9000);
+        }
+
         //Check for health
 
         if (this.healthCurrent <= 0 && !this.isDown) {
@@ -398,6 +403,8 @@ export class Boss extends Actor {
             this.stunnedTimer.stop();
 
             this.counterHits = 0;
+
+            this.postOnHit();
 
             return;
         }
