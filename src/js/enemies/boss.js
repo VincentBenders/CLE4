@@ -302,6 +302,56 @@ export class Boss extends Actor {
 
     }
 
+    resetAttackTimers() {
+        this.nextAttackDelayTimer = new Timer({
+            fcn: () => {
+                if (this.pattern.length <= 0 && !(this.nextPatternTimer.isRunning)) {
+                    this.nextPatternTimer.start();
+                } else {
+                    this.performMove(this.pattern.shift());
+                }
+            },
+            repeats: true,
+            interval: this.nextAttackDelay
+        });
+
+
+        this.nextPatternTimer = new Timer({
+            fcn: () => {
+                this.setNextPattern()
+            },
+            repeats: false,
+            interval: this.nextPatternDelay
+        });
+
+    }
+
+    resetStunTimers() {
+        this.missTimer = new Timer({
+            fcn: () => {
+                this.hasMissed = false;
+                this.counterHits = 0;
+                this.isHittableHead = false;
+                this.isHittableBody = false;
+                this.resumeIdle();
+            },
+            repeats: false,
+            interval: this.stunnedDuration
+        });
+
+        this.stunnedTimer = new Timer({
+            fcn: () => {
+                this.isStunned = false;
+                this.counterHits = 0;
+                this.isHittableHead = false;
+                this.isHittableBody = false;
+                this.resumeIdle();
+            },
+            repeats: false,
+            interval: this.stunnedDuration
+        });
+    }
+
 
     /**
      * Makes the boss go down
