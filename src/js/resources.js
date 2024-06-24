@@ -26,7 +26,7 @@ const Resources = {
     JunoSheet: new ImageSource('./images/sprite_sheet_juno.png'),
     ChrisSheet: new ImageSource('./images/sprite_sheet_chris.png'),
     GinusSheet: new ImageSource('./images/sprite_sheet_ginus.png'),
-    VincentSheet: new ImageSource('./images/sprite_sheet_sil.png'),
+    VincentSheet: new ImageSource('./images/sprite_sheet_vincent.png'),
     KasperSheet: new ImageSource('./images/sprite_sheet_kasper.png'),
     MathijsSheet: new ImageSource('./images/sprite_sheet_mathijs.png'),
     SilHeadShot: new ImageSource('./images/time-out-sil.png'),
