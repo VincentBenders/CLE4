@@ -129,7 +129,7 @@ export class BoxingRing extends Actor {
 
         this.graphics.use(Resources.BoxingRing.toSprite());
 
-        this.pos = new Vector(720, 450);
+        this.pos = new Vector(720, 540);
     }
 }
 
