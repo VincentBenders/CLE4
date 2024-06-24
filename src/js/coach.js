@@ -33,12 +33,12 @@ export class Coach extends Actor {
         ]
 
         this.bossTips = [
-            'Sil is een beetje sloom. Maak je geen zorgen om zijn block.',
+            'Sil valt niet veel aan, dus je hoeft niet erg opteletten',
             'Mathijs hoef je maar 1 keer neer te slaan',
-            'Juno is mister djalla',
+            'Juno kan god dodgen, wacht tot hij aanvlt',
             'Chris is',
             'Kasper',
-            'Ginus',
+            'Hoe meer Ginus word neer geslaagd, hoe sneller hij aanvalt',
             'Sander',
             'Vincent',
         ]
