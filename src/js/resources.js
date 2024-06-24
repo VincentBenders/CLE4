@@ -17,6 +17,7 @@ const Resources = {
     Player: new ImageSource('./placeholders/mc-idle.png'),
     BoxingRing: new ImageSource('./images/BOX_RING_final.png'),
     Background1: new ImageSource('./images/BACKGROUND_01_final.png'),
+    Background2: new ImageSource('./images/BACKGROUND_02_final.png'),
     Square: new ImageSource('./placeholders/timeoutsquare.jpg'),
     PlayerSheet: new ImageSource("./animations/player/spritesheet.png"),
     Track1: new Sound('sound/GAME_OTHERSOUNDTRACK_1.mp3'),
@@ -145,8 +146,11 @@ export class Background extends Actor {
         let image;
 
         switch (bossName) {
-            case "sil":
-                image = Resources.Background1.toSprite();
+            case "vincent":
+            case 'chris':
+            case 'mathijs':
+            case 'sander':
+                image = Resources.Background2.toSprite();
                 break;
             default:
                 image = Resources.Background1.toSprite();
