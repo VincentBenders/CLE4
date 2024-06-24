@@ -66,10 +66,8 @@ export class FightScreen extends Scene {
 
   onActivate(context) {
     console.log("fightscreen");
-    this.ui.element.innerHTML = '';
-    this.createUI();
 
-    
+
 
     //Create UI elements
 
@@ -222,6 +220,10 @@ export class FightScreen extends Scene {
 
     //Use the correct background
     this.background.setBackgroundImageFor(this.boss.name);
+
+    //Create the UI after resetting it
+    this.resetUi();
+    this.createUI();
   }
 
   createUI() {
@@ -408,14 +410,14 @@ export class FightScreen extends Scene {
 
 
   winGame() {
-    this.ui.element.style.display = 'none';
+    this.resetUi();
     this.engine.goToScene('winscreen', {
       sceneActivationData: { boss: this.boss, round: this.currentRound, time: this.roundTimeRemaining }
     });
   }
 
   loseGame() {
-    this.ui.element.style.display = 'none';
+    this.resetUi();
     this.engine.goToScene('lossscreen', {
       sceneActivationData: { boss: this.boss, round: this.currentRound, time: this.roundTimeRemaining }
     });
@@ -425,6 +427,12 @@ export class FightScreen extends Scene {
   pauseGame() {
     this.ui.element.style.display = 'none';
     this.engine.goToScene("pausescreen");
+  }
+
+  resetUi() {
+    const ui = document.getElementById('ui');
+    ui.style.display = 'flex';
+    ui.innerHTML = '';
   }
 
 }
