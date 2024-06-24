@@ -39,7 +39,7 @@ export class TimeOutScreen extends Scene {
         }
         console.log('Context:', context);
         this.context = context;
-        console.log(context.data.player.healthCurrent);
+        // console.log(context.data.player.healthCurrent);
         this.resetTimeOut();
         this.coach.onInitialize(this.engine);
 

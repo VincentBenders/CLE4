@@ -71,9 +71,6 @@ export class StartScreen extends Scene {
              });
         }
 
-        if (engine.input.keyboard.wasPressed(Keys.Digit1)) {
-            engine.goToScene('timeoutscreen');
-        }
 
         if (engine.input.keyboard.wasPressed(Keys.Digit2)) {
             engine.goToScene('winscreen', { 
