@@ -13,6 +13,8 @@ export class JunoBoss extends Boss {
 
         this.nextAttackDelay = 1500;
 
+        this.resetAttackTimers();
+
         this.setMoves();
 
     }

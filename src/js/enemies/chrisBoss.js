@@ -16,7 +16,7 @@ export class ChrisBoss extends Boss {
         super(125, 'chris');
         this.random = new Random();
 
-        this.nextAttackDelay = 350;
+        this.nextAttackDelay = 550;
 
         this.blockChance = 0.8;
 
@@ -25,6 +25,9 @@ export class ChrisBoss extends Boss {
         this.patternLengthMax = 4;
 
         this.stunnedDuration = 1000;
+
+        this.resetAttackTimers();
+        this.resetStunTimers();
 
 
         this.setMoves();
@@ -79,6 +82,8 @@ export class ChrisBoss extends Boss {
 
         this.nextPatternDelay = this.random.integer(450, 8250);
 
+        this.resetAttackTimers();
+
     }
 
     postOnHit() {
@@ -103,11 +108,13 @@ export class ChrisBoss extends Boss {
         this.blockChance -= 0.15;
         this.patternLengthMax++;
 
-        this.nextAttackDelay -= 100;
+        this.nextAttackDelay -= 50;
 
         if (this.nextAttackDelay < 50) {
             this.nextAttackDelay = 50;
         }
+
+        this.resetAttackTimers();
 
 
     }

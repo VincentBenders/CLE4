@@ -11,9 +11,9 @@ export class SanderBoss extends Boss {
     constructor() {
         super(150, 'sander');
 
-        this.nextAttackDelay = 100;
+        this.nextAttackDelay = 400;
 
-        this.nextPatternDelay = 100;
+        this.nextPatternDelay = 3000;
 
         this.resetAttackTimers();
 
