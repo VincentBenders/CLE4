@@ -6,7 +6,8 @@ import { Move } from "./Move.js";
 export class GinusBoss extends Boss {
 
     //Properties
-
+    isHittableBody;
+    isHittableHead;
     constructor() {
         super(75, 'ginus');
 
@@ -16,8 +17,8 @@ export class GinusBoss extends Boss {
 
         this.setMoves();
 
-        this.isHittableHead = false;
-        this.isHittableBody = false;
+        // this.isHittableHead = false;
+        // this.isHittableBody = false;
 
     }
 
@@ -54,7 +55,7 @@ export class GinusBoss extends Boss {
         this.moves.angryRook = new Attack(25, 'hook', 6, 900, 350, angryRookAnimation, 5);
 
         let tauntAnimation = animate(2000, this.spriteSheet, [20, 21, 22, 23]);
-        tauntAnimation.events.on('start', () => { this.isVulnerable = true; this.setTimer(2000, () => { this.isVulnerable = false }) })
+        tauntAnimation.events.on('start', () => { this.isHittableBody = true; this.isHittableHead = true; this.setTimer(1000, () => { this.isHittableBody = false; this.isHittableHead = false }) })
         this.moves.taunt = new Move(tauntAnimation, 2000);
 
 
