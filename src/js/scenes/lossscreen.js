@@ -12,9 +12,15 @@ export class LossScreen extends Scene {
         Resources.Track2.stop();
         Resources.Track1.volume = 0.5;
         Resources.Track1.loop = true;
-        Resources.Track1.play();  
+        Resources.Track1.play();
+        let extraZero;  
 
-        this.resetLoss()
+        this.resetLoss();
+        if (context.data.time % 60 < 10) {
+            extraZero = 0;
+          } else {
+            extraZero = "";
+          }
         this.lossLabel = new Label({
             text: 'YOU LOST',
             pos: new Vector(550, 200),
@@ -49,7 +55,9 @@ export class LossScreen extends Scene {
         })
 
         this.lossTimeLabel = new Label({
-            text: `Time: ${context.data.time}`,
+            text: `Time: ${Math.floor(
+                context.data.time / 60
+              )}:${extraZero}${context.data.time % 60}`,
             pos: new Vector(600, 400),
             font: new Font({
                 family: 'Serif',

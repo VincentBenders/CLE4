@@ -28,8 +28,8 @@ export class StartScreen extends Scene {
         this.add(this.startLabel);
 
         this.startButton = new Label({
-            text: 'PRESS A TO START',
-            pos: new Vector(550, 250),
+            text: 'PRESS BUTTON 1 TO START',
+            pos: new Vector(480, 250),
             font: new Font({
                 family: 'Arial',
                 size: 30,

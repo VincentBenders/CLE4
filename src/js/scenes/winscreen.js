@@ -14,8 +14,13 @@ export class WinScreen extends Scene {
         Resources.Track1.volume = 0.5;
         Resources.Track1.loop = true;
         Resources.Track1.play();  
-
-        this.resetWin()
+        let extraZero;
+        this.resetWin();
+        if (context.data.time % 60 < 10) {
+            extraZero = 0;
+          } else {
+            extraZero = "";
+          }
         this.winLabel = new Label({
             text: 'YOU WIN',
             pos: new Vector(550, 200),
@@ -50,7 +55,9 @@ export class WinScreen extends Scene {
         })
 
         this.winTimeLabel = new Label({
-            text: `Time: ${context.data.time}`,
+            text: `Time: ${Math.floor(
+                context.data.time / 60
+              )}:${extraZero}${context.data.time % 60}`,
             pos: new Vector(600, 400),
             font: new Font({
                 family: 'Serif',
