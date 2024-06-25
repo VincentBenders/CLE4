@@ -43,13 +43,13 @@ export class MathijsBoss extends Boss {
     setNextPattern() {
         super.setNextPattern();
 
+        this.pattern.push(this.moves.leftpunch);
+        this.pattern.push(this.moves.taunt);
+        this.pattern.push(this.moves.rightpunch);
+        this.pattern.push(this.moves.leftpunch);
+        this.pattern.push(this.moves.rightpunch);
+        this.pattern.push(this.moves.taunt);
         this.pattern.push(this.moves.specialMove);
-        this.pattern.push(this.moves.leftpunch);
-        this.pattern.push(this.moves.taunt);
-        this.pattern.push(this.moves.rightpunch);
-        this.pattern.push(this.moves.leftpunch);
-        this.pattern.push(this.moves.rightpunch);
-        this.pattern.push(this.moves.taunt);
         
         
 
