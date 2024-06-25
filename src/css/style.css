@@ -133,7 +133,7 @@ body {
 #clockContainer {
     /* background-color: white;
     border: solid silver calc(2px * var(--pixel-conversion)); */
-    margin-left: -6rem;
+    margin-left: -75px;
     width: calc(75px * var(--pixel-conversion));
     height: calc(75px * var(--pixel-conversion));
     align-content: center;
