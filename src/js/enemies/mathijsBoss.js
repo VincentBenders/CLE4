@@ -60,6 +60,19 @@ export class MathijsBoss extends Boss {
        
     }
 
+    goDown() {
+        this.isDown = true;
+        this.isInCenter = false;
+        this.timesDowned++;
+        this.timesDownedCurrentRound++;
+
+        this.animations.goingDown.reset();
+        this.graphics.use(this.animations.goingDown);
+
+
+        this.scene.fighterDowned();
+    }
+
     postOnPostUpdate() {
         const time = this.scene.ui.clock.innerText;
 
