@@ -82,7 +82,6 @@ export class GinusBoss extends Boss {
                 this.pattern.push(this.moves.leftHook);
                 this.pattern.push(this.moves.leftJab);
                 this.pattern.push(this.moves.rightHook);
-                this.pattern.push(this.moves.taunt);
                 break;
             case 1:
                 this.nextAttackDelay = 1200;
