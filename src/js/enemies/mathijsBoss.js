@@ -18,14 +18,14 @@ export class MathijsBoss extends Boss {
     setMoves() {
 
         //leftpunch
-        let leftPunchAnimation = animate(1000, this.spriteSheet, [70, 71, 72, 73]);
-        this.moves.leftpunch = new Attack(30, 'uppercut', 7, 1000, 300, leftPunchAnimation, 3);
+        let leftPunchAnimation = animate(1000, this.spriteSheet, [60, 61, 62, 63]);
+        this.moves.leftpunch = new Attack(30, 'rightHook', 7, 1000, 300, leftPunchAnimation, 3);
 
         //rightpunch
         let rightPunchAnimation = animate(1000, this.spriteSheet, [70, 71, 72, 73]);
-        this.moves.rightpunch = new Attack(30, 'uppercut', 7, 1000, 300, rightPunchAnimation, 3);
+        this.moves.rightpunch = new Attack(30, 'leftHook', 7, 1000, 300, rightPunchAnimation, 3);
 
-        let tauntAnimation = animate(2000, this.spriteSheet, [72]);
+        let tauntAnimation = animate(2000, this.spriteSheet, [50, 51]);
         tauntAnimation.events.on('frame', (e) => {if (e.frameIndex === 0) {this.isVulnerable = true}})
         this.moves.taunt = new Move(tauntAnimation, 2000);
 

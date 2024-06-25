@@ -15,6 +15,8 @@ export class GinusBoss extends Boss {
 
         this.hitsBeforeBlock = 2;
 
+        this.resetAttackTimers();
+
         this.setMoves();
 
         // this.isHittableHead = false;
@@ -80,7 +82,6 @@ export class GinusBoss extends Boss {
                 this.pattern.push(this.moves.leftHook);
                 this.pattern.push(this.moves.leftJab);
                 this.pattern.push(this.moves.rightHook);
-                this.pattern.push(this.moves.taunt);
                 break;
             case 1:
                 this.nextAttackDelay = 1200;
@@ -90,7 +91,7 @@ export class GinusBoss extends Boss {
                 this.pattern.push(this.moves.angryLab);
                 this.pattern.push(this.moves.angryLab);
                 this.pattern.push(this.moves.leftHook);
-                this.pattern.push(this.moves.taunt);
+               
                 break;
             case 2:
                 this.nextAttackDelay = 1000;
@@ -98,7 +99,9 @@ export class GinusBoss extends Boss {
                 this.pattern.push(this.moves.angryRook);
                 this.pattern.push(this.moves.angryLab);
                 this.pattern.push(this.moves.angryRab);
-                this.pattern.push(this.moves.taunt);
+                this.pattern.push(this.moves.angryLab);
+                this.pattern.push(this.moves.angryRab);
+                
                 break;
         }
 

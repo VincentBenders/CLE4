@@ -1,4 +1,7 @@
 import {Boss} from "./boss.js";
+import {animate} from "../resources.js";
+import {Attack} from "./attack.js";
+import {Timer} from "excalibur";
 
 
 export class SanderBoss extends Boss {
@@ -8,7 +11,13 @@ export class SanderBoss extends Boss {
     constructor() {
         super(150, 'sander');
 
-        this.nextAttackDelay = 500;
+        this.nextAttackDelay = 400;
+
+        this.nextPatternDelay = 3000;
+
+        this.resetAttackTimers();
+
+        this.resetStunTimers();
 
         this.setMoves();
 
@@ -21,6 +30,11 @@ export class SanderBoss extends Boss {
     setMoves() {
 
 
+        const rightJab = animate(600, this.spriteSheet, [60, 61, 62, 63, 64]);
+        this.moves.rightJab = new Attack(30, 'jab', 6, 400, 300, rightJab, 4);
+
+        const leftJab = animate(600, this.spriteSheet, [70, 71, 72, 73, 74]);
+        this.moves.rightJab = new Attack(30, 'jab', 6, 400, 300, leftJab, 4);
 
         
 
@@ -38,6 +52,17 @@ export class SanderBoss extends Boss {
 
     setNextPattern() {
         super.setNextPattern();
+
+        this.pattern.push(this.moves.leftJab);
+        this.pattern.push(this.moves.rightJab);
+        this.pattern.push(this.moves.leftJab);
+        this.pattern.push(this.moves.leftJab);
+        this.pattern.push(this.moves.rightJab);
+        this.pattern.push(this.moves.rightJab);
+        this.pattern.push(this.moves.rightJab);
+        this.pattern.push(this.moves.leftJab);
+        this.pattern.push(this.moves.leftJab);
+        this.pattern.push(this.moves.leftJab);
 
 
 
