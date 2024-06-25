@@ -288,7 +288,6 @@ export class Player extends Actor {
     }
     if (this.stamina === 0) {
       this.exhuasted = true;
-      //check on sucsesive hit then set exhuast to false
     }
   }
 
@@ -303,7 +302,6 @@ export class Player extends Actor {
   hitFor(damage) {
     this.healthCurrent -= damage;
 
-    //Make sure the healthCurrent doesn't go negative just in case
     if (this.healthCurrent < 0) {
       this.healthCurrent = 0;
     }
