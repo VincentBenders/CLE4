@@ -11,7 +11,7 @@ import {
   range,
   AnimationStrategy,
 } from "excalibur";
-import { PlayerAnimation, Resources, animate } from "../resources";
+import { Resources } from "../resources";
 
 export class Player extends Actor {
   game;
@@ -74,7 +74,6 @@ export class Player extends Actor {
 
     const idleFrames = range(28, 29);
     const idle = Animation.fromSpriteSheet(PlayerAnimations, idleFrames, 300);
-    // const idle = Animation.fromSpriteSheet(PlayerAnimations, idleFrames, 300);
 
     this.graphics.add("idle", idle);
     this.graphics.use("idle");
@@ -88,7 +87,6 @@ export class Player extends Actor {
     const dLFrame = range(49, 53);
     const donwLeft = Animation.fromSpriteSheet(PlayerAnimations, dLFrame, 100);
     this.graphics.add("donwLeft", donwLeft);
-    // donwLeft.strategy = AnimationStrategy.End;
 
     const dRFrame = range(56, 60);
     const donwRight = Animation.fromSpriteSheet(PlayerAnimations, dRFrame, 80);
