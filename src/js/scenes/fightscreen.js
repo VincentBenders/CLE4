@@ -35,11 +35,6 @@ export class FightScreen extends Scene {
     onInitialize(engine) {
         // this.add(new Placeholder());
 
-        //Sound initialization
-        Resources.Track1.stop();
-        Resources.Track2.volume = 0.5;
-        Resources.Track2.loop = true;
-        Resources.Track2.play();
 
         //Create actors for the background and arena
         this.background = new Background();
@@ -120,6 +115,12 @@ export class FightScreen extends Scene {
             //Go back to the start screen
             this.engine.goToScene("startScreen");
         }
+
+        //Sound initialization
+        Resources.Track1.stop();
+        Resources.Track2.volume = 0.5;
+        Resources.Track2.loop = true;
+        Resources.Track2.play();
 
         switch (context.data.name) {
             case "mathijs":
