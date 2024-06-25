@@ -25,6 +25,10 @@ export class MathijsBoss extends Boss {
         let rightPunchAnimation = animate(1000, this.spriteSheet, [70, 71, 72, 73]);
         this.moves.rightpunch = new Attack(30, 'leftHook', 7, 1000, 300, rightPunchAnimation, 3);
 
+        //special
+        let specialMoveAnimation = animate(1000, this.spriteSheet, [80, 81, 82, 83, 84, 85, 87]);
+        this.moves.specialMove = new Attack(40, 'clothesline', 7, 1000, 300, specialMoveAnimation, 3);
+
         let tauntAnimation = animate(2000, this.spriteSheet, [50, 51]);
         tauntAnimation.events.on('frame', (e) => {if (e.frameIndex === 0) {this.isVulnerable = true}})
         this.moves.taunt = new Move(tauntAnimation, 2000);
@@ -39,12 +43,14 @@ export class MathijsBoss extends Boss {
     setNextPattern() {
         super.setNextPattern();
 
+        this.pattern.push(this.moves.specialMove);
         this.pattern.push(this.moves.leftpunch);
         this.pattern.push(this.moves.taunt);
         this.pattern.push(this.moves.rightpunch);
         this.pattern.push(this.moves.leftpunch);
         this.pattern.push(this.moves.rightpunch);
         this.pattern.push(this.moves.taunt);
+        
         
 
     }

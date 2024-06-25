@@ -36,11 +36,11 @@ export class Coach extends Actor {
             'Sil valt niet veel aan, dus je hoeft niet erg opteletten',
             'Mathijs hoef je maar 1 keer neer te slaan',
             'Juno kan god dodgen, wacht tot hij aanvlt',
-            'Chris is',
-            'Kasper',
+            'Chris wordt snel moe.',
+            'Kasper slaat hard. Dus pas op',
             'Hoe meer Ginus word neer geslaagd, hoe sneller hij aanvalt',
-            'Sander',
-            'Vincent',
+            'Sander is erg sterk. Onderschat hem niet',
+            'Vincent is best bizar. Pas op voor zijn vele armen',
         ]
     }
 }
