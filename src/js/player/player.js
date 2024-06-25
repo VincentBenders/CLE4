@@ -179,12 +179,13 @@ export class Player extends Actor {
     // bewegen
     const xValue = engine.mygamepad.getAxes(Axes.LeftStickX);
     const yValue = engine.mygamepad.getAxes(Axes.LeftStickY);
+    const checkButton1 = engine.mygamepad.wasButtonPressed(Buttons.Face1);
+    const checkButton2 = engine.mygamepad.wasButtonPressed(Buttons.Face2);
+    const checkButton3 = engine.mygamepad.wasButtonPressed(Buttons.Face3);
     // attacks
-    if (engine.mygamepad.wasButtonPressed(Buttons.Face1) && yValue === 0) {
+    if (checkButton1 && yValue === 0) {
       if (!this.isAttacking && !this.isDodging) {
-        Resources.Punch.volume = 1.0;
-        Resources.Punch.loop = false;
-        Resources.Punch.play();
+        this.playPunchSound();
         this.punch = "lower left";
         this.isAttacking = true;
         this.graphics.use("donwLeft");
@@ -192,26 +193,20 @@ export class Player extends Actor {
         this.scene.boss.hitWith(this.punch);
       }
     }
-    if (engine.mygamepad.wasButtonPressed(Buttons.Face2) && yValue === 0) {
+    if (checkButton2 && yValue === 0) {
       if (!this.isAttacking && !this.isDodging) {
-        Resources.Punch.volume = 1.0;
-        Resources.Punch.loop = false;
-        Resources.Punch.play();
+        this.playPunchSound();
         this.punch = "lower right";
         this.isAttacking = true;
-
         this.graphics.use("donwRight");
-
         this.cooldown.start();
         this.scene.boss.hitWith(this.punch);
       }
     }
     // upper attacks
-    if (engine.mygamepad.wasButtonPressed(Buttons.Face2) && yValue < 0) {
+    if (checkButton2 && yValue < 0) {
       if (!this.isAttacking && !this.isDodging) {
-        Resources.Punch.volume = 1.0;
-        Resources.Punch.loop = false;
-        Resources.Punch.play();
+        this.playPunchSound();
         this.punch = "upper right";
         this.isAttacking = true;
         this.graphics.use("upRight");
@@ -220,11 +215,9 @@ export class Player extends Actor {
       }
     }
 
-    if (engine.mygamepad.wasButtonPressed(Buttons.Face1) && yValue < 0) {
+    if (checkButton1 && yValue < 0) {
       if (!this.isAttacking && !this.isDodging) {
-        Resources.Punch.volume = 1.0;
-        Resources.Punch.loop = false;
-        Resources.Punch.play();
+        this.playPunchSound();
         this.punch = "upper left";
         this.isAttacking = true;
         this.graphics.use("upLeft");
@@ -232,7 +225,7 @@ export class Player extends Actor {
         this.scene.boss.hitWith(this.punch);
       }
     }
-    if (engine.mygamepad.wasButtonPressed(Buttons.Face3) && yValue === 0) {
+    if (checkButton3 && yValue === 0) {
       if (this.superEnergy >= 1 && !this.isAttacking && !this.isDodging) {
         this.isAttacking = true;
         if (this.superEnergy === 1) {
@@ -308,6 +301,12 @@ export class Player extends Actor {
     if (this.healthCurrent === 0 && !this.isDown) {
       this.goDown();
     }
+  }
+
+  playPunchSound() {
+    Resources.Punch.volume = 1.0;
+    Resources.Punch.loop = false;
+    Resources.Punch.play();
   }
 
   goDown() {
