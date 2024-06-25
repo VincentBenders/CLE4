@@ -33,7 +33,6 @@ export class Player extends Actor {
 
   onInitialize(Engine) {
     this.game = Engine;
-    // this.graphics.use(Resources.Player.toSprite());
     this.pos = new Vector(700, 650);
     this.stamina = 20;
     this.healthCurrent = 100;
