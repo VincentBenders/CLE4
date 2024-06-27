@@ -80,7 +80,7 @@ export class LossScreen extends Scene {
             this.engine.goToScene('startscreen');
         }
 
-        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face1)) {
+        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face3)) {
             this.engine.goToScene('selectscreen');
         }
     }

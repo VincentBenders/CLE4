@@ -79,7 +79,7 @@ export class WinScreen extends Scene {
         if (this.engine.input.keyboard.wasPressed(Keys.Esc)) {
             this.engine.goToScene('startscreen');
         }
-        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face1)) {
+        if (this.engine.mygamepad.wasButtonPressed(Buttons.Face3)) {
             this.engine.goToScene('selectscreen');
         }
 
